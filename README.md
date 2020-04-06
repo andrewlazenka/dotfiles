@@ -1,2 +1,3 @@
 # dotfiles
-Andrew's dotfiles
+
+My custom dotfiles used between machines
