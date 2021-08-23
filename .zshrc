@@ -1,25 +1,97 @@
+# uncomment for zsh debug (slow startup)
+# zmodload zsh/zprof
+
+# load autocomplete from cache
+autoload -Uz compinit
+typeset -i updated_at=$(date +'%j' -r ~/.zcompdump 2>/dev/null || stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)
+if [ $(date +'%j') != $updated_at ]; then
+  compinit -i
+else
+  compinit -C -i
+fi
+zmodload -i zsh/complist
+
+# get name of current user
+CURR_USER=$(id -un)
+
+# path
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export PATH="$HOME/Applications/Visual Studio Code - Insiders.app/Contents/Resources/app/bin:$PATH"
+export PATH="$HOME/flutter/bin:$PATH"
+
 # exports
 export EDITOR=code-insiders
-export NVM_DIR=~/.nvm
-export PATH=/Users/andrewlazenka/Library/Python/3.7/bin:$PATH
-export ZSH=/Users/andrewlazenka/.oh-my-zsh
-export ZSH_THEME="avit"
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}" 2> /dev/null'
 
-# env vars
-HISTSIZE=1000
-SAVEHIST=1000
+# normal brew nvm shell config lines minus the 2nd one
+# lazy loading the bash completions does not save us meaningful shell startup time, so we won't do it
+export NVM_DIR="$HOME/.nvm"
+source $(brew --prefix nvm)/nvm.sh
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+DEFAULT_NODE_VER='default';
+while [ -s "$NVM_DIR/alias/$DEFAULT_NODE_VER" ]; do
+  DEFAULT_NODE_VER="$(<$NVM_DIR/alias/$DEFAULT_NODE_VER)"
+done;
+
+export PATH="$NVM_DIR/versions/node/v${DEFAULT_NODE_VER#v}/bin:$PATH"
+alias nvm='unalias nvm; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use; nvm'
+
+# terminal history opts
+HISTFILE=$HOME/.zsh_history
+HISTSIZE=50000
+SAVEHIST=10000
+
+# zsh config
+setopt hist_expire_dups_first
+setopt hist_ignore_all_dups
+setopt hist_reduce_blanks
+setopt inc_append_history
+setopt share_history
+setopt auto_cd
+setopt auto_pushd
+setopt pushd_ignore_dups
+setopt pushdminus
+setopt auto_list
+setopt auto_menu
+# setopt always_to_end
 plugins=(zsh-autosuggestions)
 
-# sources
-source ~/.nvm/nvm.sh
-source /Users/andrewlazenka/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source $ZSH/oh-my-zsh.sh
+# spaceship prompt config
+SPACESHIP_PROMPT_ORDER=(
+	time
+  user          # Username section
+  host          # Hostname section
+  dir           # Current directory section
+  git           # Git section (git_branch + git_status)
+  hg            # Mercurial section (hg_branch  + hg_status)
+  jobs          # Background jobs indicator
+  exit_code     # Exit code section
+)
+SPACESHIP_PROMPT_ADD_NEWLINE=false
+SPACESHIP_GIT_SYMBOL='\0'
+SPACESHIP_TIME_SHOW=true
+
+# load zsh packages
+source <(antibody init)
+antibody bundle zdharma/fast-syntax-highlighting
+antibody bundle zsh-users/zsh-autosuggestions
+antibody bundle zsh-users/zsh-completions
+antibody bundle zsh-users/zsh-history-substring-search
+antibody bundle denysdovhan/spaceship-prompt
+
+# keybindings
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
+# improve autocompletion style
+zstyle ':completion:*' menu select # select completions with arrow keys
+zstyle ':completion:*' group-name ''
+zstyle ':completion:::::' completer _expand _complete _ignored _approximate # enable approximate matches
 
 # aliases
 alias cat="bat"
 alias code="code-insiders"
-alias dc="docker-compose"
+alias dc="docker compose"
 alias dcu="dc up"
 alias de="docker exec"
 alias deit="de -it"
@@ -33,12 +105,14 @@ alias gaa="git add --all"
 alias gc="git checkout"
 alias gcb="gc -b"
 alias gd="git diff"
+alias gdf="git diff-tree --no-commit-id --name-only -r $1"
+alias ghrepo="gh repo view --web"
 alias ls="exa"
 alias la="ls -la"
 alias profile="code ~/.zshrc"
-alias read_hosts="cat /etc/hosts"
 alias refresh="source ~/.zshrc"
 alias search=rg
+alias 💪🏻="curl"
 
 function hpr {
 	if [ -z "$1" ]; then
@@ -76,32 +150,40 @@ function clear_stash {
 	fi
 }
 
-fif() {
+function fif {
   if [ ! "$#" -gt 1 ]; then echo "Need a string to search for!"; return 1; fi
   rg --files-with-matches --no-messages -g "!{.git,node_modules}" $1 | fzf --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 $1 || rg --ignore-case --pretty --context 10 $1 {}"
 }
 
-port_kill () {
+function port_kill() {
 	kill -9 $(lsof -ti tcp:$1)
 }
 
-ws () {
-	code /Users/andrewlazenka/Documents/VSCode\ Workspaces/$1.code-workspace
+function ws() {
+	code /Users/$CURR_USER/Documents/Workspaces/$1.code-workspace
 }
 
+function innoWiki() {
+	cd /Users/$CURR_USER/Documents/Code/Innovasium/Wiki.wiki
+	code .
+}
 
-# npm packages
+function nodeClean() {
+	if test -f ./yarn.lock; then
+		rm ./yarn.lock
+		echo "Removed Yarn Lock"
+	fi
 
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /Users/andrewlazenka/.nvm/versions/node/v8.11.4/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/andrewlazenka/.nvm/versions/node/v8.11.4/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /Users/andrewlazenka/.nvm/versions/node/v8.11.4/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/andrewlazenka/.nvm/versions/node/v8.11.4/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
+	if test -f ./package-lock.json; then
+		rm ./package-lock.json
+		echo "Removed Package Lock"
+	fi
 
-# tabtab source for slss package
-# uninstall by removing these lines or running `tabtab uninstall slss`
-[[ -f /Users/andrewlazenka/.nvm/versions/node/v8.10.0/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/andrewlazenka/.nvm/versions/node/v8.10.0/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh
+	if test -d ./node_modules; then
+		rm -rf ./node_modules
+		echo "Removed Node Modules"
+	fi
+}
 
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-export PATH="$HOME/Applications/Visual Studio Code - Insiders.app/Contents/Resources/app/bin:$PATH"
+# uncomment for zsh debug (slow startup)
+# zprof
