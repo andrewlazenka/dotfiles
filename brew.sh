@@ -5,19 +5,21 @@ fi
 
 printf "[dotfiles] Update Homebrew\n"
 brew update
-printf "[dotfiles] Update Packages"
+printf "[dotfiles] Update Packages\n"
 brew upgrade
-printf "[dotfiles] Cleanup Outdated Versions"
+printf "[dotfiles] Cleanup Outdated Versions\n"
 brew cleanup
 
-printf "[dotfiles] Install Core Utils"
 # Save Homebrew’s installed location.
 BREW_PREFIX=$(brew --prefix)
+
+printf "[dotfiles] Install Core Utils\n"
 
 # Install GNU core utilities (those that come with macOS are outdated).
 # Don’t forget to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.
 brew install coreutils
 ln -s "${BREW_PREFIX}/bin/gsha256sum" "${BREW_PREFIX}/bin/sha256sum"
+
 # Install some other useful utilities like `sponge`.
 brew install moreutils
 # Install GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed.
@@ -34,6 +36,7 @@ if ! fgrep -q "${BREW_PREFIX}/bin/bash" /etc/shells; then
     chsh -s "${BREW_PREFIX}/bin/bash";
 fi;
 
+printf "[dotfiles] Update MacOS tools\n"
 # Install more recent versions of some macOS tools.
 brew install vim --with-override-system-vi
 brew install grep
@@ -42,6 +45,7 @@ brew install screen
 brew install php
 brew install gmp
 
+printf "[dotfiles] Install Fonts & Tools\n"
 # Install font tools.
 brew tap bramstein/webfonttools
 brew install sfnt2woff
@@ -55,9 +59,7 @@ brew install tree
 brew tap homebrew/cask-fonts
 brew cask install font-cascadia
 
-printf "\n"
 printf "[dotfiles] Install Productivity Applications\n"
-
 brew cask install google-chrome
 brew cask install firefox
 brew cask install slack
@@ -68,7 +70,6 @@ brew cask install zoomus
 brew cask install numi
 
 printf "[dotfiles] Install Development Applications\n"
-
 brew cask install homebrew/cask-versions/visual-studio-code-insiders
 brew cask install docker
 brew cask install iterm2
