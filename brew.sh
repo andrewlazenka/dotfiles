@@ -82,6 +82,6 @@ brew install exa
 brew install dockutil
 brew install bat
 brew install diff-so-fancy
-brew install hub
+brew install gh
 
 printf "\n"
