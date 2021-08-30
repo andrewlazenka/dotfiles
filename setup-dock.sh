@@ -17,7 +17,4 @@ dockutil --add "/Applications/Postman.app"
 dockutil --add "/System/Applications/Utilities/Activity Monitor.app"
 dockutil --add "/System/Applications/System Preferences.app"
 
-# disable recent applications section
-defaults write com.apple.dock show-recents -bool FALSE
-
 killall Dock

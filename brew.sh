@@ -61,6 +61,7 @@ brew install --cask font-cascadia-code
 
 printf "[dotfiles] Install Productivity Applications\n"
 brew install --cask google-chrome
+brew install --cask google-drive
 brew install --cask firefox
 brew install --cask slack
 brew install --cask notion
@@ -74,6 +75,9 @@ brew install --cask docker
 brew install --cask iterm2
 brew install --cask tableplus
 brew install --cask postman
+brew install --cask gifox
+brew install --cask graphiql
+brew install --cask rectangle
 brew install docker-compose
 brew install nvm
 brew install zsh
