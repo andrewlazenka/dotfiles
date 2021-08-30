@@ -3,7 +3,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 
 # move zsh profile into home directory
 rm ~/.zshrc
-ln -s .zshrc ~/.zshrc
+ln -s ~/Code/ALazenka/dotfiles/.zshrc ~/.zshrc
 
 git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
 ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
