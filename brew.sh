@@ -57,13 +57,12 @@ brew install tree
 
 # Install fonts
 brew tap homebrew/cask-fonts
-brew install --cask font-cascadia
+brew install --cask font-cascadia-code
 
 printf "[dotfiles] Install Productivity Applications\n"
 brew install --cask google-chrome
 brew install --cask firefox
 brew install --cask slack
-brew install --cask microsoft-outlook
 brew install --cask notion
 brew install --cask spotify
 brew install --cask zoomus
@@ -73,7 +72,7 @@ printf "[dotfiles] Install Development Applications\n"
 brew install --cask homebrew/cask-versions/visual-studio-code-insiders
 brew install --cask docker
 brew install --cask iterm2
-brew install --cask dbvisualizer
+brew install --cask tableplus
 brew install --cask postman
 brew install docker-compose
 brew install nvm
@@ -83,5 +82,6 @@ brew install dockutil
 brew install bat
 brew install diff-so-fancy
 brew install gh
+brew install antibody
 
 printf "\n"
