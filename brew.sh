@@ -91,12 +91,17 @@ brew install --cask rectangle
 brew install rustup
 brew install docker-compose
 brew install nvm
-brew install zsh
-brew install exa
-brew install dockutil
-brew install bat
-brew install diff-so-fancy
-brew install gh
-brew install antibody
+
+printf "[dotfiles] Install CLI Tools\n"
+brew install \
+    zsh \
+    exa \
+    dockutil \
+    bat \
+    diff-so-fancy \
+    gh \
+    antibody \
+    procs \
+    dust
 
 printf "\n"
