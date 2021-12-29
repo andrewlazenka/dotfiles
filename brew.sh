@@ -38,70 +38,81 @@ fi;
 
 printf "[dotfiles] Update MacOS tools\n"
 # Install more recent versions of some macOS tools.
+macOSTools=(
+    grep
+    openssh
+    screen
+    php
+    gmp
+)
 brew install vim --with-override-system-vi
-brew install grep
-brew install openssh
-brew install screen
-brew install php
-brew install gmp
+brew install $macOS
 
 printf "[dotfiles] Install Fonts & Tools\n"
-# Install font tools.
 brew tap bramstein/webfonttools
-brew install sfnt2woff
-brew install sfnt2woff-zopfli
-brew install woff2
-brew install git
-brew install git-lfs
-brew install tree
-
-# Install fonts
 brew tap homebrew/cask-fonts
-brew install --cask font-cascadia-code
 
-printf "[dotfiles] Install Applications\n"
-brew install --cask calibre
+fontsTools=(
+    sfnt2woff
+    sfnt2woff-zopfli
+    woff2
+    git
+    git-lfs
+    tree
+)
+brew install $fontsTools
+
+fontsCasks=(
+    font-cascadia-code
+)
+brew install --casks $fontsCasks
 
 printf "[dotfiles] Install Browsers\n"
-brew install --cask google-chrome
-brew install --cask firefox
-brew install --cask brave-browser
+browsersCasks=(
+    google-chrome
+    firefox
+    brave-browser
+)
+brew install --casks $browsersCasks
 
 printf "[dotfiles] Install Productivity Applications\n"
-brew install --cask google-drive
-brew install --cask notion
-brew install --cask obsidian
-brew install --cask spotify
-brew install --cask numi
+productivityAppsCasks=(
+    google-drive
+    notion
+    obsidian
+    spotify
+    numi
+    calibre
+)
+brew install --casks $productivityAppsCasks
 
 printf "[dotfiles] Install Communication Applications\n"
-brew install --cask slack
-brew install --cask discord
-brew install --cask zoomus
+commApps=(
+    slack
+    discord
+    zoomus
+)
+brew install --casks commApps
 
 printf "[dotfiles] Install Development Applications\n"
-brew install --cask homebrew/cask-versions/visual-studio-code-insiders
-brew install --cask docker
-brew install --cask iterm2
-brew install --cask tableplus
-brew install --cask postman
-brew install --cask gifox
-brew install --cask graphiql
-brew install --cask rectangle
-brew install rustup
-brew install docker-compose
-brew install nvm
+devAppsCasks=(
+    homebrew/cask-versions/visual-studio-code-insiders
+    docker
+    iterm2
+    tableplus
+    postman
+    gifox
+    graphiql
+    rectangle
+)
+devApps=(rustup docker-compose nvm)
+brew install --casks $devAppsCasks
+brew install $devApps
 
 printf "[dotfiles] Install CLI Tools\n"
-brew install \
-    zsh \
-    exa \
-    dockutil \
-    bat \
-    diff-so-fancy \
-    gh \
-    antibody \
-    procs \
-    dust
+cliTools=(zsh exa dockutil bat diff-so-fancy gh antibody procs dust)
+brew install $cliTools
 
+printf "\n"
+printf "Setup complete!"
 printf "\n"
