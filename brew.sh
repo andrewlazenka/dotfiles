@@ -59,15 +59,25 @@ brew install tree
 brew tap homebrew/cask-fonts
 brew install --cask font-cascadia-code
 
-printf "[dotfiles] Install Productivity Applications\n"
+printf "[dotfiles] Install Applications\n"
+brew install --cask calibre
+
+printf "[dotfiles] Install Browsers\n"
 brew install --cask google-chrome
-brew install --cask google-drive
 brew install --cask firefox
-brew install --cask slack
+brew install --cask brave-browser
+
+printf "[dotfiles] Install Productivity Applications\n"
+brew install --cask google-drive
 brew install --cask notion
+brew install --cask obsidian
 brew install --cask spotify
-brew install --cask zoomus
 brew install --cask numi
+
+printf "[dotfiles] Install Communication Applications\n"
+brew install --cask slack
+brew install --cask discord
+brew install --cask zoomus
 
 printf "[dotfiles] Install Development Applications\n"
 brew install --cask homebrew/cask-versions/visual-studio-code-insiders
@@ -78,6 +88,7 @@ brew install --cask postman
 brew install --cask gifox
 brew install --cask graphiql
 brew install --cask rectangle
+brew install rustup
 brew install docker-compose
 brew install nvm
 brew install zsh
