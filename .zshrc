@@ -168,11 +168,6 @@ function ws() {
 	code /Users/$CURR_USER/Documents/Workspaces/$1.code-workspace
 }
 
-function innoWiki() {
-	cd /Users/$CURR_USER/Documents/Code/Innovasium/Wiki.wiki
-	code .
-}
-
 function nodeClean() {
 	if test -f ./yarn.lock; then
 		rm ./yarn.lock
@@ -188,6 +183,10 @@ function nodeClean() {
 		rm -rf ./node_modules
 		echo "Removed Node Modules"
 	fi
+}
+
+function mkcdir () {
+	mkdir -p -- "$1" && cd -P -- "$1"
 }
 
 # uncomment for zsh debug (slow startup)
