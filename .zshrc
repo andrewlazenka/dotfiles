@@ -112,6 +112,7 @@ alias gcb="gc -b"
 alias gd="git diff"
 alias gdf="git diff-tree --no-commit-id --name-only -r $1"
 alias ghrepo="gh repo view --web"
+alias current-branch="git rev-parse --abbrev-ref HEAD"
 alias ls="exa"
 alias la="ls -la"
 alias profile="code ~/.zshrc"
@@ -148,7 +149,7 @@ function clear_stash {
 		return 1
 	else
 		STASHINDEX=$1
-		while [  $STASHINDEX -gt -1 ]; do
+		while [ $STASHINDEX -gt -1 ]; do
 			git stash drop stash@{$STASHINDEX}
 			let STASHINDEX=STASHINDEX-1
 		done
@@ -168,7 +169,7 @@ function ws() {
 	code /Users/$CURR_USER/Documents/Workspaces/$1.code-workspace
 }
 
-function nodeClean() {
+function node-clean() {
 	if test -f ./yarn.lock; then
 		rm ./yarn.lock
 		echo "Removed Yarn Lock"
