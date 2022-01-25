@@ -110,7 +110,20 @@ brew install --casks $devAppsCasks
 brew install $devApps
 
 printf "[dotfiles] Install CLI Tools\n"
-cliTools=(zsh exa dockutil bat diff-so-fancy gh antibody procs dust)
+brew tap cjbassi/ytop
+cliTools=(
+    zsh
+    exa
+    dockutil
+    bat
+    diff-so-fancy
+    gh
+    antibody
+    procs
+    dust
+    ytop
+    tealdeer
+)
 brew install $cliTools
 
 printf "\n"
