@@ -3,7 +3,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 
 # move zsh profile into home directory
 rm ~/.zshrc
-ln -s ~/Code/ALazenka/dotfiles/.zshrc ~/.zshrc
+ln -s ~/Code/andrewlazenka/dotfiles/.zshrc ~/.zshrc
 
 # change default shell
 chsh -s $(which zsh)

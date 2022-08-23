@@ -1,8 +1,5 @@
-#### FIG ENV VARIABLES ####
-# Please make sure this block is at the start of this file.
-[ -s ~/.fig/shell/pre.sh ] && source ~/.fig/shell/pre.sh
-#### END FIG ENV VARIABLES ####
-
+# Fig pre block. Keep at the top of this file.
+[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && . "$HOME/.fig/shell/zshrc.pre.zsh"
 # uncomment for zsh debug (slow startup)
 # zmodload zsh/zprof
 
@@ -23,6 +20,10 @@ CURR_USER=$(id -un)
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$HOME/Applications/Visual Studio Code - Insiders.app/Contents/Resources/app/bin:$PATH"
 export PATH="$HOME/flutter/bin:$PATH"
+export GOPATH="$HOME/go:$PATH"
+export GOROOT="$(brew --prefix golang)/libexec"
+export PATH="${GOPATH}/bin:${GOROOT}/bin:$PATH"
+export PATH="/usr/local/texlive/2022/bin/universal-darwin:$PATH"
 
 # exports
 export EDITOR=code-insiders
@@ -193,7 +194,5 @@ function mkcdir () {
 # uncomment for zsh debug (slow startup)
 # zprof
 
-#### FIG ENV VARIABLES ####
-# Please make sure this block is at the end of this file.
-[ -s ~/.fig/fig.sh ] && source ~/.fig/fig.sh
-#### END FIG ENV VARIABLES ####
+# Fig post block. Keep at the bottom of this file.
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"
