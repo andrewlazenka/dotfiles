@@ -91,6 +91,7 @@ commApps=(
     slack
     discord
     zoomus
+    loom
 )
 brew install --casks commApps
 
@@ -104,8 +105,9 @@ devAppsCasks=(
     gifox
     graphiql
     rectangle
+    mac-tex
 )
-devApps=(rustup docker-compose nvm)
+devApps=(rustup golang docker-compose nvm)
 brew install --casks $devAppsCasks
 brew install $devApps
 
