@@ -106,6 +106,7 @@ devAppsCasks=(
     graphiql
     rectangle
     mac-tex
+    tmux
 )
 devApps=(rustup golang docker-compose nvm)
 brew install --casks $devAppsCasks
@@ -116,7 +117,6 @@ brew tap cjbassi/ytop
 cliTools=(
     zsh
     exa
-    dockutil
     bat
     diff-so-fancy
     gh
@@ -125,6 +125,7 @@ cliTools=(
     dust
     ytop
     tealdeer
+    ripgrep
 )
 brew install $cliTools
 
