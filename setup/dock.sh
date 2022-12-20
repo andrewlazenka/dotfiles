@@ -11,7 +11,7 @@ dockutil --add "/Applications/Notion.app"
 dockutil --add "/Applications/Obsidian.app"
 dockutil --add "/Applications/Numi.app"
 dockutil --add "/Applications/Visual Studio Code - Insiders.app"
-dockutil --add "/Applications/Warp.app"
+dockutil --add "/Applications/iTerm.app"
 dockutil --add "/System/Applications/Utilities/Activity Monitor.app"
 dockutil --add "/System/Applications/System Preferences.app"
 

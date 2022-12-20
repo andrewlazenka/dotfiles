@@ -84,6 +84,7 @@ brew install cask gifox
 brew install cask graphiql
 brew install cask rectangle
 brew install cask mac-tex
+brew install cask tmux
 
 brew install golang
 brew install rustup
@@ -95,7 +96,6 @@ brew tap cjbassi/ytop
 
 brew install zsh
 brew install exa
-brew install dockutil
 brew install bat
 brew install diff-so-fancy
 brew install gh
@@ -104,5 +104,6 @@ brew install procs
 brew install dust
 brew install ytop
 brew install tealdeer
+brew install ripgrep
 
 brew cleanup

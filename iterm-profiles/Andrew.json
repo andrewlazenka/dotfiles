@@ -400,7 +400,7 @@
       },
       "Blur": true,
       "Vertical Spacing": 1,
-      "Normal Font": "Menlo-Regular 16",
+      "Normal Font": "FiraCodeNerdFontComplete-Retina 12",
       "Ansi 7 Color": {
         "Red Component": 1,
         "Color Space": "sRGB",
@@ -447,7 +447,7 @@
       "Screen": -1,
       "Initial Use Transparency": false,
       "Bound Hosts": [],
-      "Non Ascii Font": "Menlo-Regular 16",
+      "Non Ascii Font": "FiraCodeNerdFontComplete-Retina 12",
       "Ansi 13 Color": {
         "Red Component": 0.78039216995239258,
         "Color Space": "sRGB",
