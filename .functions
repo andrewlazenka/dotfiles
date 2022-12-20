@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+function hpr {
+	if [ -z "$1" ]; then
+		echo "Please provide a branch name"
+		return 1
+	elif [ -z "$2" ]; then
+		echo "Please provide a pull request title"
+		return 1
+	else
+		githubLink=$(hub pull-request -b $1 -m $2)
+		open -a "Google Chrome" $githubLink
+	fi
+}
+
+function packsearch {
+	if [ -z "$1" ]; then
+		echo "Please provide a package name to search"
+		return 1
+	else
+		open -a "Google Chrome" https://www.npmjs.com/package/$1
+	fi
+}
+
+function clear_stash {
+	if [ -z "$1" ]; then
+		echo "Please provide the highest index show from 'git stash list'"
+		return 1
+	else
+		STASHINDEX=$1
+		while [ $STASHINDEX -gt -1 ]; do
+			git stash drop stash@{$STASHINDEX}
+			let STASHINDEX=STASHINDEX-1
+		done
+	fi
+}
+
+function fif {
+  if [ ! "$#" -gt 1 ]; then echo "Need a string to search for!"; return 1; fi
+  rg --files-with-matches --no-messages -g "!{.git,node_modules}" $1 | fzf --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 $1 || rg --ignore-case --pretty --context 10 $1 {}"
+}
+
+function port_kill() {
+	kill -9 $(lsof -ti tcp:$1)
+}
+
+function ws() {
+	code /Users/$CURR_USER/Documents/Workspaces/$1.code-workspace
+}
+
+function mkcdir () {
+	mkdir -p -- "$1" && cd -P -- "$1"
+}

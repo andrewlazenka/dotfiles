@@ -1,5 +1,6 @@
 # Fig pre block. Keep at the top of this file.
 [[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && . "$HOME/.fig/shell/zshrc.pre.zsh"
+
 # uncomment for zsh debug (slow startup)
 # zmodload zsh/zprof
 
@@ -12,18 +13,6 @@ else
   compinit -C -i
 fi
 zmodload -i zsh/complist
-
-# get name of current user
-CURR_USER=$(id -un)
-
-# path
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-export PATH="$HOME/Applications/Visual Studio Code - Insiders.app/Contents/Resources/app/bin:$PATH"
-export PATH="$HOME/flutter/bin:$PATH"
-export GOPATH="$HOME/go:$PATH"
-export GOROOT="$(brew --prefix golang)/libexec"
-export PATH="${GOPATH}/bin:${GOROOT}/bin:$PATH"
-export PATH="/usr/local/texlive/2022/bin/universal-darwin:$PATH"
 
 # exports
 export EDITOR=code-insiders
@@ -38,9 +27,6 @@ DEFAULT_NODE_VER='default';
 while [ -s "$NVM_DIR/alias/$DEFAULT_NODE_VER" ]; do
   DEFAULT_NODE_VER="$(<$NVM_DIR/alias/$DEFAULT_NODE_VER)"
 done;
-
-export PATH="$NVM_DIR/versions/node/v${DEFAULT_NODE_VER#v}/bin:$PATH"
-alias nvm='unalias nvm; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use; nvm'
 
 # terminal history opts
 HISTFILE=$HOME/.zsh_history
@@ -59,7 +45,7 @@ setopt pushd_ignore_dups
 setopt pushdminus
 setopt auto_list
 setopt auto_menu
-# setopt always_to_end
+
 plugins=(zsh-autosuggestions)
 
 # spaceship prompt config
@@ -94,102 +80,11 @@ zstyle ':completion:*' menu select # select completions with arrow keys
 zstyle ':completion:*' group-name ''
 zstyle ':completion:::::' completer _expand _complete _ignored _approximate # enable approximate matches
 
-# aliases
-alias cat="bat"
-alias code="code-insiders"
-alias dc="docker compose"
-alias dcu="dc up"
-alias de="docker exec"
-alias deit="de -it"
-alias dprune="docker system prune -a"
-alias fzf='fzf --preview "bat --style=numbers --color=always {}"'
-alias gs="git status"
-alias gcm="git commit -m"
-alias gpo="git push origin"
-alias gpuo="git pull origin"
-alias gaa="git add --all"
-alias gc="git checkout"
-alias gcb="gc -b"
-alias gd="git diff"
-alias gdf="git diff-tree --no-commit-id --name-only -r $1"
-alias ghrepo="gh repo view --web"
-alias current-branch="git rev-parse --abbrev-ref HEAD"
-alias ls="exa"
-alias la="ls -la"
-alias profile="code ~/.zshrc"
-alias refresh="source ~/.zshrc"
-alias search=rg
-alias 💪🏻="curl"
-
-function hpr {
-	if [ -z "$1" ]; then
-		echo "Please provide a branch name"
-		return 1
-	elif [ -z "$2" ]; then
-		echo "Please provide a pull request title"
-		return 1
-	else
-		githubLink=$(hub pull-request -b $1 -m $2)
-		open -a "Google Chrome" $githubLink
-	fi
-}
-
-# functions
-function packsearch {
-	if [ -z "$1" ]; then
-		echo "Please provide a package name to search"
-		return 1
-	else
-		open -a "Google Chrome" https://www.npmjs.com/package/$1
-	fi
-}
-
-function clear_stash {
-	if [ -z "$1" ]; then
-		echo "Please provide the highest index show from 'git stash list'"
-		return 1
-	else
-		STASHINDEX=$1
-		while [ $STASHINDEX -gt -1 ]; do
-			git stash drop stash@{$STASHINDEX}
-			let STASHINDEX=STASHINDEX-1
-		done
-	fi
-}
-
-function fif {
-  if [ ! "$#" -gt 1 ]; then echo "Need a string to search for!"; return 1; fi
-  rg --files-with-matches --no-messages -g "!{.git,node_modules}" $1 | fzf --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 $1 || rg --ignore-case --pretty --context 10 $1 {}"
-}
-
-function port_kill() {
-	kill -9 $(lsof -ti tcp:$1)
-}
-
-function ws() {
-	code /Users/$CURR_USER/Documents/Workspaces/$1.code-workspace
-}
-
-function node-clean() {
-	if test -f ./yarn.lock; then
-		rm ./yarn.lock
-		echo "Removed Yarn Lock"
-	fi
-
-	if test -f ./package-lock.json; then
-		rm ./package-lock.json
-		echo "Removed Package Lock"
-	fi
-
-	if test -d ./node_modules; then
-		rm -rf ./node_modules
-		echo "Removed Node Modules"
-	fi
-}
-
-function mkcdir () {
-	mkdir -p -- "$1" && cd -P -- "$1"
-}
+# source dotfiles
+for file in $HOME/Code/andrewlazenka/dotfiles/.{path,bash_prompt,exports,aliases,functions,extra}; do
+	[ -r "$file" ] && [ -f "$file" ] && source "$file";
+done;
+unset file;
 
 # uncomment for zsh debug (slow startup)
 # zprof
