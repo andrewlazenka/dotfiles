@@ -1,6 +1,9 @@
 # globals
-GIT_AUTHOR_NAME="Andrew Lazenka"
-GIT_AUTHOR_EMAIL="andrewlazenka@gmail.com"
+echo "Enter author name (this will appear in committed code)"
+read GIT_AUTHOR_NAME
+
+echo "Enter email"
+read GIT_AUTHOR_EMAIL
 
 # committer name
 GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
@@ -29,3 +32,5 @@ git config --global color.diff.commit     "yellow bold"
 git config --global color.diff.old        "red bold"
 git config --global color.diff.new        "green bold"
 git config --global color.diff.whitespace "red reverse"
+
+echo "Configuration complete!"

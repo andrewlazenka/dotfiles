@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+alias cat="bat"
+alias code="code-insiders"
+alias dc="docker compose"
+alias dcu="dc up"
+alias de="docker exec"
+alias deit="de -it"
+alias dprune="docker system prune -a"
+alias fzf='fzf --preview "bat --style=numbers --color=always {}"'
+alias gs="git status"
+alias gcm="git commit -m"
+alias gpo="git push origin"
+alias gpuo="git pull origin"
+alias gaa="git add --all"
+alias gc="git checkout"
+alias gcb="gc -b"
+alias gd="git diff"
+alias gdf="git diff-tree --no-commit-id --name-only -r $1"
+alias ghrepo="gh repo view --web"
+alias current-branch="git rev-parse --abbrev-ref HEAD"
+alias ls="exa"
+alias la="ls -la"
+alias profile="code ~/.zshrc"
+alias refresh="source ~/.zshrc"
+alias search=rg
+alias 💪🏻="curl"
+alias idle="python3 ~/Code/andrewlazenka/idle/main.py"
+alias nvm='unalias nvm; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use; nvm'
