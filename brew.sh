@@ -105,5 +105,6 @@ brew install dust
 brew install ytop
 brew install tealdeer
 brew install ripgrep
+brew install spotify-tui
 
 brew cleanup
