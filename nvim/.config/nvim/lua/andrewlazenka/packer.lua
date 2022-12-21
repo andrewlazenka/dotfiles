@@ -1,7 +1,6 @@
 return require("packer").startup(function(use)	
 		use 'wbthomason/packer.nvim'
 		use 'nvim-lualine/lualine.nvim' -- Status bar & tabline
-		use 'preservim/nerdtree' -- File tree browser
 		use 'ryanoasis/vim-devicons' -- DevIcons (for NerdTree & airline)
 		use 'tpope/vim-commentary' -- Quick comment tools
 		use 'neoclide/coc.nvim'  -- Auto Completion
@@ -17,4 +16,11 @@ return require("packer").startup(function(use)
 				run = ':TSUpdate'
 		}
 		use 'folke/tokyonight.nvim'
+		use('tpope/vim-fugitive')
+		use {
+				'nvim-tree/nvim-tree.lua',
+				requires = {
+						'nvim-tree/nvim-web-devicons',
+				}
+		}
 end)
