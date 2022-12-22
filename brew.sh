@@ -16,13 +16,13 @@ BREW_PREFIX=$(brew --prefix)
 brew install coreutils
 ln -s "${BREW_PREFIX}/bin/gsha256sum" "${BREW_PREFIX}/bin/sha256sum"
 
-# snstall some other useful utilities like `sponge`.
+# install some other useful utilities like `sponge`.
 brew install moreutils
-# snstall GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed.
+# install GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed.
 brew install findutils
-# snstall GNU `sed`, overwriting the built-in `sed`.
+# install GNU `sed`, overwriting the built-in `sed`.
 brew install gnu-sed
-# snstall a modern version of Bash.
+# install a modern version of Bash.
 brew install bash
 brew install bash-completion2
 
