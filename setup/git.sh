@@ -1,3 +1,5 @@
+#!/usr/bash/env bash
+
 # globals
 echo "Enter author name (this will appear in committed code)"
 read GIT_AUTHOR_NAME
