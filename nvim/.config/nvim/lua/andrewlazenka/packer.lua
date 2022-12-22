@@ -7,7 +7,6 @@ return require("packer").startup(function(use)
 		use 'nvim-lualine/lualine.nvim' -- Status bar & tabline
 		use 'ryanoasis/vim-devicons' -- DevIcons (for NerdTree & airline)
 		use 'tpope/vim-commentary' -- Quick comment tools
-		use 'nvim-lua/plenary.nvim'
 		use {
 				'nvim-telescope/telescope.nvim', 
 				requires = { {'nvim-lua/plenary.nvim'} },
