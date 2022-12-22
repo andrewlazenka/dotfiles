@@ -14,7 +14,8 @@ fi
 zmodload -i zsh/complist
 
 # exports
-export EDITOR=code-insiders
+export EDITOR=nvim
+export SPACESHIP_CONFIG="$HOME/Code/andrewlazenka/dotfiles/spaceship.zsh"
 
 # normal brew nvm shell config lines minus the 2nd one
 # lazy loading the bash completions does not save us meaningful shell startup time, so we won't do it
@@ -47,29 +48,6 @@ setopt auto_menu
 
 plugins=(zsh-autosuggestions)
 
-# spaceship prompt config
-SPACESHIP_PROMPT_ORDER=(
-	time
-  user          # Username section
-  host          # Hostname section
-  dir           # Current directory section
-  git           # Git section (git_branch + git_status)
-  hg            # Mercurial section (hg_branch  + hg_status)
-  jobs          # Background jobs indicator
-  exit_code     # Exit code section
-)
-SPACESHIP_PROMPT_ADD_NEWLINE=false
-SPACESHIP_GIT_SYMBOL='\0'
-SPACESHIP_TIME_SHOW=true
-
-# load zsh packages
-source <(antibody init)
-antibody bundle zdharma/fast-syntax-highlighting
-antibody bundle zsh-users/zsh-autosuggestions
-antibody bundle zsh-users/zsh-completions
-antibody bundle zsh-users/zsh-history-substring-search
-antibody bundle denysdovhan/spaceship-prompt
-
 # keybindings
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
@@ -80,7 +58,7 @@ zstyle ':completion:*' group-name ''
 zstyle ':completion:::::' completer _expand _complete _ignored _approximate # enable approximate matches
 
 # source dotfiles
-for file in $HOME/Code/andrewlazenka/dotfiles/.{path,bash_prompt,exports,aliases,functions,extra}; do
+for file in $HOME/Code/andrewlazenka/dotfiles/.{path,bash_prompt,exports,aliases,functions,plugins,extra}; do
 	[ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 unset file;
