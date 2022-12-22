@@ -46,8 +46,6 @@ setopt pushdminus
 setopt auto_list
 setopt auto_menu
 
-plugins=(zsh-autosuggestions)
-
 # keybindings
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
