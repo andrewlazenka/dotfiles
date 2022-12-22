@@ -15,7 +15,12 @@ return require("packer").startup(function(use)
 
 	use "nvim-lualine/lualine.nvim" -- Status bar & tabline
 	use "ryanoasis/vim-devicons" -- DevIcons (for NerdTree & airline)
-	use "tpope/vim-commentary" -- Quick comment tools
+	use {
+		'numToStr/Comment.nvim',
+		config = function()
+			require('Comment').setup()
+		end
+	}
 	use {
 		"nvim-telescope/telescope.nvim", 
 		requires = { {"nvim-lua/plenary.nvim"} },
