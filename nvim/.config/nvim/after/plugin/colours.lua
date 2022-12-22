@@ -2,23 +2,13 @@ local hl = function(thing, opts)
 		vim.api.nvim_set_hl(0, thing, opts)
 end
 
--- vim.cmd('colorscheme tokyonight')
+local defaulttheme = "onedarker"
 
-hl('Normal', {
-		bg = '#333333',
-		fg = '#ffffff'
-})
+function ChangeColorScheme(color)
+	color = color or defaulttheme
+	vim.cmd.colorscheme(color)
+end
 
-hl('Comment', {
-		fg = '#111111',
-		bold = true
-})
+ChangeColorScheme()
 
-hl('Error', {
-		fg = '#ff0000',
-		undercurl = true
-})
-
-hl('Cursor', {
-		reverse = true
-})
+vim.api.nvim_create_user_command("ChangeColorScheme", function(opts) ChangeColorScheme(opts.args) end, { nargs = 1 })
