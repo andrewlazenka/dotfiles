@@ -60,7 +60,6 @@ brew install cask firefox
 brew install cask brave-browser
 
 # install productivity apps
-
 brew install cask google-drive
 brew install cask notion
 brew install cask obsidian
@@ -106,5 +105,12 @@ brew install ytop
 brew install tealdeer
 brew install ripgrep
 brew install spotify-tui
+
+# install zsh plugins
+brew install spaceship
+brew install zsh-autosuggestions
+brew install zsh-syntax-highlighting
+brew install zsh-completions
+brew install zsh-history-substring-search
 
 brew cleanup
