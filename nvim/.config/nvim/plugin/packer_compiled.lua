@@ -139,6 +139,21 @@ _G.packer_plugins = {
     path = "/Users/andrewlazenka/.local/share/nvim/site/pack/packer/start/mason.nvim",
     url = "https://github.com/williamboman/mason.nvim"
   },
+  ["night-owl.vim"] = {
+    loaded = true,
+    path = "/Users/andrewlazenka/.local/share/nvim/site/pack/packer/start/night-owl.vim",
+    url = "https://github.com/haishanh/night-owl.vim"
+  },
+  ["night_owl_light.vim"] = {
+    loaded = true,
+    path = "/Users/andrewlazenka/.local/share/nvim/site/pack/packer/start/night_owl_light.vim",
+    url = "https://github.com/macguirerintoul/night_owl_light.vim"
+  },
+  ["nord-vim"] = {
+    loaded = true,
+    path = "/Users/andrewlazenka/.local/share/nvim/site/pack/packer/start/nord-vim",
+    url = "https://github.com/arcticicestudio/nord-vim"
+  },
   ["nvim-cmp"] = {
     loaded = true,
     path = "/Users/andrewlazenka/.local/share/nvim/site/pack/packer/start/nvim-cmp",
@@ -163,6 +178,21 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/andrewlazenka/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
     url = "https://github.com/nvim-tree/nvim-web-devicons"
+  },
+  ["onedark.nvim"] = {
+    loaded = true,
+    path = "/Users/andrewlazenka/.local/share/nvim/site/pack/packer/start/onedark.nvim",
+    url = "https://github.com/navarasu/onedark.nvim"
+  },
+  ["onedarker.nvim"] = {
+    loaded = true,
+    path = "/Users/andrewlazenka/.local/share/nvim/site/pack/packer/start/onedarker.nvim",
+    url = "https://github.com/lunarvim/onedarker.nvim"
+  },
+  ["onenord.nvim"] = {
+    loaded = true,
+    path = "/Users/andrewlazenka/.local/share/nvim/site/pack/packer/start/onenord.nvim",
+    url = "https://github.com/rmehri01/onenord.nvim"
   },
   ["packer.nvim"] = {
     loaded = true,
