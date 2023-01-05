@@ -1,4 +1,4 @@
-#!/usr/bash/env bash
+#!/usr/bin/env bash
 
 mkdir -p ~/.nvm
 export NVM_DIR=~/.nvm

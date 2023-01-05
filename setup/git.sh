@@ -1,4 +1,4 @@
-#!/usr/bash/env bash
+#!/usr/bin/env bash
 
 # globals
 echo "Enter author name (this will appear in committed code)"
