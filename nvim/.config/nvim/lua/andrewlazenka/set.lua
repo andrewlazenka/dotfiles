@@ -16,6 +16,7 @@ vim.opt.colorcolumn = "80" -- Show at 80 column a border for good code style
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
+vim.opt.guicursor = ""
 vim.opt.wrap = false -- Turn off line wrap
 vim.opt.scrolloff = 8 -- start scrolling view N lines from bottom of the screen
 vim.opt.ttyfast = true -- Speed up scrolling in Vim
