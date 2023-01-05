@@ -1,4 +1,4 @@
-#!/usr/bash/env bash
+#!/usr/bin/env bash
 
 # clear dock
 dockutil --remove all
