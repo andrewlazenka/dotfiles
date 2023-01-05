@@ -1,5 +1,3 @@
-vim.cmd [[packadd packer.nvim]]
-
 -- used during codespaces initialization
 -- always ensures packer is downloaded & available before installing
 
@@ -77,4 +75,8 @@ return require("packer").startup(function(use)
 			{"rafamadriz/friendly-snippets"},
 		}
 	}
+
+	if packer_bootstrap then
+		require("packer").sync()
+	end
 end)
