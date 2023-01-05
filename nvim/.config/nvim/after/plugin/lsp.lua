@@ -10,4 +10,12 @@ lsp.ensure_installed({
 
 lsp.nvim_workspace()
 
+lsp.on_attach(function(client, bufnr)
+	local opts = { buffer = bufnr, remap = false }
+
+	vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+	vim.keymap.set("n", "vd", vim.diagnostic.open_float, opts)
+	vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+end)
+
 lsp.setup()
