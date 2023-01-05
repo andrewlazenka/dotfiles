@@ -27,3 +27,4 @@ alias search=rg
 alias 💪🏻="curl"
 alias idle="python3 ~/Code/andrewlazenka/idle/main.py"
 alias nvm='unalias nvm; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use; nvm'
+alias mod-dot='nvim ~/Code/andrewlazenka/dotfiles'
