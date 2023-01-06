@@ -15,5 +15,8 @@ nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
 # zsh
 
+# remove Codespace provided .zshrc
+rm ~/.zshrc
+
 ln -s $DOTFILES_DIR/.zshrc ~/.zshrc 
 ln -s $DOTFILES_DIR/.aliases ~/.aliases 
