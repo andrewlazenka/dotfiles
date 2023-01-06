@@ -18,7 +18,7 @@ lsp.on_attach(function(_, bufnr)
 
 	vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
 	vim.keymap.set("n", "vd", vim.diagnostic.open_float, opts)
-	vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+	vim.keymap.set("n", "D", vim.lsp.buf.hover, opts)
 end)
 
 lsp.setup()
