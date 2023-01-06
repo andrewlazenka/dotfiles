@@ -2,7 +2,7 @@
 
 # Codespaces setup script
 
-DOTFILES_DIR = /workspaces/.codespaces/.persistedshare/dotfiles
+DOTFILES_DIR=/workspaces/.codespaces/.persistedshare/dotfiles
 
 # nvim
 
