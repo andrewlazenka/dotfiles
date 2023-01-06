@@ -1,5 +1,3 @@
--- Options
-
 vim.opt.clipboard = "unnamedplus" -- Enables the clipboard between Vim/Neovim and other applications.
 vim.opt.completeopt = "noinsert,menuone,noselect" -- Modifies the auto-complete menu to behave more like an IDE.
 vim.opt.cursorline = true -- Highlights the current line in the editor
@@ -23,4 +21,5 @@ vim.opt.ttyfast = true -- Speed up scrolling in Vim
 vim.opt.incsearch = true -- Incremental search
 vim.opt.updatetime = 50
 vim.opt.termguicolors = true
+vim.opt.shortmess = "I"
 vim.g.mapleader = " "
