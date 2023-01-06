@@ -6,8 +6,8 @@ lsp.ensure_installed({
 	"tsserver",
 	"eslint",
 	"sumneko_lua",
-	"ruby-lsp",
-	"bash-lsp"
+	"ruby_ls",
+	"bashls"
 })
 
 lsp.nvim_workspace()
