@@ -25,6 +25,7 @@ alias ls="exa"
 alias la="ls -la"
 alias profile="code ~/.zshrc"
 alias refresh="source ~/.zshrc"
+alias rg="rg --hidden --glob '!.git'"
 alias search=rg
 alias 💪🏻="curl"
 alias idle="python3 ~/Code/andrewlazenka/idle/main.py"
