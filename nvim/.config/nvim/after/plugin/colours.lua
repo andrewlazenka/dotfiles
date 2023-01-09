@@ -1,7 +1,3 @@
-local hl = function(thing, opts)
-		vim.api.nvim_set_hl(0, thing, opts)
-end
-
 local defaulttheme = "onedarker"
 
 function ChangeColorScheme(color)
