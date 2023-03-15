@@ -40,14 +40,22 @@ function fif {
 	rg --files-with-matches --no-messages -g "!{.git,node_modules}" $1 | fzf --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 $1 || rg --ignore-case --pretty --context 10 $1 {}"
 }
 
-function port_kill() {
+function port_kill {
 	kill -9 $(lsof -ti tcp:$1)
 }
 
-function ws() {
+function ws {
 	code /Users/$CURR_USER/Documents/Workspaces/$1.code-workspace
 }
 
-function mkcdir () {
+function mkcdir {
 	mkdir -p -- "$1" && cd -P -- "$1"
+}
+
+function rl {
+	curl -X POST http://localhost:3333/links/ -H "Accept: application/json" -H "Content-Type: application/json" -d '{ "URL": "'"$1"'" }'
+}
+
+function rll {
+	curl http://localhost:3333/links/
 }
