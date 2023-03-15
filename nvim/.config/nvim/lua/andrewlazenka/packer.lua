@@ -29,8 +29,11 @@ return require("packer").startup(function(use)
 	use "rmehri01/onenord.nvim"
 	use "navarasu/onedark.nvim"
 
-	use "nvim-lualine/lualine.nvim" -- Status bar & tabline
-	use "ryanoasis/vim-devicons" -- DevIcons (for NerdTree & airline)
+	use {
+		"nvim-lualine/lualine.nvim",
+		requires = { "kyazdani42/nvim-web-devicons", opt = true }
+	}
+	use "ryanoasis/vim-devicons"
 	use {
 		'numToStr/Comment.nvim',
 		config = function()
@@ -75,7 +78,7 @@ return require("packer").startup(function(use)
 			{"rafamadriz/friendly-snippets"},
 		}
 	}
-	use { 
+	use {
 		"folke/todo-comments.nvim",
 		requires = { { "nvim-lua/plenary.nvim" } },
 		config = function()
