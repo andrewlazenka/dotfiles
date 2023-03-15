@@ -46,6 +46,7 @@ local config = {
       normal = { c = { fg = colors.fg, bg = colors.bg } },
       inactive = { c = { fg = colors.fg, bg = colors.bg } },
     },
+	icons_enabled = true,
   },
   sections = {
     -- these are to remove the defaults
@@ -87,20 +88,27 @@ ins_left {
 }
 
 ins_left {
-  -- filesize component
-  'filesize',
-  cond = conditions.buffer_not_empty,
+  'mode',
+  color = { fg = colors.blue },
 }
 
 ins_left {
-  'filename',
-  cond = conditions.buffer_not_empty,
-  color = { fg = colors.magenta, gui = 'bold' },
+  'branch',
+  icon = '',
+  color = { fg = colors.violet },
 }
 
-ins_left { 'location' }
-
-ins_left { 'progress', color = { fg = colors.fg, gui = 'bold' } }
+ins_left {
+  'diff',
+  -- Is it me or the symbol for modified us really weird
+  symbols = { added = ' ', modified = '柳 ', removed = ' ' },
+  diff_color = {
+    added = { fg = colors.green },
+    modified = { fg = colors.orange },
+    removed = { fg = colors.red },
+  },
+  cond = conditions.hide_in_width,
+}
 
 ins_left {
   'diagnostics',
@@ -122,6 +130,20 @@ ins_left {
 }
 
 ins_left {
+  'filetype',
+  icon_only = true,
+  colored = true,
+}
+
+ins_left {
+  'filename',
+  path = 1,
+  icons_enabled = true,
+  cond = conditions.buffer_not_empty,
+  color = { fg = colors.magenta },
+}
+
+ins_right {
   -- Lsp server name .
   function()
     local msg = 'No Active Lsp'
@@ -138,42 +160,13 @@ ins_left {
     end
     return msg
   end,
-  icon = ' LSP:',
-  color = { fg = '#ffffff', gui = 'bold' },
+  icon = ' ',
+  color = { fg = '#ffffff' },
 }
 
--- Add components to right sections
-ins_right {
-  'o:encoding', -- option component same as &encoding in viml
-  fmt = string.upper, -- I'm not sure why it's upper case either ;)
-  cond = conditions.hide_in_width,
-  color = { fg = colors.green, gui = 'bold' },
-}
+ins_right { 'progress', color = { fg = colors.fg } }
 
-ins_right {
-  'fileformat',
-  fmt = string.upper,
-  icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
-  color = { fg = colors.green, gui = 'bold' },
-}
-
-ins_right {
-  'branch',
-  icon = '',
-  color = { fg = colors.violet, gui = 'bold' },
-}
-
-ins_right {
-  'diff',
-  -- Is it me or the symbol for modified us really weird
-  symbols = { added = ' ', modified = '柳 ', removed = ' ' },
-  diff_color = {
-    added = { fg = colors.green },
-    modified = { fg = colors.orange },
-    removed = { fg = colors.red },
-  },
-  cond = conditions.hide_in_width,
-}
+ins_right { 'location' }
 
 ins_right {
   function()
