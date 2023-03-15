@@ -97,6 +97,7 @@ brew install zsh
 brew install exa
 brew install bat
 brew install diff-so-fancy
+brew install duf
 brew install gh
 brew install antibody
 brew install procs
@@ -105,6 +106,10 @@ brew install ytop
 brew install tealdeer
 brew install ripgrep
 brew install spotify-tui
+brew install httpie
+brew install speedtest-cli
+brew install bandwhich
+brew install procs
 
 # install zsh plugins
 brew install spaceship

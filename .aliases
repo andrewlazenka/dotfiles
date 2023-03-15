@@ -31,4 +31,5 @@ alias n="nvim"
 alias profile="code ~/.zshrc"
 alias refresh="source ~/.zshrc"
 alias rg="rg --hidden --glob '!.git'"
+alias rl="read-later"
 alias search=rg

@@ -13,6 +13,7 @@ vim.keymap.set("n", "<leader>sc", function()
     previewer = false,
   })
 end, { desc = "[/] Fuzzily search in current buffer]" })
+vim.keymap.set("n", "<leader>stf", builtin.current_buffer_fuzzy_find, { desc = "[S]earch [T]his [F]ile (current buffer)" })
 vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles" })
 vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
 vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
