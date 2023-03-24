@@ -112,7 +112,8 @@ brew install bandwhich
 brew install procs
 
 # install zsh plugins
-brew install spaceship
+# brew install spaceship
+brew install starship
 brew install zsh-autosuggestions
 brew install zsh-syntax-highlighting
 brew install zsh-completions
