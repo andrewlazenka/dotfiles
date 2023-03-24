@@ -15,7 +15,6 @@ zmodload -i zsh/complist
 
 # exports
 export EDITOR=nvim
-# export SPACESHIP_CONFIG="$HOME/Code/andrewlazenka/dotfiles/spaceship.zsh"
 export STARSHIP_CONFIG="$HOME/Code/andrewlazenka/dotfiles/starship.toml"
 
 # normal brew nvm shell config lines minus the 2nd one
