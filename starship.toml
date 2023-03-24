@@ -8,6 +8,14 @@ disabled = true
 [directory]
 truncation_length = 8
 truncate_to_repo = true
+style = "#519fdf"
+
+[git_branch]
+style = "#eeaf58"
+symbol = ""
+
+[git_status]
+style = "#eeaf58"
 
 [character]
 disabled = true
