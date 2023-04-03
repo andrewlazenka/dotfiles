@@ -21,5 +21,14 @@ vim.opt.ttyfast = true -- Speed up scrolling in Vim
 vim.opt.incsearch = true -- Incremental search
 vim.opt.updatetime = 50
 vim.opt.termguicolors = true
-vim.opt.shortmess = "I"
+vim.opt.smartindent = true
+vim.opt.showmode = false
+vim.opt.laststatus = 3
+vim.opt.shortmess:append "I"
+vim.opt.shortmess:append "c"
+vim.opt.ignorecase = true
+vim.opt.cmdheight = 0
+vim.opt.showcmd = false
+vim.opt.updatetime = 300
+vim.opt.swapfile = false
 vim.g.mapleader = " "
