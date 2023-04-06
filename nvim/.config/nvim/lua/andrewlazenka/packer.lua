@@ -85,6 +85,16 @@ return require("packer").startup(function(use)
 			require("todo-comments").setup()
 		end
 	}
+	use {
+		"folke/trouble.nvim",
+		requires = "nvim-tree/nvim-web-devicons",
+		config = function()
+			require("trouble").setup {}
+		end
+	}
+	use('neovim/nvim-lspconfig')
+	use('jose-elias-alvarez/null-ls.nvim')
+	use('MunifTanjim/prettier.nvim')
 
 	if packer_bootstrap then
 		require("packer").sync()
