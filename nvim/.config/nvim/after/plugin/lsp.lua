@@ -6,7 +6,12 @@ lsp.ensure_installed({
 	"tsserver",
 	"eslint",
 	"jsonls",
-	"bashls"
+	"bashls",
+	"ruby_ls",
+	"gopls",
+	"marksman",
+	"bufls",
+	"rust_analyzer"
 })
 
 lsp.nvim_workspace()
