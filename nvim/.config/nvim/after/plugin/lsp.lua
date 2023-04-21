@@ -20,6 +20,7 @@ lsp.on_attach(function(_, bufnr)
 	local opts = { buffer = bufnr, remap = false }
 
 	vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+	vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
 	vim.keymap.set("n", "vd", vim.diagnostic.open_float, opts)
 	vim.keymap.set("n", "D", vim.lsp.buf.hover, opts)
 end)
