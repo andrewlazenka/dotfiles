@@ -110,6 +110,7 @@ brew install httpie
 brew install speedtest-cli
 brew install bandwhich
 brew install procs
+brew install neofetch
 
 # install zsh plugins
 brew install starship
