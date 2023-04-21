@@ -1,6 +1,5 @@
 -- used during codespaces initialization
 -- always ensures packer is downloaded & available before installing
-
 local ensure_packer = function()
   local fn = vim.fn
   local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
@@ -43,7 +42,7 @@ return require("packer").startup(function(use)
 	use {
 		"nvim-telescope/telescope.nvim",
 		requires = { {"nvim-lua/plenary.nvim"} },
-		tag = "0.1.0"
+		tag = "0.1.1"
 	}
 	use "ThePrimeagen/harpoon"
 	use "github/copilot.vim"
