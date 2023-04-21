@@ -91,6 +91,12 @@ return require("packer").startup(function(use)
 			require("trouble").setup {}
 		end
 	}
+	use {
+		'lewis6991/gitsigns.nvim',
+		config = function()
+			require('gitsigns').setup()
+		end
+	}
 	use('neovim/nvim-lspconfig')
 	use('jose-elias-alvarez/null-ls.nvim')
 	use('MunifTanjim/prettier.nvim')
