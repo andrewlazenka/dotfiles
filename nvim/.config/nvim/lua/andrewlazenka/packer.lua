@@ -101,6 +101,18 @@ return require("packer").startup(function(use)
 	use('jose-elias-alvarez/null-ls.nvim')
 	use('MunifTanjim/prettier.nvim')
 
+	use({
+	  "jackMort/ChatGPT.nvim",
+		config = function()
+		  require("chatgpt").setup()
+		end,
+		requires = {
+		  "MunifTanjim/nui.nvim",
+		  "nvim-lua/plenary.nvim",
+		  "nvim-telescope/telescope.nvim"
+		}
+	})
+
 	if packer_bootstrap then
 		require("packer").sync()
 	end
