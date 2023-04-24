@@ -100,6 +100,11 @@ return require("packer").startup(function(use)
 	use('neovim/nvim-lspconfig')
 	use('jose-elias-alvarez/null-ls.nvim')
 	use('MunifTanjim/prettier.nvim')
+	use('simrat39/symbols-outline.nvim')
+	use {
+		"SmiteshP/nvim-navic",
+		requires = "neovim/nvim-lspconfig"
+	}
 
 	use({
 	  "jackMort/ChatGPT.nvim",

@@ -5,6 +5,9 @@ vim.g.loaded_netrwPlugin = 1
 require("nvim-tree").setup({
 	git = {
 		ignore = false
+	},
+	view = {
+		width = 24
 	}
 })
 
