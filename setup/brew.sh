@@ -32,7 +32,7 @@ if ! fgrep -q "${BREW_PREFIX}/bin/bash" /etc/shells; then
     chsh -s "${BREW_PREFIX}/bin/bash";
 fi;
 
-# install more recent versions of some macOS tools.
+# install system tools
 brew install vim --with-override-system-vi
 brew install nvim
 brew install grep
@@ -40,19 +40,23 @@ brew install openssh
 brew install screen
 brew install php
 brew install gmp
+brew install git
+brew install git-lfs
+brew install tree
 
-# install fonts & tools
+# install fonts
 brew tap bramstein/webfonttools
 brew tap homebrew/cask-fonts
 
 brew install sfnt2woff
 brew install sfnt2woff-zopfli
 brew install woff2
-brew install git
-brew install git-lfs
-brew install tree
 
 brew install cask font-cascadia-code
+brew install font-jetbrains-mono-nerd-font
+brew install font-mona-sans
+brew install font-hubot-sans
+brew install font-hack-nerd-font
 
 # install browsers
 brew install cask google-chrome
