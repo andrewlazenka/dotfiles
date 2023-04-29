@@ -2,9 +2,9 @@
 -- always ensures packer is downloaded & available before installing
 local ensure_packer = function()
   local fn = vim.fn
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+  local install_path = fn.stdpath("data").."/site/pack/packer/start/packer.nvim"
   if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    fn.system({"git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path})
     vim.cmd [[packadd packer.nvim]]
     return true
   end
@@ -13,13 +13,11 @@ end
 
 local packer_bootstrap = ensure_packer()
 
--- start actual packer things
-
 return require("packer").startup(function(use)
-		-- packer can manage itself
+	-- packer can manage itself
 	use "wbthomason/packer.nvim"
 
-		-- color schemes
+	-- color schemes
 	use "folke/tokyonight.nvim"
 	use "lunarvim/onedarker.nvim"
 	use "haishanh/night-owl.vim"
@@ -34,9 +32,9 @@ return require("packer").startup(function(use)
 	}
 	use "ryanoasis/vim-devicons"
 	use {
-		'numToStr/Comment.nvim',
+		"numToStr/Comment.nvim",
 		config = function()
-			require('Comment').setup()
+			require("Comment").setup()
 		end
 	}
 	use {
@@ -79,7 +77,7 @@ return require("packer").startup(function(use)
 	}
 	use {
 		"folke/todo-comments.nvim",
-		requires = { { "nvim-lua/plenary.nvim" } },
+		requires = "nvim-lua/plenary.nvim",
 		config = function()
 			require("todo-comments").setup()
 		end
@@ -92,22 +90,34 @@ return require("packer").startup(function(use)
 		end
 	}
 	use {
-		'lewis6991/gitsigns.nvim',
+		"lewis6991/gitsigns.nvim",
 		config = function()
-			require('gitsigns').setup()
+			require("gitsigns").setup()
 		end
 	}
-	use('neovim/nvim-lspconfig')
-	use('jose-elias-alvarez/null-ls.nvim')
-	use('MunifTanjim/prettier.nvim')
-	use('simrat39/symbols-outline.nvim')
+	use "neovim/nvim-lspconfig"
+	use "jose-elias-alvarez/null-ls.nvim"
+	use "MunifTanjim/prettier.nvim"
+	use "simrat39/symbols-outline.nvim"
 	use {
 		"SmiteshP/nvim-navic",
 		requires = "neovim/nvim-lspconfig"
 	}
 
-	use({
-	  "jackMort/ChatGPT.nvim",
+	use "mfussenegger/nvim-dap"
+	use {
+		"rcarriga/nvim-dap-ui",
+		requires = "mfussenegger/nvim-dap"
+	}
+	use {
+		"leoluz/nvim-dap-go",
+		config = function()
+		  require("dap-go").setup()
+		end,
+	}
+
+	use {
+		"jackMort/ChatGPT.nvim",
 		config = function()
 		  require("chatgpt").setup()
 		end,
@@ -116,7 +126,7 @@ return require("packer").startup(function(use)
 		  "nvim-lua/plenary.nvim",
 		  "nvim-telescope/telescope.nvim"
 		}
-	})
+	}
 
 	if packer_bootstrap then
 		require("packer").sync()
