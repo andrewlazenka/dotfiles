@@ -1,4 +1,4 @@
-local defaulttheme = "onedarker"
+local defaulttheme = "catppuccin-mocha"
 
 function ChangeColorScheme(color)
 	color = color or defaulttheme
