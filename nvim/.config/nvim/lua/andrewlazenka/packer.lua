@@ -27,6 +27,7 @@ return require("packer").startup(function(use)
 	use "arcticicestudio/nord-vim"
 	use "rmehri01/onenord.nvim"
 	use "navarasu/onedark.nvim"
+	use { "catppuccin/nvim", as = "catppuccin" }
 
 	use {
 		"nvim-lualine/lualine.nvim",
