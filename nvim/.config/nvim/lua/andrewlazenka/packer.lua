@@ -13,13 +13,11 @@ end
 
 local packer_bootstrap = ensure_packer()
 
--- start actual packer things
-
 return require("packer").startup(function(use)
-		-- packer can manage itself
 	use "wbthomason/packer.nvim"
 
-		-- color schemes
+	-- color schemes
+
 	use "folke/tokyonight.nvim"
 	use "lunarvim/onedarker.nvim"
 	use "haishanh/night-owl.vim"
@@ -29,55 +27,36 @@ return require("packer").startup(function(use)
 	use "navarasu/onedark.nvim"
 	use { "catppuccin/nvim", as = "catppuccin" }
 
+	-- lsp
+
+	use {
+		"VonHeikemen/lsp-zero.nvim",
+		requires = {
+			-- LSP Support
+			{ "neovim/nvim-lspconfig" },
+			{ "williamboman/mason.nvim" },
+			{ "williamboman/mason-lspconfig.nvim" },
+
+			-- Autocompletion
+			{ "hrsh7th/nvim-cmp" },
+			{ "hrsh7th/cmp-nvim-lsp" },
+			{ "L3MON4D3/LuaSnip" },
+		}
+	}
+	use "neovim/nvim-lspconfig"
+	use "jose-elias-alvarez/null-ls.nvim"
+	use {
+		"nvim-treesitter/nvim-treesitter",
+		run = ":TSUpdate"
+	}
+
+	-- ui
+
 	use {
 		"nvim-lualine/lualine.nvim",
 		requires = { "kyazdani42/nvim-web-devicons", opt = true }
 	}
 	use "ryanoasis/vim-devicons"
-	use {
-		'numToStr/Comment.nvim',
-		config = function()
-			require('Comment').setup()
-		end
-	}
-	use {
-		"nvim-telescope/telescope.nvim",
-		requires = { {"nvim-lua/plenary.nvim"} },
-		tag = "0.1.1"
-	}
-	use "ThePrimeagen/harpoon"
-	use "github/copilot.vim"
-	use {
-		"nvim-treesitter/nvim-treesitter",
-		run = ":TSUpdate"
-	}
-	use "tpope/vim-fugitive"
-	use {
-		"nvim-tree/nvim-tree.lua",
-		requires = { {"nvim-tree/nvim-web-devicons"} }
-	}
-	use { "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" }
-	use {
-		"VonHeikemen/lsp-zero.nvim",
-		requires = {
-			-- LSP Support
-			{"neovim/nvim-lspconfig"},
-			{"williamboman/mason.nvim"},
-			{"williamboman/mason-lspconfig.nvim"},
-
-			-- Autocompletion
-			{"hrsh7th/nvim-cmp"},
-			{"hrsh7th/cmp-buffer"},
-			{"hrsh7th/cmp-path"},
-			{"saadparwaiz1/cmp_luasnip"},
-			{"hrsh7th/cmp-nvim-lsp"},
-			{"hrsh7th/cmp-nvim-lua"},
-
-			-- Snippets
-			{"L3MON4D3/LuaSnip"},
-			{"rafamadriz/friendly-snippets"},
-		}
-	}
 	use {
 		"folke/todo-comments.nvim",
 		requires = { { "nvim-lua/plenary.nvim" } },
@@ -98,16 +77,38 @@ return require("packer").startup(function(use)
 			require('gitsigns').setup()
 		end
 	}
-	use('neovim/nvim-lspconfig')
-	use('jose-elias-alvarez/null-ls.nvim')
-	use('MunifTanjim/prettier.nvim')
-	use('simrat39/symbols-outline.nvim')
 	use {
 		"SmiteshP/nvim-navic",
 		requires = "neovim/nvim-lspconfig"
 	}
+	use {
+		"nvim-tree/nvim-tree.lua",
+		requires = { {"nvim-tree/nvim-web-devicons"} }
+	}
+	use "simrat39/symbols-outline.nvim"
 
-	use({
+	-- git
+
+	use "tpope/vim-fugitive"
+	use { "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" }
+
+	-- code navigation
+
+	use {
+		"nvim-telescope/telescope.nvim",
+		requires = { {"nvim-lua/plenary.nvim"} },
+		tag = "0.1.1"
+	}
+	use "ThePrimeagen/harpoon"
+
+	-- syntax formatter
+
+	use "MunifTanjim/prettier.nvim"
+
+	-- agents
+
+	use "github/copilot.vim"
+	use {
 	  "jackMort/ChatGPT.nvim",
 		config = function()
 		  require("chatgpt").setup()
@@ -117,7 +118,10 @@ return require("packer").startup(function(use)
 		  "nvim-lua/plenary.nvim",
 		  "nvim-telescope/telescope.nvim"
 		}
-	})
+	}
+
+	-- ruby & rails
+	use "tpope/vim-rails"
 
 	if packer_bootstrap then
 		require("packer").sync()
