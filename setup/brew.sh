@@ -43,6 +43,7 @@ brew install gmp
 brew install git
 brew install git-lfs
 brew install tree
+brew install gcc
 
 # install fonts
 brew tap bramstein/webfonttools
@@ -94,9 +95,6 @@ brew install rustup
 brew install docker-compose
 brew install nvm
 
-# install cli tools
-brew tap cjbassi/ytop
-
 brew install zsh
 brew install exa
 brew install bat
@@ -106,7 +104,8 @@ brew install gh
 brew install antibody
 brew install procs
 brew install dust
-brew install ytop
+brew install btop
+brew install bottom
 brew install tealdeer
 brew install ripgrep
 brew install spotify-tui
@@ -115,6 +114,8 @@ brew install speedtest-cli
 brew install bandwhich
 brew install procs
 brew install neofetch
+brew install ranger
+brew install lazygit
 
 # install zsh plugins
 brew install starship
