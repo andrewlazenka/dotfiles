@@ -106,6 +106,7 @@ return require("packer").startup(function(use)
 		"SmiteshP/nvim-navic",
 		requires = "neovim/nvim-lspconfig"
 	}
+	use('christoomey/vim-tmux-navigator')
 
 	use({
 	  "jackMort/ChatGPT.nvim",
