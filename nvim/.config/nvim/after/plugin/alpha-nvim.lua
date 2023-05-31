@@ -15,6 +15,7 @@ dashboard.section.header.val = {
 	[[ ███████████ ███    ███ █████████ █████ █████ ████ █████ ]],
 	[[██████  █████████████████████ ████ █████ █████ ████ ██████]],
 }
+dashboard.section.header.opts.hl = "Include"
 
 dashboard.section.buttons.val = {
 	dashboard.button("f", "  Find file", ":Telescope git_files <CR>"),
@@ -22,8 +23,10 @@ dashboard.section.buttons.val = {
 	dashboard.button("r", "  Recently used files", ":Telescope oldfiles <CR>"),
 	dashboard.button("q", "  Quit Neovim", ":qa<CR>"),
 }
+dashboard.section.buttons.opts.hl = "Keyword"
 
 dashboard.section.footer.val = fortune()
+dashboard.section.footer.opts.hl = "Type"
 
 local function nvim_version()
     return " v"
@@ -41,29 +44,21 @@ local function lazy_stats()
     return "⚡" .. stats.count .. " plugins"
 end
 
-local function stats()
-    return lazy_stats() .. " " .. nvim_version() .. "\n"
-end
-
-local Plugstats = {
+local stats = {
   type = "text",
-  val = stats,
+  val = lazy_stats() .. " " .. nvim_version() .. "\n",
   opts = {
     position = "center",
     hl = "Function",
   },
 }
 
-dashboard.section.footer.opts.hl = "Type"
-dashboard.section.header.opts.hl = "Include"
-dashboard.section.buttons.opts.hl = "Keyword"
-
 alpha.setup({
   layout = {
     { type = "padding", val = 1 },
     dashboard.section.header,
     { type = "padding", val = 1 },
-    Plugstats,
+    stats,
     { type = "padding", val = 2 },
     dashboard.section.buttons,
     { type = "padding", val = 1 },
