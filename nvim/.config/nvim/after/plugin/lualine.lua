@@ -1,34 +1,31 @@
--- Eviline config for lualine
--- Author: shadmansaleh
--- Credit: glepnir
-local lualine = require('lualine')
+local lualine = require("lualine")
 
 -- Color table for highlights
 -- stylua: ignore
 local colors = {
-  bg       = '#202328',
-  fg       = '#bbc2cf',
-  yellow   = '#ECBE7B',
-  cyan     = '#008080',
-  darkblue = '#081633',
-  green    = '#98be65',
-  orange   = '#FF8800',
-  violet   = '#a9a1e1',
-  magenta  = '#c678dd',
-  blue     = '#51afef',
-  red      = '#ec5f67',
+  bg       = "#202328",
+  fg       = "#bbc2cf",
+  yellow   = "#ECBE7B",
+  cyan     = "#008080",
+  darkblue = "#081633",
+  green    = "#98be65",
+  orange   = "#FF8800",
+  violet   = "#a9a1e1",
+  magenta  = "#c678dd",
+  blue     = "#51afef",
+  red      = "#ec5f67",
 }
 
 local conditions = {
   buffer_not_empty = function()
-    return vim.fn.empty(vim.fn.expand('%:t')) ~= 1
+    return vim.fn.empty(vim.fn.expand("%:t")) ~= 1
   end,
   hide_in_width = function()
     return vim.fn.winwidth(0) > 80
   end,
   check_git_workspace = function()
-    local filepath = vim.fn.expand('%:p:h')
-    local gitdir = vim.fn.finddir('.git', filepath .. ';')
+    local filepath = vim.fn.expand("%:p:h")
+    local gitdir = vim.fn.finddir(".git", filepath .. ";")
     return gitdir and #gitdir > 0 and #gitdir < #filepath
   end,
 }
@@ -37,8 +34,8 @@ local conditions = {
 local config = {
   options = {
     -- Disable sections and component separators
-    component_separators = '',
-    section_separators = '',
+    component_separators = "",
+    section_separators = "",
     theme = "catppuccin",
       -- We are going to use lualine_c an lualine_x as left and
       -- right section. Both are highlighted by c theme .  So we
@@ -81,27 +78,27 @@ end
 
 ins_left {
   function()
-    return '▊'
+    return "▊"
   end,
   color = { fg = colors.blue }, -- Sets highlighting of component
-  padding = { left = 0, right = 1 }, -- We don't need space before this
+  padding = { left = 0, right = 1 }, -- We don"t need space before this
 }
 
 ins_left {
-  'mode',
+  "mode",
   color = { fg = colors.blue },
 }
 
 ins_left {
-  'branch',
-  icon = '',
+  "branch",
+  icon = "",
   color = { fg = colors.violet },
 }
 
 ins_left {
-  'diff',
+  "diff",
   -- Is it me or the symbol for modified us really weird
-  symbols = { added = ' ', modified = '柳 ', removed = ' ' },
+  symbols = { added = " ", modified = "柳 ", removed = " " },
   diff_color = {
     added = { fg = colors.green },
     modified = { fg = colors.orange },
@@ -111,9 +108,9 @@ ins_left {
 }
 
 ins_left {
-  'diagnostics',
-  sources = { 'nvim_diagnostic' },
-  symbols = { error = ' ', warn = ' ', info = ' ' },
+  "diagnostics",
+  sources = { "nvim_diagnostic" },
+  symbols = { error = " ", warn = " ", info = " " },
   diagnostics_color = {
     color_error = { fg = colors.red },
     color_warn = { fg = colors.yellow },
@@ -122,21 +119,21 @@ ins_left {
 }
 
 -- Insert mid section. You can make any number of sections in neovim :)
--- for lualine it's any number greater then 2
+-- for lualine it"s any number greater then 2
 ins_left {
   function()
-    return '%='
+    return "%="
   end,
 }
 
 ins_left {
-  'filetype',
+  "filetype",
   icon_only = true,
   colored = true,
 }
 
 ins_left {
-  'filename',
+  "filename",
   path = 1,
   icons_enabled = true,
   cond = conditions.buffer_not_empty,
@@ -146,8 +143,8 @@ ins_left {
 ins_right {
   -- Lsp server name .
   function()
-    local msg = 'No Active Lsp'
-    local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
+    local msg = "No Active Lsp"
+    local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
     local clients = vim.lsp.get_active_clients()
     if next(clients) == nil then
       return msg
@@ -160,21 +157,21 @@ ins_right {
     end
     return msg
   end,
-  icon = ' ',
-  color = { fg = '#ffffff' },
+  icon = " ",
+  color = { fg = "#ffffff" },
 }
 
-ins_right { 'progress', color = { fg = colors.fg } }
+ins_right { "progress", color = { fg = colors.fg } }
 
-ins_right { 'location' }
+ins_right { "location" }
 
 ins_right {
   function()
-    return '▊'
+    return "▊"
   end,
   color = { fg = colors.blue },
   padding = { left = 1 },
 }
 
--- Now don't forget to initialize lualine
+-- Now don"t forget to initialize lualine
 lualine.setup(config)
