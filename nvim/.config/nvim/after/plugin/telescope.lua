@@ -20,10 +20,10 @@ telescope.setup {
 			additional_args = function()
 				return { "--hidden" }
 			end,
-			glob_pattern = '!.git'
+			glob_pattern = "!.git"
 		},
 		current_buffer_fuzzy_find = {
-			sorting_strategy = 'ascending'
+			sorting_strategy = "ascending"
 		},
 	}
 }
