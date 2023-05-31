@@ -18,7 +18,6 @@ local lsp_formatting = function(bufnr)
   })
 end
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
--- add to your shared on_attach callback
 
 local sources = {
   diagnostics.golangci_lint,
