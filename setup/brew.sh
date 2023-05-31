@@ -116,6 +116,7 @@ brew install procs
 brew install neofetch
 brew install ranger
 brew install lazygit
+brew install pipes-sh
 
 # install zsh plugins
 brew install starship
