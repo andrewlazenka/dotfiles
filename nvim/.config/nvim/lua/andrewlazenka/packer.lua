@@ -29,6 +29,7 @@ return require("packer").startup(function(use)
 	use "navarasu/onedark.nvim"
 	use { "catppuccin/nvim", as = "catppuccin" }
 
+	use "goolord/alpha-nvim"
 	use {
 		"nvim-lualine/lualine.nvim",
 		requires = { "kyazdani42/nvim-web-devicons", opt = true }
