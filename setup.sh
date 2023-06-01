@@ -10,9 +10,6 @@ DOTFILES_DIR=/workspaces/.codespaces/.persistedshare/dotfiles
 mkdir -p ~/.config
 ln -s $DOTFILES_DIR/nvim/.config/nvim ~/.config/nvim 
 
-# Auto install packer plugins to avoid yelling errors on first boot
-nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-
 # zsh
 
 # remove Codespace provided .zshrc
