@@ -8,7 +8,7 @@ DOTFILES_DIR=/workspaces/.codespaces/.persistedshare/dotfiles
 
 # Symlink nvim config
 mkdir -p ~/.config
-ln -s $DOTFILES_DIR/nvim/.config/nvim ~/.config/nvim 
+ln -s $DOTFILES_DIR/.config/nvim ~/.config/nvim 
 
 # zsh
 
