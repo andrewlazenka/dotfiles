@@ -56,6 +56,7 @@ brew install woff2
 brew install cask font-cascadia-code
 brew install font-jetbrains-mono-nerd-font
 brew install font-mona-sans
+brew install font-commit-mono
 brew install font-hubot-sans
 brew install font-hack-nerd-font
 
@@ -116,7 +117,11 @@ brew install procs
 brew install neofetch
 brew install ranger
 brew install lazygit
+brew install lazydocker
 brew install pipes-sh
+brew install cava
+brew install --cask background-music
+brew install dust
 
 # install zsh plugins
 brew install starship
