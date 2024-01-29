@@ -44,6 +44,7 @@ brew install git
 brew install git-lfs
 brew install tree
 brew install gcc
+brew install pnpm
 
 # install fonts
 brew tap bramstein/webfonttools
@@ -72,6 +73,7 @@ brew install cask obsidian
 brew install cask spotify
 brew install cask numi
 brew install cask calibre
+brew install cron
 
 # install communication apps
 brew install cask slack
@@ -90,11 +92,13 @@ brew install cask graphiql
 brew install cask rectangle
 brew install cask mac-tex
 brew install cask tmux
+brew install 1password
+brew install 1password-cli
 
 brew install golang
 brew install rustup
 brew install docker-compose
-brew install nvm
+brew install asdf
 
 brew install zsh
 brew install exa
@@ -115,13 +119,17 @@ brew install speedtest-cli
 brew install bandwhich
 brew install procs
 brew install neofetch
-brew install ranger
+brew install lf
 brew install lazygit
 brew install lazydocker
-brew install pipes-sh
 brew install cava
 brew install --cask background-music
 brew install dust
+
+# ascii art
+brew install pipes-sh
+brew tap sontek/snowmachine
+brew install snowmachine
 
 # install zsh plugins
 brew install starship
