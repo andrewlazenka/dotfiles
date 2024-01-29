@@ -37,6 +37,7 @@ return {
 		event = { "BufReadPost", "BufNewFile" },
 	},
 	"tpope/vim-fugitive",
+	"tpope/vim-abolish",
 	{
 		"nvim-tree/nvim-tree.lua",
 		dependencies = { {"nvim-tree/nvim-web-devicons"} }
