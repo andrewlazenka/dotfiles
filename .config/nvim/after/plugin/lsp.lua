@@ -15,7 +15,8 @@ lsp.ensure_installed({
 	"rust_analyzer",
 	"solargraph",
 	"ruff_lsp",
-	"jedi_language_server"
+	"jedi_language_server",
+	"svelte-language-server"
 })
 
 lsp.nvim_workspace()
