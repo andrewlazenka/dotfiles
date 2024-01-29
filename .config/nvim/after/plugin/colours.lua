@@ -1,4 +1,4 @@
-local defaulttheme = "catppuccin-mocha"
+local defaulttheme = "catppuccin-latte"
 
 function ChangeColorScheme(color)
 	color = color or defaulttheme
