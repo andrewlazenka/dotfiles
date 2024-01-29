@@ -112,3 +112,10 @@ function o {
 
 	tmux attach -t $selected_name
 }
+
+function zettel {
+	curr_time=$(ruby -e 'puts Time.now.strftime("%Y%m%d%H%M%S")')
+	filename=~/Documents/Personal/obsidian/personal/slipbox/fleeting/"$curr_time"_"$1".md
+	touch $filename
+	nvim $filename
+}
