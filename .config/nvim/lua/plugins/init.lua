@@ -27,7 +27,7 @@ return {
 	{
 		"nvim-telescope/telescope.nvim",
 		dependencies = { {"nvim-lua/plenary.nvim"} },
-		tag = "0.1.1"
+		tag = "0.1.5"
 	},
 	"ThePrimeagen/harpoon",
 	"github/copilot.vim",
