@@ -16,7 +16,8 @@ lsp.ensure_installed({
 	"solargraph",
 	"ruff_lsp",
 	"jedi_language_server",
-	"svelte-language-server"
+	"svelte",
+	"tailwindcss"
 })
 
 lsp.nvim_workspace()
