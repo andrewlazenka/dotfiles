@@ -148,6 +148,7 @@ brew install cava
 brew install --cask background-music
 brew install ncdu
 brew install 1password-cli
+brew install glow
 
 #############
 # ASCII art #
