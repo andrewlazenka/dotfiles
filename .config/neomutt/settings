@@ -1,0 +1,13 @@
+set sort = "reverse-date"
+set editor = "nvim"
+
+set imap_check_subscribed
+
+auto_view text/html
+alternative_order text/plain text/enriched text/html
+
+set date_format = "%m/%d %I:%M"
+
+set sidebar_visible
+set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
+set mail_check_stats
