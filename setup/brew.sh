@@ -149,6 +149,8 @@ brew install --cask background-music
 brew install ncdu
 brew install 1password-cli
 brew install glow
+brew tap FelixKratz/formulae
+brew install sketchybar
 
 #############
 # ASCII art #
