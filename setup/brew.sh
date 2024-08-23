@@ -52,6 +52,7 @@ brew install gcc
 brew install pnpm
 brew install cask docker
 brew install docker-compose
+brew install cask tmux
 
 #########
 # Fonts #
@@ -122,7 +123,6 @@ brew install asdf
 # CLI programs #
 ################
 
-brew install cask tmux
 brew install zsh
 brew install exa
 brew install bat
@@ -149,6 +149,8 @@ brew install --cask background-music
 brew install ncdu
 brew install 1password-cli
 brew install glow
+brew install yazi
+brew install sq
 
 #############
 # ASCII art #
