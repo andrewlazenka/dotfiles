@@ -1,6 +1,6 @@
 -- nvim-tree
 vim.keymap.set("n", "<C-t>", ":NvimTreeToggle<CR>")
-vim.keymap.set("n", "<C-f>", ":NvimTreeFocus<CR>")
+vim.keymap.set("n", "<C-f>", ":Oil<CR>")
 
 -- core
 vim.keymap.set("n", "<C-j>", "<PageDown>")
