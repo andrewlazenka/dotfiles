@@ -1,0 +1,11 @@
+# Shortcuts
+macro index,pager <f2> '<sync-mailbox><enter-command>source ~/.config/neomutt/accounts/fastmail<enter><change-folder>!<enter>'
+macro index,pager <f3> '<sync-mailbox><enter-command>source ~/.config/neomutt/accounts/gmail<enter><change-folder>!<enter>'
+
+# sidebar mappings
+bind index,pager \Ck sidebar-prev
+bind index,pager \Cj sidebar-next
+bind index,pager \Co sidebar-open
+# bind index,pager \Cp sidebar-prev-new
+# bind index,pager \Cn sidebar-next-new
+# bind index,pager B sidebar-toggle-visible
