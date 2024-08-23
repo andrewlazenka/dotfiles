@@ -1,0 +1,25 @@
+set imap_user = "`op item get "Fastmail API" --fields username`"
+set smtp_url = "`op item get "Fastmail API" --fields url`"
+set imap_pass = "`op item get "Fastmail API" --fields credential`"
+set smtp_pass = "`op item get "Fastmail API" --fields credential`"
+
+set folder = "imaps://imap.fastmail.com:993"
+set from = "`op item get "Fastmail API" --fields email`"
+set realname = "Andrew Lazenka"
+set envelope_from
+set use_from = "yes"
+set spoolfile = "+INBOX"
+set record = "+Sent"
+set trash = "+Trash"
+set postponed = "+Drafts"
+
+mailboxes =INBOX =Sent =Trash =Drafts =Junk =Other
+
+# Allow Mutt to open a new IMAP connection automatically.
+unset imap_passive
+
+# Keep the IMAP connection alive by polling intermittently (time in seconds).
+set imap_keepalive = 60
+
+## Hook
+## account-hook $folder "set imap_pass=$imap_pass"
