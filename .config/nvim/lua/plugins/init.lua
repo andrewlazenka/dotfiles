@@ -104,5 +104,10 @@ return {
 		  "nvim-lua/plenary.nvim",
 		  "nvim-telescope/telescope.nvim"
 		}
+	},
+
+	{
+	  'stevearc/oil.nvim',
+	  dependencies = { "nvim-tree/nvim-web-devicons" },
 	}
 }
