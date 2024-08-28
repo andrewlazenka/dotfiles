@@ -1,5 +1,5 @@
 theme = catppuccin-latte
-font-family = "BerkeleyMonoVariable Nerd Font"
+font-family = "JetBrainsMono Nerd Font"
 font-size = 16
 cursor-style = block
 macos-titlebar-style = tabs
