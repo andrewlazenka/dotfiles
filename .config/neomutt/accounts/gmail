@@ -1,0 +1,29 @@
+set email = "`op item get "Gmail App Password" --fields username`"
+set password = "`op item get "Gmail App Password" --fields credential`"
+
+set smtp_url = "smtps://$email@smtp.gmail.com"
+set imap_user = $email
+set imap_pass = $password
+set smtp_pass = $password
+set folder = "imaps://$email@imap.gmail.com"
+set spoolfile = "+INBOX"
+
+set realname = "Andrew Lazenka"
+set from = $email
+set envelope_from
+set use_from = "yes"
+set record = "+[Gmail]/Sent Mail"
+set postponed = "+[Gmail]/Drafts"
+set trash = "+[Gmail]/Trash"
+# You can use any gmail imap mailboxes
+mailboxes =INBOX =[Gmail]/Sent\ Mail =[Gmail]/Drafts =[Gmail]/Spam =[Gmail]/Trash
+set mail_check = 6
+
+# Allow Mutt to open a new IMAP connection automatically.
+unset imap_passive
+
+# Keep the IMAP connection alive by polling intermittently (time in seconds).
+set imap_keepalive = 60
+
+## Hook
+account-hook $folder "set imap_pass=\"$password\""

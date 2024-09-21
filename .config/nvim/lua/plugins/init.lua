@@ -104,5 +104,14 @@ return {
 		  "nvim-lua/plenary.nvim",
 		  "nvim-telescope/telescope.nvim"
 		}
+	},
+
+	{
+		"frankroeder/parrot.nvim",
+		dependencies = { 'ibhagwan/fzf-lua', 'nvim-lua/plenary.nvim' }
+	},
+	{
+	  'stevearc/oil.nvim',
+	  dependencies = { "nvim-tree/nvim-web-devicons" },
 	}
 }
