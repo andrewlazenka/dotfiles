@@ -19,7 +19,7 @@ sketchybar --bar \
     notch_width=188 \
     display=main
 
-# Alternatiive background colors
+# Alternative background colors
 # label.color=0xffffffff
 # background.color=0x9924273a
 # background.color=0x66494d64
@@ -83,6 +83,21 @@ sketchybar --add item front_app left \
     icon.drawing=off \
     label.font="$FONT_FACE:Bold:12.0" \
     label.drawing=yes
+
+sketchybar --add event aerospace_workspace_change
+
+for sid in {1..4}; do
+    sketchybar --add item space.$sid left \
+        --subscribe space.$sid aerospace_workspace_change \
+        --set space.$sid \
+        background.color=0x44ffffff \
+        background.corner_radius=5 \
+        background.height=20 \
+        background.drawing=off \
+        label="$sid" \
+        click_script="aerospace workspace $sid" \
+        script="$CONFIG_DIR/plugins/aerospace.sh $sid"
+done
 
 sketchybar --add item weather q \
     --set weather \
