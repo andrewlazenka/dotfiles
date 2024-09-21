@@ -154,6 +154,7 @@ brew install sketchybar
 brew install yazi
 brew install sq
 brew install --cask betterdisplay
+brew install --cask nikitabobko/tap/aerospace
 
 #############
 # ASCII art #
