@@ -151,6 +151,7 @@ brew install 1password-cli
 brew install glow
 brew install yazi
 brew install sq
+brew install --cask betterdisplay
 
 #############
 # ASCII art #
