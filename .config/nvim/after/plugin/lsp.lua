@@ -8,7 +8,7 @@ lsp.ensure_installed({
 	"eslint",
 	"jsonls",
 	"bashls",
-	"ruby_ls",
+	"ruby_lsp",
 	"gopls",
 	"marksman",
 	"bufls",
