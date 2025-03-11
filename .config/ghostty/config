@@ -1,6 +1,7 @@
-theme = catppuccin-latte
+theme = catppuccin-mocha
 font-family = "JetBrainsMono Nerd Font"
 font-size = 16
 cursor-style = block
 macos-titlebar-style = tabs
 background-opacity = 0.95
+macos-icon = xray
