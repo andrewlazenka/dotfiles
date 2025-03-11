@@ -8,6 +8,7 @@ return {
 	"rmehri01/onenord.nvim",
 	"navarasu/onedark.nvim",
 	{ "catppuccin/nvim", as = "catppuccin" },
+	{ "rose-pine/neovim", as = "rose-pine" },
 
 	{
 		'goolord/alpha-nvim',
