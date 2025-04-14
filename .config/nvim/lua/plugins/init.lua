@@ -93,23 +93,6 @@ return {
 		dependencies = "neovim/nvim-lspconfig"
 	},
 	"christoomey/vim-tmux-navigator",
-
-	{
-	  "jackMort/ChatGPT.nvim",
-		config = function()
-		  require("chatgpt").setup()
-		end,
-		dependencies = {
-		  "MunifTanjim/nui.nvim",
-		  "nvim-lua/plenary.nvim",
-		  "nvim-telescope/telescope.nvim"
-		}
-	},
-
-	{
-		"frankroeder/parrot.nvim",
-		dependencies = { 'ibhagwan/fzf-lua', 'nvim-lua/plenary.nvim' }
-	},
 	{
 	  'stevearc/oil.nvim',
 	  dependencies = { "nvim-tree/nvim-web-devicons" },
