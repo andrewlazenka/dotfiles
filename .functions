@@ -102,8 +102,7 @@ function o {
 	tmux_running=$(pgrep tmux)
 
 	if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
-		TMUX= tmux new-session -s $selected_name -c $selected
-		exit 0
+		TMUX= tmux new-session -ds $selected_name -c $selected > /dev/null 2>&1
 	fi
 
 	if ! tmux has-session -t=$selected_name 2> /dev/null; then
