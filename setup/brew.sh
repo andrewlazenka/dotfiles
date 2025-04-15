@@ -50,11 +50,13 @@ brew install git-lfs
 brew install tree
 brew install gcc
 brew install pnpm
-brew install cask docker
+brew install --cask docker
 brew install docker-compose
-brew install cask tmux
+brew install --cask tmux
 brew install dockutil
 brew install atuin
+brew install fzf
+brew install llm
 
 #########
 # Fonts #
@@ -80,7 +82,7 @@ brew install font-hack-nerd-font
 
 # Development
 
-brew install cask homebrew/cask-versions/visual-studio-code-insiders
+brew install visual-studio-code@insiders
 brew install cursor
 brew install windsurf
 brew install cask iterm2
@@ -92,6 +94,9 @@ brew install cask mac-tex
 brew install 1password
 brew install raycast
 brew install linear-linear
+brew install cleanshot
+brew install nordvpn
+brew install superwhisper
 
 # Browsers
 
