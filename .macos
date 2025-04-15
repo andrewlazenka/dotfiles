@@ -73,6 +73,30 @@ defaults write com.apple.dock dashboard-in-overlay -bool true
 # Don’t automatically rearrange Spaces based on most recent use
 defaults write com.apple.dock mru-spaces -bool false
 
+# Show hidden files in Finder
+defaults write com.apple.finder AppleShowAllFiles -bool true
+
+# Always show file extensions
+defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+
+# Disable "natural" scrolling
+defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
+
+# Prevent system sleep (when plugged in)
+sudo systemsetup -setcomputersleep Never
+
+# Prevent display sleep (when plugged in)
+sudo systemsetup -setdisplaysleep Never
+
+# Never sleep on battery
+sudo pmset -b sleep 0 displaysleep 0
+
+# Never sleep when charging or plugged in
+sudo pmset -c sleep 0 displaysleep 0
+
+# Set screensaver idle time to 0 (effectively disables it)
+defaults -currentHost write com.apple.screensaver idleTime -int 0
+
 # Remove the auto-hiding Dock delay
 defaults write com.apple.dock autohide-delay -float 0
 # Speed up the animation when hiding/showing the Dock
