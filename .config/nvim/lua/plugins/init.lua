@@ -32,7 +32,18 @@ return {
 
 	{"williamboman/mason.nvim"},
 	{"williamboman/mason-lspconfig.nvim"},
-	"neovim/nvim-lspconfig",
+	{
+		"neovim/nvim-lspconfig",
+		dependencies = {
+		  "hrsh7th/nvim-cmp",
+		  "hrsh7th/cmp-nvim-lsp",
+		  "hrsh7th/cmp-buffer",
+		  "hrsh7th/cmp-path",
+		  "hrsh7th/cmp-cmdline",
+		  "williamboman/mason.nvim",
+		  "williamboman/mason-lspconfig.nvim",
+		},
+	},
 	{
 		"folke/todo-comments.nvim",
 		dependencies = { { "nvim-lua/plenary.nvim" } },
@@ -74,4 +85,5 @@ return {
 	"rmehri01/onenord.nvim",
 	"navarasu/onedark.nvim",
 	{ "catppuccin/nvim", as = "catppuccin" },
+	"neanias/everforest-nvim",
 }
