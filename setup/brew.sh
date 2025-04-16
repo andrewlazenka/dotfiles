@@ -53,6 +53,8 @@ brew install pnpm
 brew install cask docker
 brew install docker-compose
 brew install cask tmux
+brew install dockutil
+brew install atuin
 
 #########
 # Fonts #
@@ -79,6 +81,8 @@ brew install font-hack-nerd-font
 # Development
 
 brew install cask homebrew/cask-versions/visual-studio-code-insiders
+brew install cursor
+brew install windsurf
 brew install cask iterm2
 brew install cask tableplus
 brew install cask postman
@@ -86,19 +90,20 @@ brew install cask graphiql
 brew install cask rectangle
 brew install cask mac-tex
 brew install 1password
+brew install raycast
+brew install linear-linear
 
 # Browsers
 
 brew install cask google-chrome
 brew install cask firefox
-brew install cask brave-browser
+brew install zen-browser
 
 # Communication
 
 brew install cask slack
 brew install cask discord
-brew install cask zoomus
-brew install cask loom
+brew install cask zoom
 brew install cask gifox
 
 # Productivity
@@ -124,7 +129,7 @@ brew install asdf
 ################
 
 brew install zsh
-brew install exa
+brew install eza
 brew install bat
 brew install diff-so-fancy
 brew install duf
@@ -144,8 +149,6 @@ brew install neofetch
 brew install lf
 brew install lazygit
 brew install lazydocker
-brew install cava
-brew install --cask background-music
 brew install ncdu
 brew install 1password-cli
 brew install glow
