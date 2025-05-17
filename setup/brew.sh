@@ -97,6 +97,8 @@ brew install linear-linear
 brew install cleanshot
 brew install nordvpn
 brew install superwhisper
+brew install figma
+brew install little-snitch
 
 # Browsers
 
@@ -160,6 +162,7 @@ brew install glow
 brew install yazi
 brew install sq
 brew install --cask betterdisplay
+brew install delta
 
 #############
 # ASCII art #
