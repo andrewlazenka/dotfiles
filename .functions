@@ -83,6 +83,47 @@ function gsb {
 	[ $r = 0 ] && git switch $choice
 }
 
+function ghclone {
+	# List repositories and extract the owner/repo format
+	local repos=$(gh repo list --source | awk '{ print $1 }')
+
+	# Use fzf to select a repository
+	local selected_repo=$(echo "$repos" | fzf --prompt="Select a repository to clone: ")
+
+	# Check if a repository was selected
+	if [ -z "$selected_repo" ]; then
+		echo "No repository selected. Exiting."
+		return 1
+	fi
+
+	# Extract the username from the selected repository
+	local username=$(echo "$selected_repo" | cut -d "/" -f 1)
+
+	# Extract the repository name from the selected repository
+	local repo_name=$(basename "$selected_repo")
+
+	# Define the destination directory
+	local dest_dir="$HOME/code/$username/$repo_name"
+
+	# Check if the destination directory already exists
+	if [ -d "$dest_dir" ]; then
+		echo "Destination directory '$dest_dir' already exists. Skipping clone."
+		return 0
+	fi
+
+	# Clone the repository
+	echo "Cloning '$selected_repo' to '$dest_dir'..."
+	gh repo clone "$selected_repo" "$dest_dir"
+
+	# Check if the clone was successful
+	if [ $? -eq 0 ]; then
+		echo "Repository cloned successfully!"
+	else
+		echo "Error cloning repository."
+		return 1
+	fi
+}
+
 function jwd {
 	cd $(find ~/Code -type d -maxdepth 2 -print | fzf)
 }
