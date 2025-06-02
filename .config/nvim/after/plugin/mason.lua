@@ -28,7 +28,7 @@ mason_lspconfig.setup({
         "jsonls",
         "marksman",
         "ruby_lsp",
-        "ruff-lsp",
+        "ruff",
         "solargraph",
         "svelte",
         "tailwindcss",
