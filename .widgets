@@ -12,3 +12,13 @@ _launch_tmux_session() {
 zle -N _launch_tmux_session
 bindkey "^o" _launch_tmux_session
 
+_launch_yazi() {
+    BUFFER=""
+    CURSOR=0
+    zle reset-prompt
+    BUFFER="yz"
+    zle accept-line
+}
+
+zle -N _launch_yazi
+bindkey "^f" _launch_yazi
