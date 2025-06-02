@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+_launch_tmux_session() {
+    BUFFER=""
+    CURSOR=0
+    zle reset-prompt
+
+    BUFFER="o"
+    zle accept-line
+}
+
+zle -N _launch_tmux_session
+bindkey "^o" _launch_tmux_session
+
