@@ -30,7 +30,7 @@ setopt AUTO_MENU
 unsetopt HIST_VERIFY
 
 # source dotfiles
-for file in $HOME/Code/andrewlazenka/dotfiles/.{path,bash_prompt,exports,aliases,functions,plugins,extra}; do
+for file in $HOME/Code/andrewlazenka/dotfiles/.{path,bash_prompt,exports,aliases,functions,plugins,extra,widgets}; do
 	[ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 unset file;
