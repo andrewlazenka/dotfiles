@@ -132,7 +132,7 @@ function o {
 	if [[ $# -eq 1 ]]; then
 		selected=$1
 	else
-		selected=$(find ~/Code -mindepth 1 -maxdepth 2 -type d | fzf)
+		selected=$(find ~/code -mindepth 1 -maxdepth 2 -type d | fzf)
 	fi
 
 	if [[ -z $selected ]]; then
@@ -142,15 +142,36 @@ function o {
 	selected_name=$(basename "$selected" | tr . _)
 	tmux_running=$(pgrep tmux)
 
+    local first_window_target="$selected_name:^"
+
 	if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
-		TMUX= tmux new-session -ds $selected_name -c $selected > /dev/null 2>&1
+		TMUX="" tmux new-session -ds "$selected_name" -c "$selected" -n "nvim" "nvim" \; \
+			new-window -t "$selected_name:" -c "$selected" -n "shell" \; \
+            select-window -t "$first_window_target" > /dev/null 2>&1
 	fi
 
 	if ! tmux has-session -t=$selected_name 2> /dev/null; then
-		TMUX= tmux new-session -ds $selected_name -c $selected
+		tmux new-session -ds "$selected_name" -c "$selected" -n "nvim" "nvim" \; \
+			new-window -t "$selected_name:" -c "$selected" -n "shell" \; \
+            select-window -t "$first_window_target"
 	fi
 
-	tmux attach -t $selected_name
+	# Attach to the target session, ensuring the first window is selected.
+    if [[ -z "$TMUX" ]]; then
+        # Outside tmux: attach
+        # Try to attach to session and select the first window.
+        if ! tmux attach-session -t "$first_window_target" 2>/dev/null; then
+            # Fallback: If targeting the specific window fails, attach to the session.
+            tmux attach-session -t "$selected_name"
+        fi
+    else
+        # Inside tmux: switch client
+        # Try to switch to session and select the first window.
+        if ! tmux switch-client -t "$first_window_target" 2>/dev/null; then
+            # Fallback: If targeting the specific window fails, switch to the session.
+            tmux switch-client -t "$selected_name"
+        fi
+    fi
 }
 
 function zettel {
