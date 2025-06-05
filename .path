@@ -2,6 +2,7 @@
 
 export PATH="/opt/homebrew/bin:$PATH"
 export PATH="/usr/local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/bin:$PATH";
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$HOME/Applications/Visual Studio Code - Insiders.app/Contents/Resources/app/bin:$PATH"
@@ -10,5 +11,6 @@ export GOROOT="$(brew --prefix golang)/libexec"
 export PATH=$(go env GOPATH)/bin:$PATH
 export PATH="/usr/local/texlive/2022/bin/universal-darwin:$PATH"
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
-export PATH="$NVM_DIR/versions/node/v${DEFAULT_NODE_VER#v}/bin:$PATH"
 export PATH="$PATH:$HOME/.rvm/bin"
+export PATH="$HOME/.asdf/installs/nodejs/23.11.0/bin:$PATH"
+export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
