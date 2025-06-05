@@ -57,6 +57,18 @@ brew install dockutil
 brew install atuin
 brew install fzf
 brew install llm
+brew install jq
+brew install httpie
+brew install fx
+brew install fd
+brew install rclone
+brew install pandoc
+brew install syncthing
+brew install newsboat
+brew install ffmpeg
+brew install sst/tap/opencode
+brew install typst
+brew install gum
 
 #########
 # Fonts #
@@ -75,6 +87,9 @@ brew install font-mona-sans
 brew install font-commit-mono
 brew install font-hubot-sans
 brew install font-hack-nerd-font
+brew install font-montserrat
+brew install font-lato
+brew install font-open-sans
 
 ################
 # Applications #
