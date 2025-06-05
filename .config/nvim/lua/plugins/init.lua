@@ -86,4 +86,6 @@ return {
 	"navarasu/onedark.nvim",
 	{ "catppuccin/nvim", as = "catppuccin" },
 	"neanias/everforest-nvim",
+	{ "EdenEast/nightfox.nvim" },
+	"rebelot/kanagawa.nvim",
 }
