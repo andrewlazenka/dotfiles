@@ -1,0 +1,22 @@
+{
+	"providers": {
+		"openrouter": {
+			"apiKey": "op://Private/OpenRouter API Key - opencode/crendential",
+			"disabled": false
+		},
+		"agents": {
+			"primary": {
+				"model": "claude-sonnet-4",
+				"maxTokens": 5000
+			},
+			"task": {
+				"model": "claude-sonnet-4",
+				"maxTokens": 5000
+			},
+			"title": {
+				"model": "claude-sonnet-4",
+				"maxTokens": 5000
+			}
+		}
+	}
+}
