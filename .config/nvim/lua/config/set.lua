@@ -1,3 +1,4 @@
+vim.g.mapleader = " "
 vim.opt.clipboard = "unnamedplus" -- Enables the clipboard between Vim/Neovim and other applications.
 vim.opt.completeopt = "noinsert,menuone,noselect" -- Modifies the auto-complete menu to behave more like an IDE.
 vim.opt.cursorline = true -- Highlights the current line in the editor
@@ -31,4 +32,3 @@ vim.opt.cmdheight = 0
 vim.opt.showcmd = false
 vim.opt.updatetime = 300
 vim.opt.swapfile = false
-vim.g.mapleader = " "
