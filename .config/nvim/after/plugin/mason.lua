@@ -30,7 +30,7 @@ mason_lspconfig.setup({
 		"gopls",
 		"jedi_language_server",
 		"jsonls",
-		"lua-language-server",
+		"lua_ls",
 		"marksman",
 		"ruby_lsp",
 		"ruff",
