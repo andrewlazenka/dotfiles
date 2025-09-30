@@ -69,6 +69,8 @@ brew install ffmpeg
 brew install sst/tap/opencode
 brew install typst
 brew install gum
+brew install nushell
+brew install cloc
 
 #########
 # Fonts #
@@ -81,12 +83,14 @@ brew install sfnt2woff
 brew install sfnt2woff-zopfli
 brew install woff2
 
+# Code
 brew install cask font-cascadia-code
 brew install font-jetbrains-mono-nerd-font
-brew install font-mona-sans
 brew install font-commit-mono
 brew install font-hubot-sans
 brew install font-hack-nerd-font
+
+# Prose
 brew install font-montserrat
 brew install font-lato
 brew install font-open-sans
