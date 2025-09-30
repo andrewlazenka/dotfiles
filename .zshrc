@@ -41,3 +41,7 @@ eval "$(atuin init zsh --disable-up-arrow)"
 # zprof
 
 . "/opt/homebrew/opt/asdf/libexec/asdf.sh"
+
+# bun completions
+[ -s "/Users/andrewlazenka/.bun/_bun" ] && source "/Users/andrewlazenka/.bun/_bun"
+
