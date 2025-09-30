@@ -15,3 +15,7 @@ bindkey "^o" _launch_tmux_session
 bindkey -s "^f" "yazi\n"
 
 bindkey -s "^g" "lazygit\n"
+
+bindkey -s "^a" "gh repo view --web\n"
+
+bindkey -s "^d" "opencode\n"
