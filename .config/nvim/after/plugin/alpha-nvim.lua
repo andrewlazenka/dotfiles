@@ -20,7 +20,7 @@ dashboard.section.header.opts.hl = "Include"
 dashboard.section.buttons.val = {
 	dashboard.button("f", "🔍  Find file", ":Telescope git_files <CR>"),
 	dashboard.button("e", "📄  New file", ":ene <BAR> startinsert <CR>"),
-	dashboard.button("r", "⏱️   Recently used files", ":Telescope oldfiles cwd_only=true <CR>"),
+	dashboard.button("r", "⏱️  Recently used files", ":Telescope oldfiles cwd_only=true <CR>"),
 	dashboard.button("q", "❌  Quit Neovim", ":qa<CR>"),
 }
 dashboard.section.buttons.opts.hl = "Keyword"
@@ -40,7 +40,6 @@ end
 
 local function lazy_stats()
     local stats = require("lazy").stats()
-    -- local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
     return "⚡" .. stats.count .. " plugins"
 end
 
