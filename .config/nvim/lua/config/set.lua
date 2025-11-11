@@ -1,4 +1,5 @@
 vim.g.mapleader = " "
+vim.g.have_nerd_font = true
 vim.opt.clipboard = "unnamedplus" -- Enables the clipboard between Vim/Neovim and other applications.
 vim.opt.completeopt = "noinsert,menuone,noselect" -- Modifies the auto-complete menu to behave more like an IDE.
 vim.opt.cursorline = true -- Highlights the current line in the editor
@@ -9,7 +10,7 @@ vim.opt.number = true -- Shows the line number on the current line
 vim.opt.relativenumber = true -- Shows line number relative to the cursor
 vim.opt.splitbelow = true
 vim.opt.splitright = true
-vim.opt.title = true -- Show file title
+vim.opt.title = false -- Don't show file title
 vim.opt.wildmenu = true -- Show a more advance menu
 vim.opt.colorcolumn = "80" -- Show at 80 column a border for good code style
 vim.opt.tabstop = 4
@@ -17,7 +18,7 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.guicursor = ""
 vim.opt.wrap = false -- Turn off line wrap
-vim.opt.scrolloff = 8 -- start scrolling view N lines from bottom of the screen
+vim.opt.scrolloff = 6 -- start scrolling view N lines from bottom of the screen
 vim.opt.ttyfast = true -- Speed up scrolling in Vim
 vim.opt.incsearch = true -- Incremental search
 vim.opt.updatetime = 50
@@ -28,7 +29,9 @@ vim.opt.laststatus = 3
 vim.opt.shortmess:append "I"
 vim.opt.shortmess:append "c"
 vim.opt.ignorecase = true
+vim.opt.smartcase = true
 vim.opt.cmdheight = 0
 vim.opt.showcmd = false
-vim.opt.updatetime = 300
+vim.opt.updatetime = 250
 vim.opt.swapfile = false
+vim.opt.confirm = true
