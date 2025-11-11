@@ -20,7 +20,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
     -- The `load` function is specific to kanagawa.nvim
     -- Alternatively, you can use `vim.cmd.colorscheme "kanagawa-wave"`
     -- require('kanagawa').load("wave")
-	require('tokyonight').load({ style = "day" })
+	require('tokyonight')
     -- Or if you prefer the generic way after ensuring it's loaded:
     -- vim.cmd "colorscheme kanagawa-wave"
   end,
