@@ -36,7 +36,7 @@ local config = {
     -- Disable sections and component separators
     component_separators = "",
     section_separators = "",
-    theme = "catppuccin",
+    theme = "tokyonight",
       -- We are going to use lualine_c an lualine_x as left and
       -- right section. Both are highlighted by c theme .  So we
       -- are just setting default looks o statusline
@@ -71,22 +71,15 @@ local function ins_left(component)
   table.insert(config.sections.lualine_c, component)
 end
 
--- Inserts a component in lualine_x ot right section
+-- Inserts a component in lualine_x at right section
 local function ins_right(component)
   table.insert(config.sections.lualine_x, component)
 end
 
 ins_left {
-  function()
-    return "▊"
-  end,
-  color = { fg = colors.blue }, -- Sets highlighting of component
-  padding = { left = 0, right = 1 }, -- We don"t need space before this
-}
-
-ins_left {
-  "mode",
-  color = { fg = colors.blue },
+	"mode",
+	color = { bg = colors.blue, fg = colors.bg },
+	fmt = function(str) return str:sub(1,1) end,
 }
 
 ins_left {
@@ -98,7 +91,7 @@ ins_left {
 ins_left {
   "diff",
   -- Is it me or the symbol for modified us really weird
-  symbols = { added = " ", modified = "柳 ", removed = " " },
+  symbols = { added = " ", modified = " ", removed = " " },
   diff_color = {
     added = { fg = colors.green },
     modified = { fg = colors.orange },
@@ -127,12 +120,6 @@ ins_left {
 }
 
 ins_left {
-  "filetype",
-  icon_only = true,
-  colored = true,
-}
-
-ins_left {
   "filename",
   path = 1,
   icons_enabled = true,
@@ -143,35 +130,30 @@ ins_left {
 ins_right {
   -- Lsp server name .
   function()
-    local msg = "No Active Lsp"
-    local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
-    local clients = vim.lsp.get_active_clients()
+    local msg = ""
+    local clients = vim.lsp.get_clients({ bufnr = 0 })
     if next(clients) == nil then
       return msg
     end
-    for _, client in ipairs(clients) do
-      local filetypes = client.config.filetypes
-      if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-        return client.name
-      end
-    end
-    return msg
+    return " " .. #clients
   end,
-  icon = " ",
-  color = { fg = "#ffffff" },
+  color = function()
+    local clients = vim.lsp.get_clients({ bufnr = 0 })
+    if next(clients) == nil then
+      return { fg = colors.red }
+    end
+    return { fg = colors.green }
+  end
 }
-
-ins_right { "progress", color = { fg = colors.fg } }
-
-ins_right { "location" }
 
 ins_right {
-  function()
-    return "▊"
-  end,
-  color = { fg = colors.blue },
-  padding = { left = 1 },
+  "filetype",
+  colored = true,
 }
 
--- Now don"t forget to initialize lualine
+ins_right {
+	"location",
+	color = { bg = colors.blue, fg = colors.bg },
+}
+
 lualine.setup(config)
