@@ -35,6 +35,7 @@ for file in $HOME/Code/andrewlazenka/dotfiles/.{path,bash_prompt,exports,aliases
 done;
 unset file;
 
+export ATUIN_NOBIND="true"
 eval "$(atuin init zsh --disable-up-arrow)"
 
 # uncomment for zsh debug (slow startup)
