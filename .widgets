@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+bindkey '^h' atuin-search
 _launch_tmux_session() {
     BUFFER=""
     CURSOR=0
