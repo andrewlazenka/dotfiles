@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+if [ -z "$1" ]; then
+	echo "Please provide a port number"
+	exit 1
+fi
+
+kill -9 $(lsof -ti tcp:$1)
