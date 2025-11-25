@@ -139,7 +139,8 @@ function o {
 		exit 0
 	fi
 
-	selected_name=$(basename "$selected" | tr . _)
+	selected_name=$(basename "$(dirname "$selected")")_$(basename "$selected")
+	selected_name=$(echo "$selected_name" | tr . _)
 	tmux_running=$(pgrep tmux)
 
     local first_window_target="$selected_name:^"
