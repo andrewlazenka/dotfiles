@@ -10,18 +10,19 @@ DOTFILES_DIR=/workspaces/.codespaces/.persistedshare/dotfiles
 mkdir -p ~/.config
 ln -s $DOTFILES_DIR/.config/nvim ~/.config/nvim 
 
-# zsh
+# install aliases
+ln -s $DOTFILES_DIR/.aliases ~/.aliases
 
-# remove Codespace provided .zshrc
-rm ~/.zshrc
+# tmux
+mkdir -p ~/.config/tmux
+ln -s $DOTFILES_DIR/.config/tmux/tmux.conf ~/.config/tmux/tmux.conf
 
-ln -s $DOTFILES_DIR/.zshrc ~/.zshrc 
-ln -s $DOTFILES_DIR/.aliases ~/.aliases 
+# Install TPM (Tmux Plugin Manager)
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 # packages
-
 sudo apt-get update
-sudo apt-get install neovim
+sudo apt-get install -y neovim bat eza fzf ripgrep tmux
 
 # starship prompt
 curl -sS https://starship.rs/install.sh | sh
