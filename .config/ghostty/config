@@ -4,3 +4,5 @@ font-size = 24
 cursor-style = block
 macos-titlebar-style = tabs
 background-opacity = 0.95
+auto-update-channel = tip
+auto-update = check
