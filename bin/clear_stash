@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+if [ -z "$1" ]; then
+	echo "Please provide the highest index show from 'git stash list'"
+	exit 1
+else
+	STASHINDEX=$1
+	while [ $STASHINDEX -gt -1 ]; do
+		git stash drop stash@{$STASHINDEX}
+		let STASHINDEX=STASHINDEX-1
+	done
+fi

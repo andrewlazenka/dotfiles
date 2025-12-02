@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+function jwd {
+	cd $(find ~/Code -type d -maxdepth 2 -print | fzf)
+}
