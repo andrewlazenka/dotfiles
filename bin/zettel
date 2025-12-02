@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+if [ -z "$1" ]; then
+	echo "Please provide a note name"
+	exit 1
+fi
+
+curr_time=$(ruby -e 'puts Time.now.strftime("%Y%m%d%H%M%S")')
+filename=~/Documents/Personal/obsidian/personal/slipbox/fleeting/"$curr_time"_"$1".md
+touch "$filename"
+nvim "$filename"

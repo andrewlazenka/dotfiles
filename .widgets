@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+bindkey '^h' atuin-search
+
 _launch_tmux_session() {
     BUFFER=""
     CURSOR=0
@@ -16,6 +18,6 @@ bindkey -s "^f" "yazi\n"
 
 bindkey -s "^g" "lazygit\n"
 
-bindkey -s "^a" "gh repo view --web\n"
+bindkey -s "^r" "gh repo view --web\n"
 
-bindkey -s "^d" "opencode\n"
+bindkey -s "^a" "opencode\n"
