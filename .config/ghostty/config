@@ -4,3 +4,4 @@ font-size = 24
 cursor-style = block
 macos-titlebar-style = tabs
 background-opacity = 0.95
+custom-shader = shaders/cursor_smear.glsl
