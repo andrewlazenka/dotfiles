@@ -6,3 +6,4 @@ macos-titlebar-style = tabs
 background-opacity = 0.95
 auto-update-channel = tip
 auto-update = check
+shell-integration-features = ssh-terminfo,ssh-env
