@@ -182,6 +182,11 @@ brew install yazi
 brew install sq
 brew install --cask betterdisplay
 brew install delta
+brew install snitch
+brew tap cesarferreira/tap
+brew install rip
+brew install jnsahaj/lumen/lumen
+brew install mole
 
 #############
 # ASCII art #
