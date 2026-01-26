@@ -12,7 +12,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
 		vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, opts)
 		vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, { buffer = bufnr, desc = "LSP: Rename symbol" })
-		vim.keymap.set("n", "vd", vim.diagnostic.open_float, opts)
+		vim.keymap.set("n", "vd", function() vim.diagnostic.open_float({ border = "rounded" }) end, opts)
 		vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
 		vim.keymap.set('i', '<C-Space>', vim.lsp.buf.completion, { buffer = bufnr, desc = "LSP: Trigger completion" })
 
@@ -34,13 +34,14 @@ require("mason-lspconfig").setup({
 		"bashls",
 		"buf_ls",
 		"gopls",
+		"intelephense",
 		"jedi_language_server",
 		"jsonls",
 		"lua_ls",
 		"marksman",
-		-- "ruby_lsp",
+		"ruby_lsp",
 		"ruff",
-		-- "solargraph",
+		"solargraph",
 		"svelte",
 		"tailwindcss",
 		"tinymist",
