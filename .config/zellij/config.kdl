@@ -1,0 +1,34 @@
+// Zellij configuration
+
+// Use Ctrl+Space as the prefix (similar to tmux config)
+keybinds {
+    unbind "Ctrl b"
+}
+
+// Mouse support
+mouse_mode true
+
+// Pane/tab indexing starts at 1
+pane_frames false
+
+// Theme - similar colors to tmux config
+theme "catppuccin-latte"
+
+// Status bar position
+default_layout "default"
+
+// Don't auto-rename tabs
+ui {
+    pane_frames {
+        rounded_corners true
+    }
+}
+
+// Copy on select
+copy_on_select true
+
+// Scrollback
+scroll_buffer_size 10000
+
+// Session serialization for resurrection
+session_serialization true
