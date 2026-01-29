@@ -5,7 +5,10 @@ if [ -z "$1" ]; then
 	exit 1
 fi
 
+modified_input="${1,,}"
+modified_input="${modified_input// /_}"
+
 curr_time=$(ruby -e 'puts Time.now.strftime("%Y%m%d%H%M%S")')
-filename=~/Documents/Personal/obsidian/personal/slipbox/fleeting/"$curr_time"_"$1".md
+filename=~/Documents/obsidian/personal/slipbox/fleeting/"$curr_time"_"$modified_input".md
 touch "$filename"
 nvim "$filename"
