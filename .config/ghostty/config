@@ -9,6 +9,7 @@ font-family = "JetBrainsMono Nerd Font"
 font-size = 24
 macos-titlebar-style = tabs
 background-opacity = 0.95
+window-colorspace = srgb
 custom-shader-animation = always
 custom-shader = shaders/cursor_tokyonight.glsl
 custom-shader = shaders/ripple_rectangle_cursor.glsl
