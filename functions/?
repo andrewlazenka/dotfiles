@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+function _llm_ask {
+	llm -m openrouter/google/gemini-3-flash-preview "$*"
+}
+
+alias '?'='noglob _llm_ask'
