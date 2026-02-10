@@ -14,7 +14,7 @@ return {
     {
       "ff",
       function() require('fff').find_files() end,
-      desc = 'FFFind files',
-    }
+      desc = 'Find files',
+    },
   }
 }
