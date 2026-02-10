@@ -16,5 +16,10 @@ return {
       function() require('fff').find_files() end,
       desc = 'Find files',
     },
+    {
+      "<C-p>",
+      function() require('fff').find_in_git_root() end,
+      desc = 'Find files',
+    },
   }
 }
