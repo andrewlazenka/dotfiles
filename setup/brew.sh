@@ -140,6 +140,7 @@ brew install cask obsidian
 brew install cask spotify
 brew install cask numi
 brew install cask calibre
+brew install handy
 
 #############
 # Languages #
