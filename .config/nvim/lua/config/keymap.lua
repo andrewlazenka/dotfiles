@@ -3,6 +3,19 @@ vim.keymap.set("n", "<C-j>", "<PageDown>", { desc = 'Scroll down a page' })
 vim.keymap.set("n", "<C-k>", "<PageUp>", { desc = 'Scroll up a page' })
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>', { desc = 'Clear search highlights' })
 
+local function copy_current_buffer_path(path_type)
+  local absolute_path = vim.fn.expand('%:p')
+
+  if absolute_path == '' then
+    vim.notify('No file path for current buffer', vim.log.levels.WARN)
+    return
+  end
+
+  local path = path_type == 'absolute' and absolute_path or vim.fn.fnamemodify(absolute_path, ':.')
+  vim.fn.setreg('+', path)
+  vim.notify('Copied ' .. path_type .. ' path: ' .. path)
+end
+
 -- quickfix
 -- vim.keymap.set("n", "<leader>qo", ":copen<CR>")
 -- vim.keymap.set("n", "<leader>qc", ":cclose<CR>")
@@ -21,3 +34,11 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 vim.keymap.set('n', '<leader>dio', function()
   vim.diagnostic.setqflist({ open = true })
 end, { desc = 'Send all diagnostics to quickfix and open' })
+
+vim.keymap.set('n', '<leader>cp', function()
+  copy_current_buffer_path('relative')
+end, { desc = 'Copy relative file path' })
+
+vim.keymap.set('n', '<leader>cP', function()
+  copy_current_buffer_path('absolute')
+end, { desc = 'Copy absolute file path' })
