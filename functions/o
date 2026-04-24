@@ -13,6 +13,7 @@ function o {
 
 	selected_name=$(basename "$(dirname "$selected")")_$(basename "$selected")
 	selected_name=$(echo "$selected_name" | tr . _)
+	selected_dir="$(basename "$(dirname "$selected")")/$(basename "$selected")"
 	tmux_running=$(pgrep tmux)
 
 	if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
@@ -30,8 +31,10 @@ function o {
 	fi
 
 	if [[ -z "$TMUX" ]]; then
+		printf '\033]2;%s\007' "$selected_dir"
 		tmux attach-session -t "$selected_name"
 	else
+		printf '\033]2;%s\007' "$selected_dir"
 		tmux switch-client -t "$selected_name"
 	fi
 }
