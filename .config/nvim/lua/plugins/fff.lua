@@ -17,6 +17,11 @@ return {
       desc = 'Find files',
     },
     {
+      "fg",
+      function() require('fff').live_grep() end,
+      desc = 'Live grep',
+    },
+    {
       "<C-p>",
       function() require('fff').find_in_git_root() end,
       desc = 'Find files',
