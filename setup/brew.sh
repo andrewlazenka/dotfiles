@@ -102,22 +102,18 @@ brew install font-open-sans
 # Development
 
 brew install visual-studio-code@insiders
-brew install cursor
-brew install windsurf
+brew install zed
 brew install cask iterm2
+brew install cask ghostty
 brew install cask tableplus
-brew install cask postman
-brew install cask graphiql
+brew install cask bruno
 brew install cask rectangle
-brew install cask mac-tex
 brew install 1password
 brew install raycast
 brew install linear-linear
 brew install cleanshot
 brew install nordvpn
 brew install superwhisper
-brew install figma
-brew install little-snitch
 
 # Browsers
 
@@ -135,7 +131,6 @@ brew install cask gifox
 # Productivity
 
 brew install cask google-drive
-brew install cask notion
 brew install cask obsidian
 brew install cask spotify
 brew install cask numi
@@ -158,22 +153,17 @@ brew install asdf
 brew install zsh
 brew install eza
 brew install bat
-brew install diff-so-fancy
 brew install duf
 brew install gh
-brew install antibody
 brew install procs
 brew install btop
-brew install bottom
 brew install tealdeer
 brew install ripgrep
 brew install spotify-tui
 brew install httpie
 brew install speedtest-cli
-brew install bandwhich
 brew install procs
 brew install neofetch
-brew install lf
 brew install lazygit
 brew install lazydocker
 brew install ncdu
