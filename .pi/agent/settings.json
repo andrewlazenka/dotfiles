@@ -1,0 +1,13 @@
+{
+  "lastChangelogVersion": "0.70.5",
+  "terminal": {
+    "showTerminalProgress": true
+  },
+  "steeringMode": "one-at-a-time",
+  "followUpMode": "one-at-a-time",
+  "quietStartup": true,
+  "theme": "tokyonight-night",
+  "defaultProvider": "openrouter",
+  "defaultModel": "moonshotai/kimi-k2.6",
+  "defaultThinkingLevel": "medium"
+}
