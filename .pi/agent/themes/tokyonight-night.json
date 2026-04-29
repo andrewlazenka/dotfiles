@@ -47,7 +47,7 @@
     "customMessageText": "",
     "customMessageLabel": "cyan",
     "toolPendingBg": "bgDark",
-    "toolSuccessBg": "diffAdd",
+    "toolSuccessBg": "bgDark",
     "toolErrorBg": "diffDelete",
     "toolTitle": "blue",
     "toolOutput": "",
