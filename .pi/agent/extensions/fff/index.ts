@@ -1,6 +1,6 @@
 import { FileFinder, type FileItem, type GrepMatch, type Location, type Score } from "@ff-labs/fff-node";
-import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
-import { createGrepTool, createReadTool, getAgentDir } from "@mariozechner/pi-coding-agent";
+import type { ExtensionAPI, ReadToolDetails } from "@mariozechner/pi-coding-agent";
+import { createGrepTool, createReadTool, getAgentDir, keyHint } from "@mariozechner/pi-coding-agent";
 import { Text, type AutocompleteItem, type AutocompleteProvider, type AutocompleteSuggestions } from "@mariozechner/pi-tui";
 import { Type } from "@sinclair/typebox";
 import { createHash } from "node:crypto";
@@ -307,6 +307,39 @@ export default function fffExtension(pi: ExtensionAPI) {
         signal,
         onUpdate,
       );
+    },
+    renderResult(result, { expanded, isPartial }, theme, context) {
+      if (isPartial) {
+        return new Text(theme.fg("warning", "Reading..."), 0, 0);
+      }
+
+      const details = (result.details ?? {}) as ReadToolDetails & { resolved?: boolean };
+      const text = getTextContent(result as { content?: Array<{ type: string; text?: string }> });
+
+      if (details.resolved === false) {
+        return new Text(theme.fg("error", text), 0, 0);
+      }
+
+      const imageContent = result.content?.find((item) => item.type === "image");
+      if (imageContent) {
+        return new Text(theme.fg("success", expanded ? "Image loaded" : `Image loaded ${theme.fg("muted", `(${keyHint("app.tools.expand", "to expand")})`)}`), 0, 0);
+      }
+
+      const lineCount = text.length > 0 ? text.split("\n").length : 0;
+      let summary = `${lineCount} line${lineCount === 1 ? "" : "s"}`;
+      if (details.truncation?.truncated) {
+        summary += ` (truncated from ${details.truncation.totalLines} lines)`;
+      }
+
+      if (!expanded) {
+        return new Text(`${theme.fg("success", summary)} ${theme.fg("muted", `(${keyHint("app.tools.expand", "to expand")})`)}`, 0, 0);
+      }
+
+      if (!text.trim()) {
+        return new Text(theme.fg("muted", summary), 0, 0);
+      }
+
+      return new Text(`${theme.fg("success", summary)}\n${text.split("\n").map((line) => theme.fg("toolOutput", line)).join("\n")}`, 0, 0);
     },
   });
 
