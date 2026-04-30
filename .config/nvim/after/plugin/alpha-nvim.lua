@@ -21,8 +21,8 @@ dashboard.section.buttons.val = {
 	dashboard.button("f", "🔍  Find file", ":FFFFind <CR>"),
 	dashboard.button("g", "🔎  Live grep", ":lua require('fff').live_grep()<CR>"),
 	dashboard.button("e", "📄  New file", ":ene <BAR> startinsert <CR>"),
-	dashboard.button("r", "⏱️  Recently used files", ":Telescope oldfiles cwd_only=true <CR>"),
-	dashboard.button("q", "❌  Quit Neovim", ":qa<CR>"),
+	dashboard.button("r", "⏱️  Recent used files", ":Telescope oldfiles cwd_only=true <CR>"),
+	dashboard.button("q", "❌  Quit", ":qa<CR>"),
 }
 dashboard.section.buttons.opts.hl = "Keyword"
 
