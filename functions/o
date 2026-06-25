@@ -13,6 +13,7 @@ function o {
 
 	selected_name=$(basename "$(dirname "$selected")")_$(basename "$selected")
 	selected_name=$(echo "$selected_name" | tr . _)
+	printf '\033]0;%s\007' "$selected_name"
 	tmux_running=$(pgrep tmux)
 
 	if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
