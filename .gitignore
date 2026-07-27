@@ -3,6 +3,3 @@ node_modules
 
 .config/newsboat/*
 .config/lazysql/*
-
-.pi/agent/sessions/
-.pi/agent/auth.json
