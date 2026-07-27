@@ -7,13 +7,10 @@ export PATH="$HOME/bin:$PATH";
 export PATH="$HOME/Code/andrewlazenka/dotfiles/bin:$PATH"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$HOME/Applications/Visual Studio Code - Insiders.app/Contents/Resources/app/bin:$PATH"
-export PATH="$HOME/flutter/bin:$PATH"
-export GOROOT="$(brew --prefix golang)/libexec"
-export PATH=$(go env GOPATH)/bin:$PATH
-export PATH="/usr/local/texlive/2022/bin/universal-darwin:$PATH"
-export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 export PATH="$PATH:$HOME/.rvm/bin"
-export PATH="$HOME/.asdf/installs/nodejs/23.11.0/bin:$PATH"
+# go binaries (GOROOT is auto-detected from the `go` binary since Go 1.9)
+export PATH="$(go env GOPATH)/bin:$PATH"
+# node/ruby versions are managed by asdf (~/.asdf/shims), sourced in .zshrc
 export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
 export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
 
@@ -24,4 +21,3 @@ export PATH="/opt/homebrew/opt/php@8.4/sbin:$PATH"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
-export PATH="/opt/homebrew/bin/zig:$PATH"
