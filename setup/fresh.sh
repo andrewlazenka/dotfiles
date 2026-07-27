@@ -4,3 +4,4 @@
 ./zsh.sh
 ./config.sh
 ./asdf.sh
+./pi.sh
