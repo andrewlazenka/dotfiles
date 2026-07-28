@@ -8,7 +8,8 @@
     "ahrefs": {
       "url": "https://api.ahrefs.com/mcp/mcp",
       "auth": "oauth",
-      "lifecycle": "lazy"
+      "lifecycle": "lazy",
+      "disabled": true
     }
   }
 }
