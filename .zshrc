@@ -29,6 +29,32 @@ setopt AUTO_LIST
 setopt AUTO_MENU
 unsetopt HIST_VERIFY
 
+# Cache generated shell integrations and refresh them after tool upgrades.
+_cached_zsh_init() {
+	emulate -L zsh
+	local cache_name="$1"
+	shift
+	local cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+	local cache_file="$cache_dir/$cache_name-init.zsh"
+	local command_path="${commands[$1]-}"
+	local temp_file="$cache_file.$$.tmp"
+
+	[[ -n "$command_path" ]] || return 1
+	command_path="${command_path:A}"
+
+	if [[ ! -r "$cache_file" || "$command_path" -nt "$cache_file" ]]; then
+		[[ -d "$cache_dir" ]] || command mkdir -p -- "$cache_dir"
+		if "$@" >| "$temp_file"; then
+			command mv -f -- "$temp_file" "$cache_file"
+		else
+			command rm -f -- "$temp_file"
+			[[ -r "$cache_file" ]] || return 1
+		fi
+	fi
+
+	typeset -g _zsh_init_cache_file="$cache_file"
+}
+
 # source dotfiles
 for file in $HOME/Code/andrewlazenka/dotfiles/.{path,bash_prompt,exports,aliases,plugins,extra,widgets}; do
 	[ -r "$file" ] && [ -f "$file" ] && source "$file";
@@ -42,13 +68,13 @@ done;
 unset file;
 
 export ATUIN_NOBIND="true"
-eval "$(atuin init zsh --disable-up-arrow)"
+if _cached_zsh_init atuin atuin init zsh --disable-up-arrow; then
+	source "$_zsh_init_cache_file"
+fi
+unfunction _cached_zsh_init
+unset _zsh_init_cache_file
 
 # uncomment for zsh debug (slow startup)
 # zprof
 
 . "/opt/homebrew/opt/asdf/libexec/asdf.sh"
-
-# bun completions
-[ -s "/Users/andrewlazenka/.bun/_bun" ] && source "/Users/andrewlazenka/.bun/_bun"
-
