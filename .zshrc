@@ -1,6 +1,3 @@
-# uncomment for zsh debug (slow startup)
-# zmodload zsh/zprof
-
 # exports
 export EDITOR=nvim
 export STARSHIP_CONFIG="$HOME/Code/andrewlazenka/dotfiles/starship.toml"
@@ -28,6 +25,18 @@ setopt PUSHDMINUS
 setopt AUTO_LIST
 setopt AUTO_MENU
 unsetopt HIST_VERIFY
+
+# Compile stable Zsh files and refresh the bytecode when their source changes.
+_compile_zsh_file() {
+	emulate -L zsh
+	local source_file="$1"
+	local compiled_file="$source_file.zwc"
+
+	[[ -r "$source_file" ]] || return 1
+	if [[ ! -r "$compiled_file" || "$source_file" -nt "$compiled_file" ]]; then
+		zcompile -R "$source_file" 2>/dev/null || return 1
+	fi
+}
 
 # Cache generated shell integrations and refresh them after tool upgrades.
 _cached_zsh_init() {
@@ -69,12 +78,13 @@ unset file;
 
 export ATUIN_NOBIND="true"
 if _cached_zsh_init atuin atuin init zsh --disable-up-arrow; then
+	_compile_zsh_file "$_zsh_init_cache_file"
 	source "$_zsh_init_cache_file"
 fi
-unfunction _cached_zsh_init
-unset _zsh_init_cache_file
-
-# uncomment for zsh debug (slow startup)
-# zprof
 
 . "/opt/homebrew/opt/asdf/libexec/asdf.sh"
+
+# This speeds up subsequent shells; Zsh ignores stale bytecode automatically.
+_compile_zsh_file "$HOME/.zshrc"
+unfunction _compile_zsh_file _cached_zsh_init
+unset _zsh_init_cache_file
