@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+usage() {
+	cat <<'EOF'
+Usage: zsh-startup [benchmark [runs] | profile | trace [output-file]]
+
+Commands:
+  benchmark  Compare clean, interactive, and login-interactive startup times.
+             The default is 30 measured runs after 3 warmups.
+  profile    Print a zprof function-level startup profile.
+  trace      Write a timestamped xtrace log for line-level debugging.
+EOF
+}
+
+command="${1:-benchmark}"
+
+case "$command" in
+	benchmark)
+		runs="${2:-30}"
+		[[ "$runs" =~ ^[1-9][0-9]*$ ]] || { echo "runs must be a positive integer" >&2; exit 2; }
+		python3 - "$runs" <<'PY'
+import statistics
+import subprocess
+import sys
+import time
+
+runs = int(sys.argv[1])
+warmups = 3
+commands = (
+    ("no startup files", ["/bin/zsh", "-df", "-c", "exit 0"]),
+    ("interactive", ["/bin/zsh", "-i", "-c", "exit 0"]),
+    ("login interactive", ["/bin/zsh", "-l", "-i", "-c", "exit 0"]),
+)
+
+print(f"Zsh startup benchmark ({runs} runs, {warmups} warmups)")
+for name, command in commands:
+    for _ in range(warmups):
+        subprocess.run(command, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL, check=True)
+
+    samples = []
+    for _ in range(runs):
+        started = time.perf_counter_ns()
+        subprocess.run(command, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL, check=True)
+        samples.append((time.perf_counter_ns() - started) / 1_000_000)
+
+    ordered = sorted(samples)
+    p95 = ordered[int(0.95 * (len(ordered) - 1))]
+    print(
+        f"{name:19} min {min(samples):6.1f} ms  "
+        f"median {statistics.median(samples):6.1f} ms  "
+        f"mean {statistics.mean(samples):6.1f} ms  p95 {p95:6.1f} ms"
+    )
+PY
+		;;
+	profile)
+		temp_dir="$(mktemp -d)"
+		trap 'rm -rf "$temp_dir"' EXIT
+		cat > "$temp_dir/.zshrc" <<'EOF'
+zmodload zsh/zprof
+source "$HOME/.zshrc"
+zprof
+EOF
+		ZDOTDIR="$temp_dir" /bin/zsh -i -c 'exit 0'
+		;;
+	trace)
+		output="${2:-${TMPDIR:-/tmp}/zsh-startup-trace.$$.log}"
+		temp_dir="$(mktemp -d)"
+		trap 'rm -rf "$temp_dir"' EXIT
+		cat > "$temp_dir/.zshrc" <<'EOF'
+zmodload zsh/datetime
+PS4='+${EPOCHREALTIME} %N:%i> '
+setopt prompt_subst xtrace
+source "$HOME/.zshrc"
+unsetopt xtrace
+EOF
+		ZDOTDIR="$temp_dir" /bin/zsh -i -c 'exit 0' 2> "$output"
+		echo "Trace written to $output"
+		;;
+	-h|--help|help)
+		usage
+		;;
+	*)
+		usage >&2
+		exit 2
+		;;
+esac
