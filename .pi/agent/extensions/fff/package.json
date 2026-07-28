@@ -1,0 +1,20 @@
+{
+  "name": "pi-fff",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "pi": {
+    "extensions": [
+      "./index.ts"
+    ]
+  },
+  "dependencies": {
+    "@ff-labs/fff-node": "^0.6.0",
+    "@sinclair/typebox": "^0.34.41"
+  },
+  "devDependencies": {
+    "@mariozechner/pi-coding-agent": "^0.70.6",
+    "@mariozechner/pi-tui": "^0.70.6",
+    "typescript": "^6.0.3"
+  }
+}

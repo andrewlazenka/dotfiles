@@ -1,3 +1,24 @@
 # dotfiles
 
-My custom dotfiles used between machines
+My custom dotfiles used between machines.
+
+## Zsh startup diagnostics
+
+Benchmark clean, interactive, and login-interactive shell startup:
+
+```sh
+zsh-startup benchmark       # 30 measured runs
+zsh-startup benchmark 100   # custom run count
+```
+
+Inspect function-level startup cost or produce a timestamped line-level trace:
+
+```sh
+zsh-startup profile
+zsh-startup trace
+zsh-startup trace /tmp/zsh-startup.log
+```
+
+The Zsh configuration compiles stable startup files to `.zwc` bytecode and
+refreshes them when their source changes. Generated Atuin and Starship scripts
+are stored under `~/.cache/zsh`; compiled files are local cache artifacts.

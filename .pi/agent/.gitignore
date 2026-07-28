@@ -1,0 +1,12 @@
+# Credentials and machine-generated state
+auth.json
+mcp-cache.json
+mcp-oauth/
+models-store.json
+sessions/
+state/
+trust.json
+
+# Pi-managed package installations (restored from settings.json)
+git/
+npm/
