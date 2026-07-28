@@ -2,4 +2,6 @@
 
 source "/opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "/opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-eval "$(starship init zsh)"
+if _cached_zsh_init starship starship init zsh; then
+	source "$_zsh_init_cache_file"
+fi
