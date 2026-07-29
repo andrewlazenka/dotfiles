@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DOTFILES_ROOT="$(dirname "$SCRIPT_DIR")"
+SKILLS_DIR="$DOTFILES_ROOT/.agents/skills"
+
+if ! command -v npx >/dev/null 2>&1; then
+    echo "npx is required to sync agent skills" >&2
+    exit 1
+fi
+
+if [ ! -d "$SKILLS_DIR" ] || ! find "$SKILLS_DIR" -type f -name SKILL.md -print -quit | grep -q .; then
+    echo "No custom skills found in $SKILLS_DIR"
+    echo "Add each skill as <name>/SKILL.md and run this command again."
+    exit 0
+fi
+
+echo "Syncing custom skills from $SKILLS_DIR"
+
+npx --yes skills add "$SKILLS_DIR" \
+    --skill '*' \
+    --global \
+    --copy \
+    --agent pi \
+    --agent claude-code \
+    --agent opencode \
+    --yes
