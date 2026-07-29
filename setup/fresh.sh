@@ -3,4 +3,4 @@
 ./brew.sh
 ./zsh.sh
 ./config.sh
-./asdf.sh
+./mise.sh

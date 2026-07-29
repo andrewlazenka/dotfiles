@@ -143,8 +143,15 @@ brew install handy
 
 brew install golang
 brew install rustup
-brew install php
-brew install asdf
+brew install mise
+
+# mise PHP build dependencies
+brew install bison
+brew install re2c
+brew install libedit
+brew install libxml2
+brew install bzip2
+brew install libiconv
 
 ################
 # CLI programs #

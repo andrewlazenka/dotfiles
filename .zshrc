@@ -47,7 +47,7 @@ eval "$(atuin init zsh --disable-up-arrow)"
 # uncomment for zsh debug (slow startup)
 # zprof
 
-. "/opt/homebrew/opt/asdf/libexec/asdf.sh"
+eval "$(mise activate zsh)"
 
 # bun completions
 [ -s "/Users/andrewlazenka/.bun/_bun" ] && source "/Users/andrewlazenka/.bun/_bun"

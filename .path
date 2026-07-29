@@ -10,13 +10,12 @@ export PATH="$HOME/Applications/Visual Studio Code - Insiders.app/Contents/Resou
 export PATH="$PATH:$HOME/.rvm/bin"
 # go binaries (GOROOT is auto-detected from the `go` binary since Go 1.9)
 export PATH="$(go env GOPATH)/bin:$PATH"
-# node/ruby versions are managed by asdf (~/.asdf/shims), sourced in .zshrc
+# language versions are managed by mise, activated in .zshrc
+# PHP builds need Homebrew's newer bison instead of macOS /usr/bin/bison
+export PATH="/opt/homebrew/opt/bison/bin:$PATH"
 export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
 export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
 
-# php
-export PATH="/opt/homebrew/opt/php@8.4/bin:$PATH"
-export PATH="/opt/homebrew/opt/php@8.4/sbin:$PATH"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
