@@ -3,3 +3,4 @@
 
 .config/newsboat/*
 .config/lazysql/*
+.config/aerc/accounts.conf
