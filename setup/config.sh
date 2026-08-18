@@ -17,15 +17,18 @@ create_symlink() {
     local source="$1"
     local target="$2"
 
-    # If target exists and is not a symlink, back it up
-    if [ -e "$target" ] && [ ! -L "$target" ]; then
+    # Remove an existing symlink instead of letting ln follow a symlink to a
+    # directory and create a recursive link inside the source directory.
+    if [ -L "$target" ]; then
+        rm "$target"
+    elif [ -e "$target" ]; then
         echo "Backing up existing $target to ${target}.bak"
         mv "$target" "${target}.bak"
     fi
 
     # Create the symlink
     echo "Creating symlink: $target -> $source"
-    ln -sf "$source" "$target"
+    ln -s "$source" "$target"
 }
 
 # Process each item in .config
