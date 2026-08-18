@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+
+function oh {
+	local selected selected_name workspace_id created pane_id tab_id
+
+	if [[ $# -eq 1 ]]; then
+		selected=$1
+	else
+		selected=$(find ~/code -mindepth 1 -maxdepth 2 -type d | fzf)
+	fi
+
+	if [[ -z $selected ]]; then
+		return 0
+	fi
+
+	# Resolve relative paths and fail early when the selection is not a directory.
+	selected=$(cd "$selected" 2>/dev/null && pwd -P) || {
+		echo "oh: directory not found: $selected" >&2
+		return 1
+	}
+
+	selected_name=$(basename "$(dirname "$selected")")_$(basename "$selected")
+	selected_name=$(echo "$selected_name" | tr . _)
+	printf '\033]0;%s\007' "$selected_name"
+
+	if ! command -v herdr >/dev/null 2>&1; then
+		echo "oh: herdr is not installed" >&2
+		return 1
+	fi
+
+	if ! command -v jq >/dev/null 2>&1; then
+		echo "oh: jq is required" >&2
+		return 1
+	fi
+
+	# Start a detached server when one is not already running.
+	if ! herdr status server >/dev/null 2>&1; then
+		nohup herdr server >/dev/null 2>&1 &
+
+		local attempt
+		for attempt in {1..50}; do
+			herdr status server >/dev/null 2>&1 && break
+			sleep 0.1
+		done
+
+		if ! herdr status server >/dev/null 2>&1; then
+			echo "oh: failed to start the herdr server" >&2
+			return 1
+		fi
+	fi
+
+	workspace_id=$(herdr workspace list | jq -r --arg label "$selected_name" \
+		'.result.workspaces[] | select(.label == $label) | .workspace_id' | head -n 1)
+
+	if [[ -z $workspace_id ]]; then
+		created=$(herdr workspace create --cwd "$selected" --label "$selected_name" --focus) || return 1
+		workspace_id=$(echo "$created" | jq -r '.result.workspace.workspace_id')
+		pane_id=$(echo "$created" | jq -r '.result.root_pane.pane_id')
+		tab_id=$(echo "$created" | jq -r '.result.tab.tab_id')
+
+		herdr tab rename "$tab_id" nvim >/dev/null || return 1
+		herdr pane run "$pane_id" nvim >/dev/null || return 1
+		herdr tab create --workspace "$workspace_id" --cwd "$selected" \
+			--label shell --no-focus >/dev/null || return 1
+		herdr tab focus "$tab_id" >/dev/null || return 1
+	else
+		herdr workspace focus "$workspace_id" >/dev/null || return 1
+	fi
+
+	# When called from an outer shell, attach to the server. Inside Herdr, the
+	# workspace focus above is enough.
+	if [[ -z ${HERDR_ENV:-} ]]; then
+		herdr
+	fi
+}
