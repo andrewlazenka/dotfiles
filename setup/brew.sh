@@ -53,6 +53,7 @@ brew install pnpm
 brew install --cask docker
 brew install docker-compose
 brew install --cask tmux
+brew install herdr
 brew install dockutil
 brew install atuin
 brew install fzf
