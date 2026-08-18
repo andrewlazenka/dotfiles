@@ -25,12 +25,20 @@ are stored under `~/.cache/zsh`; compiled files are local cache artifacts.
 
 ## Agent skills
 
-Store handwritten skills as `.agents/skills/<name>/SKILL.md`, then copy all of
-them into the global skill directories for Pi, Claude Code, and OpenCode:
+The canonical skill tree is `.agents/skills/`. Store handwritten skills there,
+or install remote skills at project scope so their source is recorded in the
+tracked `skills-lock.json`:
 
 ```sh
+npx skills add owner/repo --skill <name> --agent opencode --copy --yes
+```
+
+Update a tracked remote skill in place, then copy the canonical tree into the
+global skill directories for Pi, Claude Code, and OpenCode:
+
+```sh
+npx skills update <name> --project --yes
 sync-agent-skills
 ```
 
-The script uses `npx skills add` with copy mode. Run it again after changing a
-local skill.
+Run `sync-agent-skills` again after changing a handwritten skill as well.

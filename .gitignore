@@ -4,6 +4,10 @@ node_modules
 .config/newsboat/*
 .config/lazysql/*
 
+# Project skill links generated from the canonical .agents/skills tree.
+.claude/skills/
+.pi/skills/
+
 # Generated locally by setup/aerc.sh from a private 1Password field.
 .config/aerc/accounts.conf
 
