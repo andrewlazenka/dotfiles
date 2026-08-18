@@ -11,5 +11,8 @@ node_modules
 # Generated locally by setup/aerc.sh from a private 1Password field.
 .config/aerc/accounts.conf
 
-# Private machine setup containing account details.
-setup/aerc.sh
+# Herdr machine-generated runtime state.
+.config/herdr/.plugins.lock
+.config/herdr/*.log
+.config/herdr/release-notes.json
+.config/herdr/session.json
