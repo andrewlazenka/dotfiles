@@ -1,0 +1,24 @@
+#!/bin/sh
+# Refresh the local aerc address-book cache from Radicale.
+set -eu
+umask 077
+
+config_dir="${AERC_CONFIG_DIR:-$HOME/Library/Preferences/aerc}"
+cache_dir="${XDG_CACHE_HOME:-$HOME/Library/Caches}/aerc"
+cache="$cache_dir/address-book.tsv"
+
+mkdir -p "$cache_dir"
+tmp="$(mktemp "$cache_dir/address-book.XXXXXX")"
+trap 'rm -f "$tmp"' EXIT HUP INT TERM
+
+# Every email address contains '@', so this retrieves all emailable contacts.
+"$config_dir/bin/carddav-query" \
+    -l 10000 \
+    -c "$config_dir/accounts.conf" \
+    -S Fastmail \
+    '@' \
+    | awk 'NF' \
+    | sort -fu > "$tmp"
+
+mv "$tmp" "$cache"
+trap - EXIT HUP INT TERM

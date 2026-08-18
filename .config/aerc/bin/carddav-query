@@ -1,0 +1,42 @@
+#!/usr/bin/env python3
+"""Run aerc's carddav-query with a Cloudflare-compatible User-Agent."""
+
+import runpy
+import shutil
+import xml.etree.ElementTree as ET
+from urllib import request
+
+original_request = request.Request
+
+
+def request_with_user_agent(*args, **kwargs):
+    # Radicale can crash while filtering multi-valued NICKNAME, ORG, or TITLE
+    # properties. Name and email are sufficient for address completion.
+    data = kwargs.get("data")
+    if data:
+        root = ET.fromstring(data)
+        namespace = "{urn:ietf:params:xml:ns:carddav}"
+        filters = root.find(f"{namespace}filter")
+        if filters is not None:
+            for prop_filter in list(filters):
+                if (
+                    prop_filter.tag == f"{namespace}prop-filter"
+                    and prop_filter.get("name") not in {"FN", "EMAIL"}
+                ):
+                    filters.remove(prop_filter)
+        kwargs["data"] = ET.tostring(root, encoding="utf-8", xml_declaration=True)
+
+    req = original_request(*args, **kwargs)
+    if not req.has_header("User-Agent"):
+        req.add_header(
+            "User-Agent",
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X) aerc-carddav-query/1.0",
+        )
+    return req
+
+
+request.Request = request_with_user_agent
+upstream = shutil.which("carddav-query")
+if upstream is None:
+    raise SystemExit("carddav-query is not installed")
+runpy.run_path(upstream, run_name="__main__")

@@ -65,6 +65,7 @@ brew install rclone
 brew install pandoc
 brew install syncthing
 brew install newsboat
+brew install aerc
 brew install ffmpeg
 brew install sst/tap/opencode
 brew install typst

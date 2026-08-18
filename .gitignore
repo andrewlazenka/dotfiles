@@ -3,4 +3,9 @@ node_modules
 
 .config/newsboat/*
 .config/lazysql/*
+
+# Generated locally by setup/aerc.sh from a private 1Password field.
 .config/aerc/accounts.conf
+
+# Private machine setup containing account details.
+setup/aerc.sh
