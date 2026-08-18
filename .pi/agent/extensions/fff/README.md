@@ -20,4 +20,5 @@ Local pi extension that uses `@ff-labs/fff-node` for:
 ## Notes
 
 - This is a local extension named `fff`.
+- `@ff-labs/fff-node` is pinned to `0.10.5`; older native libraries caused reproducible macOS arm64 crashes in `fff-bg-*` threads.
 - Reload pi with `/reload` after changing the extension.

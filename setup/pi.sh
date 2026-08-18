@@ -20,9 +20,13 @@ else
 fi
 
 if ! command -v npm >/dev/null; then
-    echo "npm is required to install Pi extension dependencies" >&2
+    echo "npm is required to install Pi and its extension dependencies" >&2
     exit 1
 fi
+
+# Install Pi for the Node version selected by mise.
+npm install -g --ignore-scripts @earendil-works/pi-coding-agent
+mise reshim 2>/dev/null || true
 
 # Install dependencies that are intentionally excluded from the dotfiles repo.
 npm install --prefix "$PI_SOURCE/extensions/fff"

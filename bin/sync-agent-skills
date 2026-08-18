@@ -23,7 +23,6 @@ npx --yes skills add "$SKILLS_DIR" \
     --skill '*' \
     --global \
     --copy \
-    --agent pi \
     --agent claude-code \
     --agent opencode \
     --yes
