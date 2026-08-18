@@ -20,4 +20,4 @@ bindkey -s "^g" "lazygit\n"
 
 bindkey -s "^r" "gh repo view --web\n"
 
-bindkey -s "^a" "opencode\n"
+bindkey -s "^a" "pi\n"

@@ -4,3 +4,4 @@
 ./zsh.sh
 ./config.sh
 ./mise.sh
+./pi.sh

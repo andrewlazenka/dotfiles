@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if ! command -v hunk >/dev/null 2>&1; then
+    echo "hunk is required (install with: brew install hunk)" >&2
+    exit 1
+fi
+
+if ! hunk --help 2>&1 | grep -q -- '--extension <path>'; then
+    echo "this hunk build does not support extensions" >&2
+    echo "install a release containing Hunk's extension API or build hunk from main" >&2
+    exit 1
+fi
+
+if ! command -v tmux >/dev/null 2>&1; then
+    echo "tmux is required" >&2
+    exit 1
+fi
+
+if [ -z "${TMUX:-}" ]; then
+    echo "hunk-review must be run from inside tmux" >&2
+    exit 1
+fi
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SKILL_DIR="$(dirname "$SCRIPT_DIR")"
+EXTENSION="$SKILL_DIR/extensions/capture-review.mjs"
+REVIEW_DIR="$(mktemp -d "${TMPDIR:-/tmp}/hunk-review.XXXXXX")"
+RESULT="$REVIEW_DIR/review.json"
+LAUNCHER="$REVIEW_DIR/launch"
+
+cleanup() {
+    rm -rf "$REVIEW_DIR"
+}
+trap cleanup EXIT
+
+{
+    printf '#!/usr/bin/env bash\n'
+    printf 'cd %q\n' "$PWD"
+    printf 'exec env HUNK_REVIEW_OUTPUT=%q hunk --extension %q diff --watch' "$RESULT" "$EXTENSION"
+    printf ' %q' "$@"
+    printf '\n'
+} > "$LAUNCHER"
+chmod 700 "$LAUNCHER"
+
+printf -v popup_command '%q' "$LAUNCHER"
+popup_args=(-E -w '100%' -h '100%' -d "$PWD")
+if [ -n "${TMUX_PANE:-}" ]; then
+    popup_args+=(-t "$TMUX_PANE")
+fi
+
+set +e
+tmux display-popup "${popup_args[@]}" "$popup_command"
+popup_status=$?
+set -e
+
+if [ ! -s "$RESULT" ]; then
+    echo "Hunk closed without producing a review result." >&2
+    echo "Check the popup for an extension startup error." >&2
+    exit "${popup_status:-1}"
+fi
+
+printf '%s\n' 'HUNK_REVIEW_RESULT_BEGIN'
+cat "$RESULT"
+printf '%s\n' 'HUNK_REVIEW_RESULT_END'
+
+exit "$popup_status"

@@ -1,0 +1,15 @@
+{
+  "settings": {
+    "toolPrefix": "server",
+    "idleTimeout": 10,
+    "autoAuth": true
+  },
+  "mcpServers": {
+    "ahrefs": {
+      "url": "https://api.ahrefs.com/mcp/mcp",
+      "auth": "oauth",
+      "lifecycle": "lazy",
+      "disabled": true
+    }
+  }
+}

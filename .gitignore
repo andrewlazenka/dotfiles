@@ -1,5 +1,5 @@
 .DS_Store
-.pi
+node_modules
 
 .config/newsboat/*
 .config/lazysql/*
