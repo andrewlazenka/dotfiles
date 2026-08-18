@@ -1,0 +1,65 @@
+# Herdr equivalent of ../tmux/tmux.conf.
+# Reference: https://herdr.dev/docs/configuration/
+
+onboarding = false
+
+[theme]
+name = "tokyo-night"
+
+[terminal]
+# Match tmux's pane_current_path behavior for new panes and tabs.
+new_cwd = "follow"
+
+[keys]
+# Match the tmux C-Space prefix.
+prefix = "ctrl+space"
+
+# tmux session navigation maps most closely to Herdr workspaces.
+workspace_picker = "prefix+s"
+goto = "prefix+w"
+settings = "prefix+shift+s"
+
+# Preserve tmux's reload binding; move Herdr's resize mode out of its way.
+reload_config = "prefix+r"
+resize_mode = "prefix+shift+r"
+
+# Preserve vim-tmux-navigator's direct Ctrl-h/j/k/l navigation while keeping
+# convenient prefix-based navigation available outside Vim.
+focus_pane_left = ["prefix+h", "ctrl+h"]
+focus_pane_down = ["prefix+j", "ctrl+j"]
+focus_pane_up = ["prefix+k", "ctrl+k"]
+focus_pane_right = ["prefix+l", "ctrl+l"]
+
+# tmux windows correspond to Herdr tabs and are indexed from 1.
+new_tab = "prefix+c"
+previous_tab = "prefix+p"
+next_tab = "prefix+n"
+switch_tab = "prefix+1..9"
+
+[ui]
+# Herdr's default tab bar position is top, matching the tmux status bar.
+mouse_capture = true
+copy_on_select = true
+pane_borders = true
+pane_gaps = false
+prompt_new_tab_name = false
+
+# Keep the workspace sidebar visible on launch.
+sidebar_start_collapsed = false
+sidebar_collapsed_mode = "compact"
+accent = "#7aa2f7"
+
+[ui.toast]
+delivery = "off"
+
+[ui.sound]
+enabled = false
+
+# Match `prefix+g` and the 90%-sized lazygit tmux popup.
+[[keys.command]]
+key = "prefix+g"
+type = "popup"
+command = "lazygit"
+description = "open lazygit"
+width = "90%"
+height = "90%"
