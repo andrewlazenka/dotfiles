@@ -10,6 +10,9 @@ name = "tokyo-night"
 # Match tmux's pane_current_path behavior for new panes and tabs.
 new_cwd = "follow"
 
+[worktrees]
+directory = "~/code/worktrees"
+
 [keys]
 # Match the tmux C-Space prefix.
 prefix = "ctrl+space"
