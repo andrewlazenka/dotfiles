@@ -1,213 +1,43 @@
 #!/usr/bin/env bash
 
-####################
-# Install Homebrew #
-####################
-#
-if ! command -v brew > /dev/null; then
-    printf "[dotfiles] Install Homebrew\n"
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+set -Eeuo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DOTFILES_ROOT="$(dirname "$SCRIPT_DIR")"
+BREWFILE="$DOTFILES_ROOT/Brewfile"
+
+if [[ "$(uname -s)" != "Darwin" ]]; then
+    echo "This Homebrew setup currently targets macOS." >&2
+    exit 1
 fi
 
-brew update
-brew upgrade
+BREW_BIN="$(command -v brew || true)"
 
-# Save Homebrew’s installed location
+if [[ -z "$BREW_BIN" ]]; then
+    echo "[dotfiles] Installing Homebrew"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-BREW_PREFIX=$(brew --prefix)
+    for candidate in /opt/homebrew/bin/brew /usr/local/bin/brew; do
+        if [[ -x "$candidate" ]]; then
+            BREW_BIN="$candidate"
+            break
+        fi
+    done
+fi
 
-#################################
-# Update pre-installed programs #
-################################# 
+if [[ -z "$BREW_BIN" ]]; then
+    echo "Homebrew installation completed, but brew was not found." >&2
+    exit 1
+fi
 
-brew install coreutils
-ln -s "${BREW_PREFIX}/bin/gsha256sum" "${BREW_PREFIX}/bin/sha256sum"
-brew install moreutils
-brew install findutils
-brew install gnu-sed
-brew install bash
-brew install bash-completion2
+# Make Homebrew and its tools available to the remaining setup steps.
+eval "$("$BREW_BIN" shellenv)"
 
-# Homebrew-installed bash as default shell 
+if [[ ! -f "$BREWFILE" ]]; then
+    echo "Brewfile not found: $BREWFILE" >&2
+    exit 1
+fi
 
-if ! fgrep -q "${BREW_PREFIX}/bin/bash" /etc/shells; then
-    echo "${BREW_PREFIX}/bin/bash" | sudo tee -a /etc/shells;
-    chsh -s "${BREW_PREFIX}/bin/bash";
-fi;
-
-################
-# System tools #
-################
-
-brew install vim --with-override-system-vi
-brew install nvim
-brew install grep
-brew install openssh
-brew install screen
-brew install gmp
-brew install git
-brew install git-lfs
-brew install tree
-brew install gcc
-brew install pnpm
-brew install --cask docker
-brew install docker-compose
-brew install --cask tmux
-brew install herdr
-brew install dockutil
-brew install atuin
-brew install fzf
-brew install llm
-brew install jq
-brew install httpie
-brew install fx
-brew install fd
-brew install rclone
-brew install pandoc
-brew install syncthing
-brew install newsboat
-brew install aerc
-brew install ffmpeg
-brew install sst/tap/opencode
-brew install typst
-brew install gum
-brew install nushell
-brew install cloc
-
-#########
-# Fonts #
-#########
-
-brew tap bramstein/webfonttools
-brew tap homebrew/cask-fonts
-
-brew install sfnt2woff
-brew install sfnt2woff-zopfli
-brew install woff2
-
-# Code
-brew install cask font-cascadia-code
-brew install font-jetbrains-mono-nerd-font
-brew install font-commit-mono
-brew install font-hubot-sans
-brew install font-hack-nerd-font
-
-# Prose
-brew install font-montserrat
-brew install font-lato
-brew install font-open-sans
-
-################
-# Applications #
-################
-
-# Development
-
-brew install visual-studio-code@insiders
-brew install zed
-brew install cask iterm2
-brew install cask ghostty
-brew install cask tableplus
-brew install cask bruno
-brew install cask rectangle
-brew install 1password
-brew install raycast
-brew install linear-linear
-brew install cleanshot
-brew install nordvpn
-brew install superwhisper
-
-# Browsers
-
-brew install cask google-chrome
-brew install cask firefox
-brew install zen-browser
-
-# Communication
-
-brew install cask slack
-brew install cask discord
-brew install cask zoom
-brew install cask gifox
-
-# Productivity
-
-brew install cask google-drive
-brew install cask obsidian
-brew install cask spotify
-brew install cask numi
-brew install cask calibre
-brew install handy
-
-#############
-# Languages #
-#############
-
-brew install golang
-brew install rustup
-brew install mise
-
-# mise PHP build dependencies
-brew install bison
-brew install re2c
-brew install libedit
-brew install libxml2
-brew install bzip2
-brew install libiconv
-
-################
-# CLI programs #
-################
-
-brew install zsh
-brew install eza
-brew install bat
-brew install duf
-brew install gh
-brew install procs
-brew install btop
-brew install tealdeer
-brew install ripgrep
-brew install spotify-tui
-brew install httpie
-brew install speedtest-cli
-brew install procs
-brew install neofetch
-brew install lazygit
-brew install lazydocker
-brew install ncdu
-brew install 1password-cli
-brew install glow
-brew install yazi
-brew install sq
-brew install --cask betterdisplay
-brew install delta
-brew install snitch
-brew tap cesarferreira/tap
-brew install rip
-brew install jnsahaj/lumen/lumen
-brew install mole
-
-#############
-# ASCII art #
-#############
-
-brew install pipes-sh
-brew tap sontek/snowmachine
-brew install snowmachine
-
-###############
-# ZSH plugins #
-###############
-
-brew install starship
-brew install zsh-autosuggestions
-brew install zsh-syntax-highlighting
-brew install zsh-completions
-brew install zsh-history-substring-search
-
-########################
-# Post-install cleanup #
-########################
-
-brew cleanup
+echo "Installing missing dependencies from $BREWFILE..."
+brew bundle install --file="$BREWFILE" --no-upgrade
+brew bundle check --file="$BREWFILE" --no-upgrade --verbose

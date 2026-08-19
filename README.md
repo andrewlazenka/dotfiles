@@ -42,3 +42,13 @@ sync-agent-skills
 ```
 
 Run `sync-agent-skills` again after changing a handwritten skill as well.
+
+## Homebrew
+
+Review the declared packages in `Brewfile`, then update Homebrew and install any
+missing dependencies with:
+
+```sh
+brew-update
+brew-update --check
+```

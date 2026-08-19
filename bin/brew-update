@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DOTFILES_ROOT="$(dirname "$SCRIPT_DIR")"
+BREWFILE="$DOTFILES_ROOT/Brewfile"
+
+usage() {
+    cat <<'EOF'
+Usage: brew-update [--check]
+
+Update Homebrew metadata, install missing dotfiles dependencies, upgrade
+installed formulae and casks, clean up old versions, and verify the Brewfile.
+
+  --check  Only verify that the Brewfile is satisfied.
+EOF
+}
+
+case "${1:-}" in
+    "") ;;
+    --check)
+        [[ $# -eq 1 ]] || { usage >&2; exit 2; }
+        ;;
+    --help|-h)
+        usage
+        exit 0
+        ;;
+    *)
+        usage >&2
+        exit 2
+        ;;
+esac
+
+if ! command -v brew >/dev/null 2>&1; then
+    echo "brew is required but was not found on PATH" >&2
+    exit 1
+fi
+
+if [[ ! -f "$BREWFILE" ]]; then
+    echo "Brewfile not found: $BREWFILE" >&2
+    exit 1
+fi
+
+if [[ "${1:-}" == "--check" ]]; then
+    exec brew bundle check --file="$BREWFILE" --verbose
+fi
+
+echo "Updating Homebrew metadata..."
+brew update
+
+echo "Installing missing dependencies from $BREWFILE..."
+brew bundle install --file="$BREWFILE" --no-upgrade
+
+echo "Upgrading installed formulae and casks..."
+brew upgrade
+echo "Cleaning up old Homebrew versions and downloads..."
+brew cleanup
+echo "Verifying $BREWFILE..."
+brew bundle check --file="$BREWFILE" --verbose
