@@ -7,9 +7,9 @@ if ! command -v mise >/dev/null 2>&1; then
     exit 1
 fi
 
-echo "[dotfiles] Installing and updating configured mise tools"
+echo "Updating configured mise tools..."
 mise install --yes
 mise upgrade --yes
 
-echo "[dotfiles] Active mise tools"
+echo "Active mise tools:"
 mise current

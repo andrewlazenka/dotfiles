@@ -58,7 +58,38 @@ runs can use `./setup/fresh.sh` without an argument. The bootstrap:
 Open a new terminal when it finishes. If `chsh` requests a password, enter the
 current macOS account password.
 
-### 4. Finish the interactive and optional setup
+### 4. Set up or repair configuration symlinks
+
+The main bootstrap runs this step automatically. If Homebrew was installed
+manually, or the links need to be recreated, run:
+
+```sh
+./setup/config.sh
+```
+
+This links every top-level directory in the repository's `.config/` directory
+into `~/.config/`, including Neovim and tmux:
+
+```text
+~/.config/nvim -> <dotfiles>/.config/nvim
+~/.config/tmux -> <dotfiles>/.config/tmux
+```
+
+Existing files or directories are preserved with an adjacent `.bak` suffix.
+Restart Neovim after creating the links. For tmux, either start a new server or
+reload the configuration in an existing session:
+
+```sh
+tmux source-file ~/.config/tmux/tmux.conf
+```
+
+To recreate the Zsh link and select it as the login shell separately, run:
+
+```sh
+./setup/zsh.sh
+```
+
+### 5. Finish the interactive and optional setup
 
 Configure Git identity (the script prompts for a name and email):
 
@@ -177,3 +208,31 @@ Temporarily override the saved selection when needed:
 ```sh
 brew-update --profile work
 ```
+
+## Language runtimes with mise
+
+The global mise configuration is linked from `.config/mise/config.toml` and
+currently tracks the latest Node.js, Ruby, and PHP releases:
+
+```toml
+[tools]
+node = "latest"
+php = "latest"
+ruby = "latest"
+```
+
+`setup/fresh.sh` installs these runtimes automatically. To install them again
+without running the rest of the bootstrap:
+
+```sh
+./setup/mise.sh
+```
+
+Update every configured runtime to the latest matching release with:
+
+```sh
+mise-update
+```
+
+Open a new shell after initial setup so `mise activate zsh` takes effect. Check
+the active versions at any time with `mise current`.
