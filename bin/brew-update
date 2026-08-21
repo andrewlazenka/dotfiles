@@ -4,45 +4,61 @@ set -Eeuo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DOTFILES_ROOT="$(dirname "$SCRIPT_DIR")"
-BREWFILE="$DOTFILES_ROOT/Brewfile"
+# shellcheck source=../setup/lib/brew-profile.sh
+source "$DOTFILES_ROOT/setup/lib/brew-profile.sh"
 
 usage() {
     cat <<'EOF'
-Usage: brew-update [--check]
+Usage: brew-update [--check] [--profile personal|work]
 
 Update Homebrew metadata, install missing dotfiles dependencies, upgrade
-installed formulae and casks, clean up old versions, and verify the Brewfile.
+installed formulae and casks, clean up old versions, and verify the selected
+Brewfile.
 
-  --check  Only verify that the Brewfile is satisfied.
+  --check                    Only verify that the Brewfile is satisfied.
+  --profile personal|work    Override the saved machine profile.
 EOF
 }
 
-case "${1:-}" in
-    "") ;;
-    --check)
-        [[ $# -eq 1 ]] || { usage >&2; exit 2; }
-        ;;
-    --help|-h)
-        usage
-        exit 0
-        ;;
-    *)
-        usage >&2
-        exit 2
-        ;;
-esac
+CHECK_ONLY=false
+PROFILE=""
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --check)
+            CHECK_ONLY=true
+            shift
+            ;;
+        --profile)
+            if [[ $# -lt 2 ]]; then
+                echo "--profile requires personal or work" >&2
+                usage >&2
+                exit 2
+            fi
+            PROFILE="$2"
+            shift 2
+            ;;
+        --help|-h)
+            usage
+            exit 0
+            ;;
+        *)
+            usage >&2
+            exit 2
+            ;;
+    esac
+done
+
+resolve_brew_profile "$DOTFILES_ROOT" "$PROFILE"
 
 if ! command -v brew >/dev/null 2>&1; then
     echo "brew is required but was not found on PATH" >&2
     exit 1
 fi
 
-if [[ ! -f "$BREWFILE" ]]; then
-    echo "Brewfile not found: $BREWFILE" >&2
-    exit 1
-fi
+echo "Using Homebrew profile: $BREW_PROFILE"
 
-if [[ "${1:-}" == "--check" ]]; then
+if [[ "$CHECK_ONLY" == true ]]; then
     exec brew bundle check --file="$BREWFILE" --verbose
 fi
 

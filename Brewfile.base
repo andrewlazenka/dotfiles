@@ -1,6 +1,7 @@
-# Homebrew dependencies for the dotfiles environment.
-# Install missing dependencies without upgrading existing packages with:
-#   brew bundle install --file=./Brewfile --no-upgrade
+# Common Homebrew dependencies for personal and work machines.
+# Install through the appropriate profile without upgrading existing packages:
+#   brew bundle install --file=./Brewfile.personal --no-upgrade
+#   brew bundle install --file=./Brewfile.work --no-upgrade
 
 # Third-party taps. Individual formula entries below opt into trust rather than
 # trusting the entire tap.
@@ -33,13 +34,7 @@ brew "jq"
 brew "httpie"
 brew "rclone"
 brew "pandoc"
-brew "syncthing"
-brew "newsboat"
-brew "aerc"
 brew "ffmpeg"
-brew "typst"
-brew "gum"
-brew "nushell"
 brew "cloc"
 
 # Font conversion tools
@@ -52,49 +47,31 @@ cask "font-jetbrains-mono-nerd-font"
 cask "font-commit-mono"
 cask "font-hubot-sans"
 cask "font-hack-nerd-font"
-cask "font-montserrat"
-cask "font-lato"
-cask "font-open-sans"
 cask "font-caskaydia-mono-nerd-font"
 cask "font-geist-mono-nerd-font"
 
 # Applications: development
 cask "visual-studio-code@insiders"
 cask "zed"
-cask "claude-code"
-tap "nikitabobko/tap"
-cask "nikitabobko/tap/aerospace", trusted: true
+cask "betterdisplay"
 cask "bettermouse"
 cask "ghostty"
-cask "tableplus"
 cask "bruno"
 cask "rectangle"
 cask "1password"
 cask "raycast"
-cask "linear"
-cask "cleanshot"
-cask "nordvpn"
 
 # Applications: browsers
 cask "google-chrome"
 cask "firefox"
-cask "helium-browser"
 
 # Applications: communication
 cask "slack"
-cask "discord"
 cask "zoom"
-cask "gifox"
 
 # Applications: productivity
-cask "google-drive"
 cask "obsidian"
-cask "spotify"
-cask "capcut"
 cask "figma"
-cask "netnewswire"
-cask "calibre"
-cask "fastmail"
 cask "handy"
 
 # Languages and build dependencies
@@ -102,16 +79,6 @@ brew "go"
 brew "rustup"
 brew "mise"
 brew "python@3.13"
-brew "php@8.3", link: true
-brew "php@8.4"
-brew "composer"
-brew "bison"
-brew "re2c"
-brew "libedit"
-brew "libxml2"
-brew "bzip2"
-brew "libiconv"
-brew "mysql-client"
 brew "tailscale"
 
 # CLI programs
@@ -122,17 +89,12 @@ brew "duf"
 brew "gh"
 brew "procs"
 brew "btop"
-brew "tealdeer"
 brew "ripgrep"
 brew "cloudflare-speed-cli"
-brew "fastfetch"
 brew "lazygit"
-brew "lazydocker"
-brew "lazysql"
 brew "ncdu"
 cask "1password-cli"
 brew "yazi"
-cask "betterdisplay"
 brew "git-delta"
 brew "snitch"
 brew "mole"

@@ -2,7 +2,7 @@
 
 My opinionated macOS development environment, shell configuration, application
 settings, and agent tooling. These files are primarily intended for my own
-machines; review the scripts and `Brewfile` before installing them elsewhere.
+machines; review the setup scripts and Brewfiles before installing them elsewhere.
 
 ## Install on a new Mac
 
@@ -29,18 +29,25 @@ git clone https://github.com/andrewlazenka/dotfiles.git
 cd dotfiles
 ```
 
-Before proceeding, review `Brewfile`, `.macos`, and the scripts under `setup/`.
-They encode personal application choices and system preferences.
+Before proceeding, review `Brewfile.base`, the machine-specific Brewfiles,
+`.macos`, and the scripts under `setup/`. They encode application choices and
+system preferences.
 
 ### 3. Run the main bootstrap
 
+Choose a Homebrew profile on the first run:
+
 ```sh
-./setup/fresh.sh
+./setup/fresh.sh personal
+# or
+./setup/fresh.sh work
 ```
 
-The bootstrap:
+The selection is saved locally in the ignored `.brew-profile` file, so later
+runs can use `./setup/fresh.sh` without an argument. The bootstrap:
 
-1. installs Homebrew if necessary and installs missing `Brewfile` dependencies;
+1. installs Homebrew if necessary and installs dependencies from the shared and
+   selected machine-specific Brewfiles;
 2. links this repository's `.zshrc` and selects Zsh as the login shell;
 3. links each directory under `.config/` into `~/.config` (existing items are
    moved to adjacent `.bak` paths);
@@ -98,7 +105,9 @@ directories.
 ├── .plugins           Zsh plugin and prompt initialization
 ├── .widgets           Custom Zsh widgets
 ├── .macos             macOS defaults
-├── Brewfile           Homebrew packages, applications, and fonts
+├── Brewfile.base      Homebrew dependencies shared by all machines
+├── Brewfile.personal  Personal profile; includes Brewfile.base
+├── Brewfile.work      Work profile; includes Brewfile.base
 ├── skills-lock.json   Locked remote agent skills
 └── starship.toml      Starship prompt configuration
 ```
@@ -152,10 +161,19 @@ Run `sync-agent-skills` again after changing a handwritten skill as well.
 
 ## Homebrew
 
-Review the declared packages in `Brewfile`, then update Homebrew and install any
-missing dependencies with:
+Shared dependencies live in `Brewfile.base`; `Brewfile.personal` and
+`Brewfile.work` include it and declare profile-specific dependencies. The setup
+saves the selected profile in `.brew-profile`.
+
+Update Homebrew and install missing dependencies for the saved profile with:
 
 ```sh
 brew-update
 brew-update --check
+```
+
+Temporarily override the saved selection when needed:
+
+```sh
+brew-update --profile work
 ```

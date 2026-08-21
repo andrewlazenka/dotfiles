@@ -1,0 +1,56 @@
+# Personal machine dependencies.
+base = File.expand_path("Brewfile.base", __dir__)
+instance_eval(File.read(base), base)
+
+# System tools
+brew "typst"
+brew "gum"
+brew "syncthing"
+brew "newsboat"
+brew "aerc"
+brew "nushell"
+
+# Fonts
+cask "font-montserrat"
+cask "font-lato"
+cask "font-open-sans"
+
+# Applications: development
+cask "claude-code"
+tap "nikitabobko/tap"
+cask "nikitabobko/tap/aerospace", trusted: true
+cask "tableplus"
+cask "linear"
+cask "cleanshot"
+cask "nordvpn"
+
+# Applications: browsers
+cask "helium-browser"
+
+# Applications: communication
+cask "discord"
+
+# Applications: productivity
+cask "google-drive"
+cask "spotify"
+cask "capcut"
+cask "netnewswire"
+cask "calibre"
+cask "fastmail"
+
+# Languages and build dependencies
+brew "php@8.3", link: true
+brew "php@8.4"
+brew "composer"
+brew "bison"
+brew "re2c"
+brew "libedit"
+brew "libxml2"
+brew "bzip2"
+brew "libiconv"
+brew "mysql-client"
+
+# CLI programs
+brew "fastfetch"
+brew "lazydocker"
+brew "lazysql"

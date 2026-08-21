@@ -4,7 +4,18 @@ set -Eeuo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DOTFILES_ROOT="$(dirname "$SCRIPT_DIR")"
-BREWFILE="$DOTFILES_ROOT/Brewfile"
+# shellcheck source=lib/brew-profile.sh
+source "$SCRIPT_DIR/lib/brew-profile.sh"
+
+if [[ $# -gt 1 ]]; then
+    echo "Usage: $0 [personal|work]" >&2
+    exit 2
+fi
+
+resolve_brew_profile "$DOTFILES_ROOT" "${1:-}"
+save_brew_profile
+
+echo "[dotfiles] Using Homebrew profile: $BREW_PROFILE"
 
 if [[ "$(uname -s)" != "Darwin" ]]; then
     echo "This Homebrew setup currently targets macOS." >&2
@@ -32,11 +43,6 @@ fi
 
 # Make Homebrew and its tools available to the remaining setup steps.
 eval "$("$BREW_BIN" shellenv)"
-
-if [[ ! -f "$BREWFILE" ]]; then
-    echo "Brewfile not found: $BREWFILE" >&2
-    exit 1
-fi
 
 echo "Installing missing dependencies from $BREWFILE..."
 brew bundle install --file="$BREWFILE" --no-upgrade
