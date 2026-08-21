@@ -1,4 +1,6 @@
 [tools]
+go = "latest"
 node = "latest"
 php = "latest"
 ruby = "latest"
+rust = "latest"

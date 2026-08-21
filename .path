@@ -8,9 +8,9 @@ export PATH="$HOME/code/andrewlazenka/dotfiles/bin:$PATH"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$HOME/Applications/Visual Studio Code - Insiders.app/Contents/Resources/app/bin:$PATH"
 export PATH="$PATH:$HOME/.rvm/bin"
-# go binaries (GOROOT is auto-detected from the `go` binary since Go 1.9)
-export PATH="$(go env GOPATH)/bin:$PATH"
-# language versions are managed by mise, activated in .zshrc
+# Binaries installed with `go install`; the default GOPATH is ~/go.
+export PATH="$HOME/go/bin:$PATH"
+# Language versions are managed by mise, activated in .zshrc.
 # PHP builds need Homebrew's newer bison instead of macOS /usr/bin/bison
 export PATH="/opt/homebrew/opt/bison/bin:$PATH"
 export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"

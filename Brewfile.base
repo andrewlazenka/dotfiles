@@ -60,6 +60,7 @@ cask "bruno"
 cask "rectangle"
 cask "1password"
 cask "raycast"
+brew "tailscale"
 
 # Applications: browsers
 cask "google-chrome"
@@ -74,12 +75,17 @@ cask "obsidian"
 cask "figma"
 cask "handy"
 
-# Languages and build dependencies
-brew "go"
-brew "rustup"
+# Language version manager and build dependencies
 brew "mise"
 brew "python@3.13"
-brew "tailscale"
+brew "bison"
+brew "re2c"
+brew "curl"
+brew "libedit"
+brew "libxml2"
+brew "libpq"
+brew "bzip2"
+brew "libiconv"
 
 # CLI programs
 brew "zsh"

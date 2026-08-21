@@ -2,6 +2,11 @@
 
 set -Eeuo pipefail
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DOTFILES_ROOT="$(dirname "$SCRIPT_DIR")"
+# shellcheck source=../setup/lib/composer.sh
+source "$DOTFILES_ROOT/setup/lib/composer.sh"
+
 if ! command -v mise >/dev/null 2>&1; then
     echo "mise is required but was not found on PATH" >&2
     exit 1
@@ -10,6 +15,7 @@ fi
 echo "Updating configured mise tools..."
 mise install --yes
 mise upgrade --yes
+install_latest_composer
 
 echo "Active mise tools:"
 mise current

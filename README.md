@@ -212,17 +212,21 @@ brew-update --profile work
 ## Language runtimes with mise
 
 The global mise configuration is linked from `.config/mise/config.toml` and
-currently tracks the latest Node.js, Ruby, and PHP releases:
+currently tracks the latest Go, Node.js, PHP, Ruby, and Rust releases:
 
 ```toml
 [tools]
+go = "latest"
 node = "latest"
 php = "latest"
 ruby = "latest"
+rust = "latest"
 ```
 
-`setup/fresh.sh` installs these runtimes automatically. To install them again
-without running the rest of the bootstrap:
+`setup/fresh.sh` installs these runtimes automatically. PHP is managed only by
+mise; Composer is installed into `~/.local/bin` using mise's active PHP, avoiding
+a second Homebrew-managed PHP installation. To install them again without
+running the rest of the bootstrap:
 
 ```sh
 ./setup/mise.sh
