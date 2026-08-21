@@ -1,6 +1,6 @@
 # exports
 export EDITOR=nvim
-export STARSHIP_CONFIG="$HOME/Code/andrewlazenka/dotfiles/starship.toml"
+export STARSHIP_CONFIG="$HOME/code/andrewlazenka/dotfiles/starship.toml"
 
 # terminal history opts
 HISTFILE=$HOME/.zsh_history
@@ -65,13 +65,13 @@ _cached_zsh_init() {
 }
 
 # source dotfiles
-for file in $HOME/Code/andrewlazenka/dotfiles/.{path,bash_prompt,exports,aliases,plugins,extra,widgets}; do
+for file in $HOME/code/andrewlazenka/dotfiles/.{path,bash_prompt,exports,aliases,plugins,extra,widgets}; do
 	[ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 unset file;
 
 # source functions
-for file in $HOME/Code/andrewlazenka/dotfiles/functions/*; do
+for file in $HOME/code/andrewlazenka/dotfiles/functions/*; do
 	[ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 unset file;

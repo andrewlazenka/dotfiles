@@ -20,12 +20,11 @@ internet connection are required.
 
 ### 2. Clone the repository
 
-Several shell files currently expect the repository at the path below (macOS's
-default filesystem treats `Code` and `code` identically):
+Several shell files currently expect the repository at the path below:
 
 ```sh
-mkdir -p ~/Code/andrewlazenka
-cd ~/Code/andrewlazenka
+mkdir -p ~/code/andrewlazenka
+cd ~/code/andrewlazenka
 git clone https://github.com/andrewlazenka/dotfiles.git
 cd dotfiles
 ```

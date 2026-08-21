@@ -2,7 +2,7 @@
 
 # move zsh profile into home directory
 rm -f ~/.zshrc
-ln -s ~/Code/andrewlazenka/dotfiles/.zshrc ~/.zshrc
+ln -s ~/code/andrewlazenka/dotfiles/.zshrc ~/.zshrc
 
 # change default shell
 chsh -s "$(which zsh)"
