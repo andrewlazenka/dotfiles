@@ -24,9 +24,8 @@ if ! command -v npm >/dev/null; then
     exit 1
 fi
 
-# Install Pi for the Node version selected by mise.
-npm install -g --ignore-scripts @earendil-works/pi-coding-agent
-mise reshim 2>/dev/null || true
+# Manage Pi independently from Node so Node upgrades do not remove it.
+mise install node@latest npm:@earendil-works/pi-coding-agent@latest
 
 # Install dependencies that are intentionally excluded from the dotfiles repo.
 npm install --prefix "$PI_SOURCE/extensions/fff"

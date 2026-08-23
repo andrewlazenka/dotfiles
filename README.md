@@ -43,7 +43,7 @@ Choose a Homebrew profile on the first run:
 ./setup/fresh.sh work
 ```
 
-The selection is saved locally in the ignored `.brew-profile` file, so later
+The selection is saved locally in the ignored `.profile` file, so later
 runs can use `./setup/fresh.sh` without an argument. The bootstrap:
 
 1. installs Homebrew if necessary and installs dependencies from the shared and
@@ -108,8 +108,12 @@ The following steps are deliberately not part of the main bootstrap:
 
 ```sh
 ./.macos          # apply opinionated macOS defaults; includes no-sleep settings
-./setup/dock.sh   # replace the Dock; edit its personal paths/apps first
+./setup/dock.sh   # replace the Dock using the saved personal/work profile
 ```
+
+Dock applications are configured in the ordered `Dockfile.personal` and
+`Dockfile.work` lists. Pass a profile explicitly to override the saved selection:
+`./setup/dock.sh personal` or `./setup/dock.sh work`.
 
 Finally, sign in to installed applications and authenticate tools as needed
 (for example, `gh auth login`, 1Password, and Pi providers). Secrets and
@@ -194,7 +198,7 @@ Run `sync-agent-skills` again after changing a handwritten skill as well.
 
 Shared dependencies live in `Brewfile.base`; `Brewfile.personal` and
 `Brewfile.work` include it and declare profile-specific dependencies. The setup
-saves the selected profile in `.brew-profile`.
+saves the selected profile in `.profile`.
 
 Update Homebrew and install missing dependencies for the saved profile with:
 

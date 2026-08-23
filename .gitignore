@@ -1,8 +1,8 @@
 .DS_Store
 node_modules
 
-# Machine-specific Homebrew profile selected during setup.
-.brew-profile
+# Machine-specific profile selected during setup.
+.profile
 
 .config/newsboat/*
 .config/lazysql/*

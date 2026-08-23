@@ -1,3 +1,8 @@
 # Work machine dependencies.
 base = File.expand_path("Brewfile.base", __dir__)
 instance_eval(File.read(base), base)
+
+# CLI programs
+cask "copilot-cli"
+cask "github-copilot-app"
+

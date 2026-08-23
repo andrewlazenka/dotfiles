@@ -78,6 +78,9 @@ cask "handy"
 # Language version manager and build dependencies
 brew "mise"
 brew "python@3.13"
+brew "autoconf"
+brew "automake"
+brew "pkg-config"
 brew "bison"
 brew "re2c"
 brew "curl"
@@ -86,6 +89,7 @@ brew "libxml2"
 brew "libpq"
 brew "bzip2"
 brew "libiconv"
+brew "libpng"
 
 # CLI programs
 brew "zsh"

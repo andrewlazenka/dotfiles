@@ -2,4 +2,7 @@
 
 set -euo pipefail
 
-exec mise exec node@latest -- pi "$@"
+exec mise --no-config exec \
+    node@latest \
+    npm:@earendil-works/pi-coding-agent@latest \
+    -- pi "$@"

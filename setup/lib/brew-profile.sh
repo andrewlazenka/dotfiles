@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 # Resolve the machine-specific Brewfile. Precedence is: explicit argument,
-# DOTFILES_PROFILE, then the repository-local .brew-profile file.
+# DOTFILES_PROFILE, then the repository-local .profile file.
 resolve_brew_profile() {
     local dotfiles_root="$1"
     local requested_profile="${2:-${DOTFILES_PROFILE:-}}"
 
-    BREW_PROFILE_FILE="$dotfiles_root/.brew-profile"
+    BREW_PROFILE_FILE="$dotfiles_root/.profile"
 
     if [[ -z "$requested_profile" && -f "$BREW_PROFILE_FILE" ]]; then
         IFS= read -r requested_profile < "$BREW_PROFILE_FILE"
