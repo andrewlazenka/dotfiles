@@ -19,3 +19,9 @@ node_modules
 .config/herdr/*.log
 .config/herdr/release-notes.json
 .config/herdr/session.json
+
+# OpenLogi machine-generated runtime state and rolling config backups.
+.config/openlogi/*.lock
+.config/openlogi/*.sock
+.config/openlogi/overlay.claim
+.config/openlogi/config.toml.backup.*

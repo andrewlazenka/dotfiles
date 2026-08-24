@@ -1,0 +1,70 @@
+schema_version = 4
+selected_device = "camera:046d:085e:serial:96105249"
+
+[app_settings]
+launch_at_login = false
+check_for_updates = false
+auto_install_updates = false
+update_prompt_seen = true
+show_in_menu_bar = true
+capture_mouse_events = true
+app_icon = "openlogi"
+auto_download_assets = true
+asset_source = "automatic"
+thumbwheel_sensitivity = 14
+appearance = "system"
+
+[devices]
+
+[devices."camera:046d:085e:serial:96105249".camera_controls]
+zoom = 125
+exposure_auto = 0
+exposure = 199
+contrast = 120
+power_line_frequency = 2
+focus_auto = 0
+focus = 20
+saturation = 126
+sharpness = 132
+brightness = 128
+low_light_compensation = 0
+white_balance_auto = 0
+white_balance = 3882
+
+[devices."direct:046d:b023:unit:f299d469".identity]
+display_name = "MX Master 3"
+codename = "Wireless Mouse MX Master 3"
+kind = "mouse"
+
+[devices."direct:046d:b023:unit:f299d469".identity.model_info]
+entity_count = 3
+unit_id = [
+    0,
+    0,
+    0,
+    0,
+]
+model_ids = [
+    45091,
+    16514,
+    0,
+]
+extended_model_id = 1
+
+[keyboard]
+
+[devices."direct:046d:b023:unit:f299d469".identity.model_info.transports]
+usb = false
+equad = true
+btle = true
+bluetooth = false
+
+[devices."direct:046d:b023:unit:f299d469".identity.capabilities]
+buttons = true
+pointer = true
+lighting = false
+scroll_inversion = true
+hires_wheel = true
+thumbwheel = true
+haptic_feedback = false
+haptic_panel = false
