@@ -52,6 +52,7 @@ sidebar_start_collapsed = false
 sidebar_collapsed_mode = "compact"
 accent = "#7aa2f7"
 
+agent_panel_sort = "spaces"
 [ui.toast]
 delivery = "off"
 
