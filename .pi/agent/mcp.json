@@ -1,15 +1,25 @@
 {
-  "settings": {
-    "toolPrefix": "server",
-    "idleTimeout": 10,
-    "autoAuth": true
-  },
   "mcpServers": {
+    "fastmail": {
+      "url": "https://api.fastmail.com/mcp",
+      "enabled": false
+    },
     "ahrefs": {
       "url": "https://api.ahrefs.com/mcp/mcp",
-      "auth": "oauth",
-      "lifecycle": "lazy",
-      "disabled": true
+      "enabled": false
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@latest",
+        "--no-usage-statistics",
+        "--no-performance-crux"
+      ],
+      "enabled": false
+    },
+    "linear": {
+      "url": "https://mcp.linear.app/mcp"
     }
   }
 }
