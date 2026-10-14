@@ -20,7 +20,12 @@ export function isYouTubeEnabled(): boolean {
   return true;
 }
 
-export async function extractYouTube(url: string): Promise<ExtractedContent | null> {
+export async function extractYouTube(
+  url: string,
+  _signal?: AbortSignal,
+  _prompt?: string,
+  _model?: string,
+): Promise<ExtractedContent | null> {
   return {
     url,
     title: "YouTube video",

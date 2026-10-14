@@ -2,7 +2,11 @@ import { Readability } from "@mozilla/readability";
 import { parseHTML } from "linkedom";
 import TurndownService from "turndown";
 import { basename } from "node:path";
+import { existsSync, readFileSync } from "node:fs";
 import { extractRSCContent } from "./rsc-extract.js";
+import { sanitizeInlineDataUris } from "./data-uri-sanitize.js";
+import { fetchRemoteUrl, loadFetchContentDomainPolicy, loadSsrfConfig, validateRemoteUrl } from "./ssrf-protection.js";
+import { getWebSearchConfigPath } from "./utils.js";
 import { extractPDFToMarkdown, isPDF } from "./pdf-extract.js";
 import { extractGitHub } from "./github-extract.js";
 import {
@@ -17,9 +21,13 @@ import { extractVideo, extractVideoFrame, getLocalVideoDuration, isVideoFile } f
 import { formatSeconds } from "./utils.js";
 
 const DEFAULT_TIMEOUT_MS = 30000;
+const DEFAULT_MAX_RESPONSE_BYTES = 5 * 1024 * 1024;
+const DEFAULT_MAX_PDF_BYTES = 20 * 1024 * 1024;
+const CONCURRENT_FETCH_LIMIT = 4;
 const JINA_READER_BASE = "https://r.jina.ai/";
 const JINA_TIMEOUT_MS = 30000;
 const MIN_USEFUL_CONTENT = 500;
+const CONFIG_PATH = getWebSearchConfigPath();
 
 const turndown = new TurndownService({
   headingStyle: "atx",
@@ -43,6 +51,8 @@ export interface ExtractedContent {
   thumbnail?: { data: string; mimeType: string };
   frames?: VideoFrame[];
   duration?: number;
+  mimeType?: string;
+  status?: number;
 }
 
 export interface ExtractOptions {
@@ -81,6 +91,16 @@ function extractTextTitle(text: string, url: string): string {
   }
 }
 
+function allowRemoteHostedFetchers() {
+  if (!existsSync(CONFIG_PATH)) return false;
+  try {
+    const config = JSON.parse(readFileSync(CONFIG_PATH, "utf-8")) as { fetchRouting?: { allowRemoteHostedProviders?: boolean } };
+    return config.fetchRouting?.allowRemoteHostedProviders === true;
+  } catch (err) {
+    throw new Error(`Failed to parse ${CONFIG_PATH}: ${errorMessage(err)}`);
+  }
+}
+
 function isLikelyJsRendered(html: string) {
   const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
   if (!bodyMatch) return false;
@@ -95,7 +115,14 @@ function isLikelyJsRendered(html: string) {
 }
 
 async function extractWithJinaReader(url: string, signal?: AbortSignal): Promise<ExtractedContent | null> {
+  if (!allowRemoteHostedFetchers()) return null;
   try {
+    const ssrf = loadSsrfConfig();
+    await validateRemoteUrl(url, {
+      allowRanges: ssrf.allowRanges,
+      trustEnvProxy: ssrf.trustEnvProxy,
+      domainPolicy: loadFetchContentDomainPolicy(),
+    });
     const response = await fetch(JINA_READER_BASE + url, {
       headers: {
         Accept: "text/markdown",
@@ -104,7 +131,7 @@ async function extractWithJinaReader(url: string, signal?: AbortSignal): Promise
       signal: AbortSignal.any([AbortSignal.timeout(JINA_TIMEOUT_MS), ...(signal ? [signal] : [])]),
     });
     if (!response.ok) return null;
-    const content = await response.text();
+    const content = new TextDecoder("utf-8").decode(await readResponseWithLimit(response, DEFAULT_MAX_RESPONSE_BYTES));
     const contentStart = content.indexOf("Markdown Content:");
     if (contentStart < 0) return null;
     const markdown = content.slice(contentStart + 17).trim();
@@ -318,6 +345,53 @@ export async function extractContent(url: string, signal?: AbortSignal, options?
   return extractViaHttp(url, signal, options);
 }
 
+function configuredPdfMaxBytes() {
+  if (!existsSync(CONFIG_PATH)) return DEFAULT_MAX_PDF_BYTES;
+  try {
+    const config = JSON.parse(readFileSync(CONFIG_PATH, "utf-8")) as { pdf?: { maxSizeMB?: number } };
+    const value = config.pdf?.maxSizeMB;
+    if (typeof value !== "number" || !Number.isFinite(value) || value <= 0) return DEFAULT_MAX_PDF_BYTES;
+    return Math.min(value, 50) * 1024 * 1024;
+  } catch (err) {
+    throw new Error(`Failed to parse ${CONFIG_PATH}: ${errorMessage(err)}`);
+  }
+}
+
+async function readResponseWithLimit(response: Response, maxBytes: number) {
+  const declared = Number(response.headers.get("content-length"));
+  if (Number.isFinite(declared) && declared > maxBytes) throw new Error(`Response too large (${Math.ceil(declared / 1024 / 1024)}MB)`);
+  const reader = response.body?.getReader();
+  if (!reader) {
+    const buffer = await response.arrayBuffer();
+    if (buffer.byteLength > maxBytes) throw new Error(`Response too large (${Math.ceil(maxBytes / 1024 / 1024)}MB limit)`);
+    return buffer;
+  }
+  const chunks: Uint8Array[] = [];
+  let size = 0;
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      if (!value) continue;
+      size += value.byteLength;
+      if (size > maxBytes) {
+        await reader.cancel();
+        throw new Error(`Response too large (${Math.ceil(maxBytes / 1024 / 1024)}MB limit)`);
+      }
+      chunks.push(value);
+    }
+  } finally {
+    reader.releaseLock();
+  }
+  const combined = new Uint8Array(size);
+  let offset = 0;
+  for (const chunk of chunks) {
+    combined.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  return combined.buffer;
+}
+
 async function extractViaHttp(url: string, signal?: AbortSignal, options?: ExtractOptions): Promise<ExtractedContent> {
   const timeoutMs = options?.timeoutMs ?? DEFAULT_TIMEOUT_MS;
   const controller = new AbortController();
@@ -326,30 +400,38 @@ async function extractViaHttp(url: string, signal?: AbortSignal, options?: Extra
   signal?.addEventListener("abort", onAbort);
 
   try {
-    const response = await fetch(url, {
+    const ssrf = loadSsrfConfig();
+    const response = await fetchRemoteUrl(url, {
       signal: controller.signal,
       headers: {
-        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+        "User-Agent": "OpenAI File Downloader, XaiImageApiFetch/1.0",
         Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
         "Accept-Language": "en-US,en;q=0.9",
       },
+    }, {
+      allowRanges: ssrf.allowRanges,
+      trustEnvProxy: ssrf.trustEnvProxy,
+      domainPolicy: loadFetchContentDomainPolicy(),
     });
 
-    if (!response.ok) return { url, title: "", content: "", error: `HTTP ${response.status}: ${response.statusText}` };
-
     const contentType = response.headers.get("content-type") || "";
+    const mimeType = contentType.split(";", 1)[0]?.trim().toLowerCase() || undefined;
+    if (!response.ok) return { url, title: "", content: "", error: `HTTP ${response.status}: ${response.statusText}`, mimeType, status: response.status };
+
     if (isPDF(url, contentType)) {
       try {
-        const buffer = await response.arrayBuffer();
+        const buffer = await readResponseWithLimit(response, configuredPdfMaxBytes());
         const result = await extractPDFToMarkdown(buffer, url);
         return {
           url,
           title: result.title,
           content: `PDF extracted and saved to: ${result.outputPath}\n\nPages: ${result.pages}\nCharacters: ${result.chars}`,
           error: null,
+          mimeType: "application/pdf",
+          status: response.status,
         };
       } catch (err) {
-        return { url, title: "", content: "", error: `PDF extraction failed: ${errorMessage(err)}` };
+        return { url, title: "", content: "", error: `PDF extraction failed: ${errorMessage(err)}`, mimeType, status: response.status };
       }
     }
 
@@ -360,12 +442,16 @@ async function extractViaHttp(url: string, signal?: AbortSignal, options?: Extra
       contentType.includes("video/") ||
       contentType.includes("application/zip")
     ) {
-      return { url, title: "", content: "", error: `Unsupported content type: ${contentType.split(";")[0]}` };
+      return { url, title: "", content: "", error: `Unsupported content type: ${contentType.split(";")[0]}`, mimeType, status: response.status };
     }
 
-    const text = await response.text();
+    const buffer = await readResponseWithLimit(response, DEFAULT_MAX_RESPONSE_BYTES);
+    const charset = contentType.match(/charset\s*=\s*["']?([^;"'\s]+)/i)?.[1];
+    let text: string;
+    try { text = new TextDecoder(charset || "utf-8").decode(buffer); }
+    catch { text = new TextDecoder("utf-8").decode(buffer); }
     const isHtml = contentType.includes("text/html") || contentType.includes("application/xhtml+xml") || /<!doctype html|<html/i.test(text);
-    if (!isHtml) return { url, title: extractTextTitle(text, url), content: text, error: null };
+    if (!isHtml) return { url, title: extractTextTitle(text, url), content: text, error: null, mimeType, status: response.status };
 
     const { document } = parseHTML(text);
     const reader = new Readability(document as unknown as Document);
@@ -373,24 +459,32 @@ async function extractViaHttp(url: string, signal?: AbortSignal, options?: Extra
 
     if (!article) {
       const rscResult = extractRSCContent(text);
-      if (rscResult) return { url, title: rscResult.title, content: rscResult.content, error: null };
+      if (rscResult) return { url, title: rscResult.title, content: rscResult.content, error: null, mimeType, status: response.status };
       const jinaResult = await extractWithJinaReader(url, signal);
       if (jinaResult) return jinaResult;
       return {
         url,
-        title: "",
+        title: document.title?.trim() || "",
         content: "",
-        error: isLikelyJsRendered(text) ? "Page appears to be JavaScript-rendered" : "Could not extract readable content",
+        error: isLikelyJsRendered(text)
+          ? `Page appears to be JavaScript-rendered${allowRemoteHostedFetchers() ? "" : "; opt into hosted fallback with fetchRouting.allowRemoteHostedProviders"}`
+          : "Could not extract readable content",
+        mimeType,
+        status: response.status,
       };
     }
 
     const markdown = turndown.turndown(article.content);
     if (markdown.length < MIN_USEFUL_CONTENT) {
+      const rscResult = extractRSCContent(text);
+      if (rscResult && rscResult.content.length >= MIN_USEFUL_CONTENT) {
+        return { url, title: rscResult.title, content: rscResult.content, error: null, mimeType, status: response.status };
+      }
       const jinaResult = await extractWithJinaReader(url, signal);
       if (jinaResult) return jinaResult;
     }
 
-    return { url, title: article.title || "", content: markdown, error: null };
+    return { url, title: article.title || document.title?.trim() || "", content: markdown, error: null, mimeType, status: response.status };
   } catch (err) {
     return { url, title: "", content: "", error: errorMessage(err) };
   } finally {
@@ -400,5 +494,17 @@ async function extractViaHttp(url: string, signal?: AbortSignal, options?: Extra
 }
 
 export async function fetchAllContent(urls: string[], signal?: AbortSignal, options?: ExtractOptions) {
-  return Promise.all(urls.map((url) => extractContent(url, signal, options)));
+  const results = new Array<ExtractedContent>(urls.length);
+  let next = 0;
+  await Promise.all(Array.from({ length: Math.min(CONCURRENT_FETCH_LIMIT, urls.length) }, async () => {
+    while (next < urls.length) {
+      const index = next++;
+      results[index] = await extractContent(urls[index], signal, options);
+    }
+  }));
+  return results.map((result, index) => {
+    if (!result.content) return result;
+    const sanitized = sanitizeInlineDataUris(result.content, `urls[${index}].content`);
+    return sanitized.omissions.length ? { ...result, content: sanitized.text } : result;
+  });
 }

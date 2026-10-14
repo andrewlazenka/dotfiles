@@ -104,7 +104,11 @@ export function isVideoFile(input: string): VideoFileInfo | null {
   return { absolutePath, mimeType, sizeBytes: stat.size };
 }
 
-export async function extractVideo(info: VideoFileInfo): Promise<ExtractedContent | null> {
+export async function extractVideo(
+  info: VideoFileInfo,
+  _signal?: AbortSignal,
+  _options?: unknown,
+): Promise<ExtractedContent | null> {
   return {
     url: info.absolutePath,
     title: basename(info.absolutePath),
