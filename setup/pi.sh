@@ -28,7 +28,6 @@ fi
 mise install node@latest npm:@earendil-works/pi-coding-agent@latest
 
 # Install dependencies that are intentionally excluded from the dotfiles repo.
-npm install --prefix "$PI_SOURCE/extensions/fff"
 npm ci --prefix "$PI_SOURCE/extensions/playwright-screenshot"
 npm ci --prefix "$PI_SOURCE/extensions/web-access"
 
