@@ -12,7 +12,10 @@ _launch_tmux_session() {
 }
 
 zle -N _launch_tmux_session
-bindkey "^o" _launch_tmux_session
+bindkey '^xo' _launch_tmux_session
+
+zle -N _ssh_connect
+bindkey '^xs' _ssh_connect
 
 bindkey -s "^f" "yazi\n"
 

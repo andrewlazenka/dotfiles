@@ -1,0 +1,22 @@
+#!/usr/bin/env zsh
+
+_ssh_connect() {
+    local host
+    # shortcut: only explicit aliases in ~/.ssh/config; add Include support if needed.
+    host=$(awk '
+        tolower($1) == "host" {
+            for (i = 2; i <= NF; i++) {
+                if ($i ~ /^#/) break
+                if ($i !~ /[*?!]/ && $i !~ /^[-=]/) print $i
+            }
+        }
+    ' "$HOME/.ssh/config" 2>/dev/null | sort -u | fzf --layout=default --prompt='SSH host> ') || {
+        zle redisplay
+        return
+    }
+    [[ -n "$host" ]] || return
+
+    BUFFER="ssh -- ${(q)host}"
+    zle accept-line
+}
+
