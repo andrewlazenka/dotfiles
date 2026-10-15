@@ -4,7 +4,7 @@ function o {
 	if [[ $# -eq 1 ]]; then
 		selected=$1
 	else
-		selected=$(find ~/code -mindepth 1 -maxdepth 2 -type d | fzf)
+		selected=$(find ~/code -mindepth 1 -maxdepth 2 -type d | fzf --prompt='Tmux session> ')
 	fi
 
 	if [[ -z $selected ]]; then
