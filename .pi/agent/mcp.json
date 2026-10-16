@@ -20,6 +20,9 @@
     },
     "linear": {
       "url": "https://mcp.linear.app/mcp"
+    },
+    "cloudflare": {
+      "url": "https://mcp.cloudflare.com/mcp"
     }
   }
 }
