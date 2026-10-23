@@ -14,6 +14,15 @@ _launch_tmux_session() {
 zle -N _launch_tmux_session
 bindkey '^xo' _launch_tmux_session
 
+_launch_rex_project() {
+    BUFFER="rex_launch"
+    CURSOR=${#BUFFER}
+    zle accept-line
+}
+
+zle -N _launch_rex_project
+bindkey '^xw' _launch_rex_project
+
 zle -N _ssh_connect
 bindkey '^xs' _ssh_connect
 

@@ -89,6 +89,34 @@ To recreate the Zsh link and select it as the login shell separately, run:
 ./setup/zsh.sh
 ```
 
+### Rex
+
+Link only the Rex configuration, without running the full bootstrap:
+
+```sh
+./setup/rex.sh
+rex config reload
+```
+
+The setup respects `XDG_CONFIG_HOME` and refuses to overwrite an existing
+configuration. The full `setup/config.sh` also links Rex automatically.
+
+Rex uses `Ctrl+Space` as a tmux-style prefix: `s` changes sessions, `c` opens
+a tab, `n`/`p` changes tabs, `%`/`"` splits right/down, `z` zooms, and `x`
+closes a pane. Press `Ctrl+Space` twice to send it to the terminal; Escape
+cancels a sequence.
+
+**Open Project** is available in Rex's command palette and on `Ctrl+Space`,
+then `o`. It opens and focuses a temporary picker tab, then uses `rex_launch`
+to create a project session in the background and switch the current native
+window to it, or reattach to an existing project. New projects have three tabs:
+`agents` (Pi and Claude Code side by side), `nvim` (Neovim), and `terminals`
+(lazygit and an interactive shell side by side), all in the project directory. The
+`agents` tab starts focused. Existing sessions keep their layouts. Selecting
+a project or cancelling closes the picker.
+The default New Session action is unchanged. Rex's Remote Control setting
+must be enabled for the shell launcher to switch the current native window.
+
 ### 5. Finish the interactive and optional setup
 
 Configure Git identity (the script prompts for a name and email):

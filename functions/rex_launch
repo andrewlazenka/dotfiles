@@ -1,0 +1,22 @@
+#!/usr/bin/env zsh
+
+function rex_launch {
+    emulate -L zsh
+    local selected
+    if (( $# > 1 )); then
+        print -u2 'Usage: rex_launch [project-directory]'
+        return 1
+    elif (( $# == 1 )); then
+        selected=$1
+    else
+        selected=$(find ~/code -mindepth 1 -maxdepth 2 -type d |
+            fzf --prompt='Rex project> ' --delimiter=/ --with-nth=-2.. --layout=reverse --border=rounded) || return 0
+    fi
+    [[ -n "$selected" ]] || return 0
+    if [[ ! -d "$selected" ]]; then
+        print -u2 -- "Not a directory: $selected"
+        return 1
+    fi
+
+    rex do "$HOME/code/andrewlazenka/dotfiles/.config/rex/project.lua" "cwd=${selected:A}"
+}
