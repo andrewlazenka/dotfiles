@@ -12,8 +12,10 @@
   "defaultThinkingLevel": "medium",
   "packages": [
     "npm:@ff-labs/pi-fff",
-    "git:github.com/DietrichGebert/ponytail",
-    "npm:@plannotator/pi-extension"
+    "npm:@plannotator/pi-extension",
+    "https://github.com/earendil-works/pi-claude-code"
   ],
-  "defaultTools": ["+codemode"]
+  "defaultTools": [
+    "+codemode"
+  ]
 }

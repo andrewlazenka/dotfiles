@@ -23,6 +23,9 @@
     },
     "cloudflare": {
       "url": "https://mcp.cloudflare.com/mcp"
+    },
+    "executor": {
+      "url": "https://mcp.executor.sh/mcp"
     }
   }
 }
