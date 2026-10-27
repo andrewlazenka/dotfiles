@@ -1,13 +1,5 @@
 {
   "mcpServers": {
-    "fastmail": {
-      "url": "https://api.fastmail.com/mcp",
-      "enabled": false
-    },
-    "ahrefs": {
-      "url": "https://api.ahrefs.com/mcp/mcp",
-      "enabled": false
-    },
     "chrome-devtools": {
       "command": "npx",
       "args": [
@@ -17,12 +9,6 @@
         "--no-performance-crux"
       ],
       "enabled": false
-    },
-    "linear": {
-      "url": "https://mcp.linear.app/mcp"
-    },
-    "cloudflare": {
-      "url": "https://mcp.cloudflare.com/mcp"
     },
     "executor": {
       "url": "https://mcp.executor.sh/mcp"
