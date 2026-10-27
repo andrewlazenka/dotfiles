@@ -7,8 +7,8 @@
   "followUpMode": "one-at-a-time",
   "quietStartup": true,
   "theme": "tokyonight-night",
-  "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-6.1-sol",
+  "defaultProvider": "claude-code",
+  "defaultModel": "claude-opus-5-5",
   "defaultThinkingLevel": "medium",
   "packages": [
     "npm:@ff-labs/pi-fff",
@@ -17,5 +17,6 @@
   ],
   "defaultTools": [
     "+codemode"
-  ]
+  ],
+  "deviceId": "757fbf99-7b01-4c16-ae17-57b3afb99650"
 }
